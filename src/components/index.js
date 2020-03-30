@@ -1,6 +1,6 @@
 import Header from './Header'
-import SiderComponentPanel from './SiderComponentPanel'
-import SiderAttrPanel from './SiderAttrPanel'
+import SiderComponentPanel from './SiderComponentPanel/index'
+import SiderAttrPanel from './SiderAttrPanel/index'
 import CodeView from './CodeView'
 import FormView from './FormView'
 export {

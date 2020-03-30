@@ -1,8 +1,6 @@
 // export what you need
-export { default as HeartFill } from '@ant-design/icons/lib/fill/HeartFill'
-export { default as SmileOutline } from '@ant-design/icons/lib/outline/SmileOutline'
-export { default as MehOutline } from '@ant-design/icons/lib/outline/MehOutline'
-export { default as GithubOutline } from '@ant-design/icons/lib/outline/GithubOutline'
+export { default as EditOutline } from '@ant-design/icons/lib/outline/EditOutline'
+export { default as CodeOutline } from '@ant-design/icons/lib/outline/CodeOutline'
 
 // export what antd other components need
 export { default as CloseOutline } from '@ant-design/icons/lib/outline/CloseOutline'

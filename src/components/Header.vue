@@ -1,5 +1,7 @@
 <template>
-  <a-layout-header>表单创建工具</a-layout-header>
+  <a-layout-header>
+    <h3>表单创建工具</h3>
+  </a-layout-header>
 </template>
 
 <script>
@@ -19,7 +21,9 @@ export default {
 .ant-layout-header {
   position: fixed;
   width: 100%;
-  background: #fff;
-  // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  h3 {
+    font-weight: 700;
+    color: #fff;
+  }
 }
 </style>

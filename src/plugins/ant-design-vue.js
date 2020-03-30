@@ -1,8 +1,27 @@
 import Vue from 'vue'
-import { Layout, Row, Col, Form, Input, Button, Card, Divider, Icon, Drawer, BackTop, notification } from 'ant-design-vue'
+import {
+  Layout,
+  Row,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  Radio,
+  Button,
+  Card,
+  Tabs,
+  Divider,
+  Icon,
+  Drawer,
+  BackTop,
+  notification
+} from 'ant-design-vue'
 const { Header, Content, Sider, Footer } = Layout
-const { Meta } = Card
 const FormItem = Form.Item
+const RadioGroup = Radio.Group
+const { Meta } = Card
+const { TabPane } = Tabs
+
 const components = [
   Layout,
   Header,
@@ -14,9 +33,14 @@ const components = [
   Form,
   FormItem,
   Input,
+  InputNumber,
+  Radio,
+  RadioGroup,
   Button,
   Meta,
   Card,
+  Tabs,
+  TabPane,
   Divider,
   Icon,
   Drawer,

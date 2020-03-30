@@ -25,7 +25,7 @@ export default {
 #app {
   &,
   .ant-layout {
-    height: auto;
+    height: 100%;
     overflow-x: hidden;
   }
   .ant-layout-has-sider {
@@ -33,11 +33,20 @@ export default {
     height: calc(100% - @layout-header-height);
   }
   .ant-layout-content {
-    padding: 0 256px;
+    margin: 0 240px;
   }
-  .ant-layout-sider,
+  .ant-layout-sider {
+  }
+  .sider-component-panel,
   .ant-layout-content {
-    background: #fff;
+    max-height: calc(100vh - 64px);
+    overflow: auto;
+    overflow: hidden;
+    &:hover {
+      overflow: auto;
+    }
+  }
+  .ant-layout-sider {
     height: 100%;
   }
 }
