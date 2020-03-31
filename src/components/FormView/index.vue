@@ -62,7 +62,7 @@ export default {
           }
         ]
       },
-      formList: antvComponents
+      formList: []
     }
   },
   computed: {

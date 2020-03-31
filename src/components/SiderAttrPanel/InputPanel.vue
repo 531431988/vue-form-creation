@@ -29,6 +29,8 @@
       <a-select v-model="rule">
         <a-select-option v-for="(item, index) in rulesList" :value="item.value">{{item.label}}</a-select-option>
       </a-select>
+      <a-input v-model="userRule" placeholder="自定义正则" />
+      <a-input v-if="userRule" v-model="userMsg" placeholder="自定义提示语" />
     </a-form-item>
   </a-form>
 </template>
@@ -45,6 +47,7 @@ export default {
       required: false,
       rules: [],
       rule: '',
+      userRule: '',
       rulesList: [{
         label: '中文',
         value: 'isChinese'
@@ -60,19 +63,16 @@ export default {
     },
     required (newVal) {
       if (newVal) {
-        console.log('真')
         this.rules[0] = { required: true, message: '此项必填' }
       } else {
-        if (this.rules.length > 0) {
-          this.rules = []
-        }
+        this.rules[0] = []
       }
       this.setRules(this.rules)
     },
     rule (newVal) {
-      this.rules.push({
+      this.rules[1] = {
         validator: validator[newVal]
-      })
+      }
       this.setRules(this.rules)
     }
   },
