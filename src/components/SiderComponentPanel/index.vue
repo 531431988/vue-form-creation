@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider :width="240" class="sider-component-panel">
+  <a-layout-sider theme="light" :width="240" class="sider-component-panel">
     <WidgetList title="基础组件" :data="antvComponents" />
     <WidgetList title="自定义组件" :data="antvComponents" />
     <WidgetList title="第三方组件" :data="antvComponents" />
@@ -8,9 +8,7 @@
 
 <script>
 import {
-  antvComponents,
-  customComponents,
-  layoutComponents
+  antvComponents
 } from '@/config'
 import WidgetList from './WidgetList'
 export default {

@@ -33,7 +33,7 @@ export default {
     height: calc(100% - @layout-header-height);
   }
   .ant-layout-content {
-    margin: 0 240px;
+    margin: 0 250px 0 240px;
   }
   .ant-layout-sider {
   }

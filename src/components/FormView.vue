@@ -1,6 +1,12 @@
 <template>
   <a-layout-content>
-    <a-form :form="form" :label-col="{span: 5}" :wrapper-col="{span: 12}" @submit="handleSubmit">
+    <a-form
+      :form="form"
+      :layout="formConfig.formLayout"
+      :label-col="formItemLayout.labelCol"
+      :wrapper-col="formItemLayout.wrapperCol"
+      @submit="handleSubmit"
+    >
       <a-form-item label="姓名">
         <a-input v-decorator="rules.name" />
       </a-form-item>
@@ -11,20 +17,25 @@
         <a-input v-decorator="rules.name" />
       </a-form-item>
       <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
-        <a-button type="primary" html-type="submit">提交</a-button>
-        <a-button type="link" @click="form.resetFields()">重置</a-button>
+        <template v-for="(item, index) in formConfig.btns">
+          <a-button :type="item.type" :icon="item.icon" :html-type="item.htmlType">{{item.text}}</a-button>
+        </template>
+        <!-- <a-button type="primary" html-type="submit">{{}}</a-button>
+        <a-button type="link" @click="form.resetFields()">重置</a-button>-->
       </a-form-item>
     </a-form>
   </a-layout-content>
 </template>
 
 <script>
+import { formConfig } from '@/config'
 export default {
   components: {
   },
   data () {
     return {
-      form: this.$form.createForm(this, { name: 'demo' }),
+      formConfig,
+      form: this.$form.createForm(this, { name: 'form' }),
       rules: {
         name: [
           'name',
@@ -38,6 +49,17 @@ export default {
       }
     }
   },
+  computed: {
+    formItemLayout () {
+      const { formLayout, labelCol, wrapperCol } = this.formConfig
+      return formLayout === 'horizontal'
+        ? {
+          labelCol: { span: labelCol },
+          wrapperCol: { span: wrapperCol },
+        }
+        : {}
+    }
+  },
   methods: {
     handleSubmit (e) {
       e.preventDefault()
@@ -49,8 +71,16 @@ export default {
     }
   },
   mounted () {
-    this.$bus.$on('on-click-widget', params => {
-      console.log(params)
+    this.$nextTick(() => {
+      // 获取组件属性
+      this.$bus.$on('on-click-widget', params => {
+        console.log(params)
+      })
+      // 获取表单配置
+      this.$bus.$on('on-form-config', config => {
+        this.formConfig = Object.assign(this.formConfig, config)
+        console.log(this.formConfig)
+      })
     })
   }
 
@@ -58,6 +88,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .ant-layout-content {
+  padding: 15px;
   border: 1px solid #ddd;
   border-top: none;
   border-bottom: none;

@@ -21,4 +21,5 @@ Vue.use(VueHighlightJS, {
 
 Vue.prototype.$bus = Bus
 Vue.prototype.$config = config
+Vue.prototype.$color = config.color
 window.document.title = config.title

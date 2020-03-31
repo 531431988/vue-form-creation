@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider :width="240" class="sider-attr-panel">
+  <a-layout-sider theme="light" :width="250" class="sider-attr-panel">
     <a-tabs defaultActiveKey="1" @change="onChange">
       <a-tab-pane tab="组件配置" key="1">Content of Tab Pane 1</a-tab-pane>
       <a-tab-pane tab="表单配置" key="2" forceRender>

@@ -10,7 +10,12 @@
  */
 export default {
   title: '',
-  primaryColor: '#52C41A',
+  color: {
+    primary: '#1890ff',
+    success: '#52c41a',
+    error: '#f5222d',
+    warning: '#faad14'
+  },
   cookieExpires: 1,
   api: process.env.VUE_APP_BASE_API,
   storageOptions: {
@@ -20,7 +25,96 @@ export default {
   }
 }
 
-// 表单元素通用属性
+// 表格配置
+const formConfig = {
+  size: 'default',
+  formLayout: 'horizontal',
+  width: 100,
+  align: '',
+  labelCol: 3,
+  wrapperCol: 21,
+  btns: [{
+    icon: '',
+    text: '提交',
+    type: 'primary',
+    htmlType: 'submit'
+  }, {
+    icon: '',
+    text: '重置',
+    type: 'link'
+    // }, {
+    //   text: '查询',
+    //   type: 'primary'
+  }]
+}
+// 图标配置
+const iconConfig = [{
+  label: '刷新',
+  value: 'sync'
+}, {
+  label: '新增',
+  value: 'plus'
+}, {
+  label: '减少',
+  value: 'minus'
+}, {
+  label: '删除',
+  value: 'delete'
+}, {
+  label: '正确',
+  value: 'check'
+}, {
+  label: '错误',
+  value: 'close'
+}, {
+  label: '帮助',
+  value: 'question-circle'
+}, {
+  label: '编辑',
+  value: 'edit'
+}, {
+  label: '用户',
+  value: 'user'
+}, {
+  label: '上传',
+  value: 'upload'
+}, {
+  label: '搜索',
+  value: 'search'
+}, {
+  label: '锁',
+  value: 'lock'
+}, {
+  label: '图片',
+  value: 'picture'
+}, {
+  label: '文件',
+  value: 'file'
+}, {
+  label: '文件夹',
+  value: 'folder'
+}]
+// 按钮主题配置
+
+// 内置可选按钮样式
+const btnTheme = [{
+  label: '主色',
+  value: 'primary'
+}, {
+  label: '默认',
+  value: 'default'
+}, {
+  label: '虚线',
+  value: 'dashed'
+}, {
+  label: '危险',
+  value: 'danger'
+}, {
+  label: '链接',
+  value: 'link'
+}]
+
+// 表单组件通用属性
 const common = {
   disabled: false,
   size: [{
@@ -77,6 +171,9 @@ const customComponents = []
 const layoutComponents = []
 
 export {
+  formConfig,
+  iconConfig,
+  btnTheme,
   antvComponents,
   customComponents,
   layoutComponents

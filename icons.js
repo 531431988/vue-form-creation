@@ -1,6 +1,12 @@
 // export what you need
+export { default as SyncOutline } from '@ant-design/icons/lib/outline/SyncOutline'
+export { default as MinusOutline } from '@ant-design/icons/lib/outline/MinusOutline'
 export { default as EditOutline } from '@ant-design/icons/lib/outline/EditOutline'
 export { default as CodeOutline } from '@ant-design/icons/lib/outline/CodeOutline'
+export { default as QuestionCircleOutline } from '@ant-design/icons/lib/outline/QuestionCircleOutline'
+export { default as UserOutline } from '@ant-design/icons/lib/outline/UserOutline'
+export { default as UploadOutline } from '@ant-design/icons/lib/outline/UploadOutline'
+export { default as LockOutline } from '@ant-design/icons/lib/outline/LockOutline'
 
 // export what antd other components need
 export { default as CloseOutline } from '@ant-design/icons/lib/outline/CloseOutline'

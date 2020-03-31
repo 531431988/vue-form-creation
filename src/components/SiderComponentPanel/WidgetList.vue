@@ -21,7 +21,7 @@ export default {
     },
     data: {
       type: Array,
-      default: [],
+      default: () => [],
       required: true
     }
   },

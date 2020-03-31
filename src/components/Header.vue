@@ -19,6 +19,7 @@ export default {
 
 <style lang="less" scoped>
 .ant-layout-header {
+  background: @primary-color;
   position: fixed;
   width: 100%;
   h3 {
