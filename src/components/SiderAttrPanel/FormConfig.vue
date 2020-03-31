@@ -80,7 +80,7 @@
         </a-col>
       </a-row>
       <div class="tc">
-        <a-button size="small" type="primary" icon="plus" :size="formConfig.size" @click="onAdd">添加</a-button>
+        <a-button type="primary" icon="plus" :size="formConfig.size" @click="onAdd">添加</a-button>
       </div>
     </a-form-item>
   </a-form>
@@ -135,8 +135,7 @@ export default {
         wrapperCol: this.wrapperCol
       }))
     }
-
-  },
+  }
 }
 </script>
 

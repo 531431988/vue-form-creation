@@ -4,19 +4,19 @@
       <Header />
       <a-layout>
         <SiderComponentPanel />
-        <FormView />
+        <Main />
         <SiderAttrPanel />
       </a-layout>
     </a-layout>
   </div>
 </template>
 <script>
-import { Header, SiderComponentPanel, FormView, SiderAttrPanel } from '@/components'
+import { Header, Main, SiderComponentPanel, SiderAttrPanel } from '@/components'
 export default {
   components: {
     Header,
+    Main,
     SiderComponentPanel,
-    FormView,
     SiderAttrPanel
   }
 }
@@ -33,7 +33,9 @@ export default {
     height: calc(100% - @layout-header-height);
   }
   .ant-layout-content {
+    position: relative;
     margin: 0 250px 0 240px;
+    padding: 45px 10px 10px;
   }
   .ant-layout-sider {
   }

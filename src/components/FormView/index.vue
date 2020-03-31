@@ -1,49 +1,46 @@
 <template>
-  <a-layout-content>
-    <a-form
-      :form="form"
-      :layout="formConfig.formLayout"
-      :label-col="formItemLayout.labelCol"
-      :wrapper-col="formItemLayout.wrapperCol"
-      :labelAlign="formConfig.align"
-      :style="`width: ${formConfig.width}%`"
-      @submit="handleSubmit"
-    >
+  <a-form
+    :form="form"
+    :layout="formConfig.formLayout"
+    :label-col="formItemLayout.labelCol"
+    :wrapper-col="formItemLayout.wrapperCol"
+    :labelAlign="formConfig.align"
+    :style="`width: ${formConfig.width}%`"
+    @submit="handleSubmit"
+  >
+    <WidgetView>
       <a-form-item label="姓名">
         <a-input v-decorator="rules.name" />
       </a-form-item>
-      <a-form-item label="姓名">
-        <a-input v-decorator="rules.name" />
-      </a-form-item>
-      <a-form-item label="姓名">
-        <a-input v-decorator="rules.name" />
-      </a-form-item>
-      <a-form-item :wrapper-col="btnLayout">
-        <template v-for="(item, index) in formConfig.btns">
-          <a-button
-            v-if="item.htmlType === 'submit'"
-            :type="item.type"
-            :icon="item.icon"
-            :html-type="item.text === '保存' || item.text === '提交' ? 'submit' : 'button'"
-            class="mr10"
-          >{{item.text}}</a-button>
-          <a-button
-            v-else
-            :type="item.type"
-            :icon="item.icon"
-            class="mr10"
-            @click="form.resetFields()"
-          >{{item.text}}</a-button>
-        </template>
-      </a-form-item>
-    </a-form>
-  </a-layout-content>
+    </WidgetView>
+
+    <a-form-item :wrapper-col="btnLayout">
+      <template v-for="(item, index) in formConfig.btns">
+        <a-button
+          v-if="item.htmlType === 'submit'"
+          :type="item.type"
+          :icon="item.icon"
+          :html-type="item.text === '保存' || item.text === '提交' ? 'submit' : 'button'"
+          class="mr10"
+        >{{item.text}}</a-button>
+        <a-button
+          v-else
+          :type="item.type"
+          :icon="item.icon"
+          class="mr10"
+          @click="form.resetFields()"
+        >{{item.text}}</a-button>
+      </template>
+    </a-form-item>
+  </a-form>
 </template>
 
 <script>
 import { formConfig } from '@/config'
+import WidgetView from './WidgetView'
 export default {
   components: {
+    WidgetView
   },
   data () {
     return {
@@ -73,7 +70,7 @@ export default {
         : {}
     },
     btnLayout () {
-      const { formLayout, labelCol, wrapperCol } = this.formConfig
+      const { formLayout, labelCol } = this.formConfig
       return formLayout === 'horizontal' ?
         { offset: formConfig.labelCol }
         : {}

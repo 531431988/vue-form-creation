@@ -1,7 +1,6 @@
 
 const path = require('path')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i
 const env = process.env.NODE_ENV === 'production'
 const resolve = dir => path.join(__dirname, dir)
@@ -95,5 +94,7 @@ module.exports = {
     },
   },
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
-  productionSourceMap: false
+  productionSourceMap: false,
+  runtimeCompiler: true,
+  lintOnSave: false
 }
