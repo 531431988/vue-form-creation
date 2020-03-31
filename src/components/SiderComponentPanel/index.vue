@@ -1,8 +1,8 @@
 <template>
   <a-layout-sider theme="light" :width="240" class="sider-component-panel">
     <WidgetList title="基础组件" :data="antvComponents" />
-    <WidgetList title="自定义组件" :data="antvComponents" />
-    <WidgetList title="第三方组件" :data="antvComponents" />
+    <!-- <WidgetList title="自定义组件" :data="antvComponents" />
+    <WidgetList title="第三方组件" :data="antvComponents" />-->
   </a-layout-sider>
 </template>
 

@@ -32,6 +32,12 @@ export default {
   },
   methods: {
     onClick (item) {
+      item = Object.assign({}, item, {
+        options: {
+          ...item.options,
+          name: `input_${new Date().valueOf()}`
+        },
+      })
       this.$bus.$emit('on-click-widget', item)
     }
   }

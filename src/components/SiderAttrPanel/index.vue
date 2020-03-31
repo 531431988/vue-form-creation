@@ -1,7 +1,9 @@
 <template>
   <a-layout-sider theme="light" :width="250" class="sider-attr-panel">
     <a-tabs defaultActiveKey="1" @change="onChange">
-      <a-tab-pane tab="组件配置" key="1">Content of Tab Pane 1</a-tab-pane>
+      <a-tab-pane tab="组件配置" key="1">
+        <component :is="is" :options="options" />
+      </a-tab-pane>
       <a-tab-pane tab="表单配置" key="2" forceRender>
         <FormConfig />
       </a-tab-pane>
@@ -10,15 +12,30 @@
 </template>
 
 <script>
+import InputPanel from './InputPanel'
 import FormConfig from './FormConfig'
 export default {
   components: {
+    InputPanel,
     FormConfig
+  },
+  data () {
+    return {
+      is: '',
+      options: null
+    }
   },
   methods: {
     onChange (key) {
       console.log(key)
     }
+  },
+  mounted () {
+    this.$bus.$on('on-click-item', item => {
+      const { type, options } = item
+      this.options = options
+      this.is = `${type.substr(0, 1).toUpperCase()}${type.substr(1)}Panel`
+    })
   }
 }
 </script>

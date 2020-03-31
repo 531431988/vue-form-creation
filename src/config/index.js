@@ -116,17 +116,7 @@ const btnTheme = [{
 
 // 表单组件通用属性
 const common = {
-  disabled: false,
-  size: [{
-    label: '大',
-    value: 'large'
-  }, {
-    label: '正常',
-    value: 'default'
-  }, {
-    label: '小',
-    value: 'small'
-  }]
+  disabled: false
 }
 // 基础组件
 const antvComponents = [{
@@ -134,15 +124,16 @@ const antvComponents = [{
   type: 'input',
   icon: 'edit',
   options: {
-    placeholder: '',
-    addonAfter: null,
-    addonBefore: null,
-    defaultValue: null,
+    name: `input_${new Date().valueOf()}`,
+    label: '单行文本',
+    placeholder: '请输入关键字',
     value: null,
     maxLength: null,
     prefix: null,
     suffix: null,
-    allowClear: null
+    width: 100,
+    allowClear: null,
+    rules: []
   }
 }, {
   name: '多行文本',

@@ -8,13 +8,15 @@
     :style="`width: ${formConfig.width}%`"
     @submit="handleSubmit"
   >
-    <WidgetView>
-      <a-form-item label="姓名">
-        <a-input v-decorator="rules.name" />
-      </a-form-item>
-    </WidgetView>
+    <FormItem
+      v-for="(item, index) in formList"
+      :key="index"
+      :options="item.options"
+      :type="item.type"
+      @click.native="onClickItem(item, index)"
+    />
 
-    <a-form-item :wrapper-col="btnLayout">
+    <a-form-item :wrapper-col="btnLayout" v-if="formList.length">
       <template v-for="(item, index) in formConfig.btns">
         <a-button
           v-if="item.htmlType === 'submit'"
@@ -36,15 +38,18 @@
 </template>
 
 <script>
-import { formConfig } from '@/config'
+import { formConfig, antvComponents } from '@/config'
 import WidgetView from './WidgetView'
+import FormItem from './FormItem'
 export default {
   components: {
-    WidgetView
+    WidgetView,
+    FormItem
   },
   data () {
     return {
       formConfig,
+      antvComponents,
       form: this.$form.createForm(this, { name: 'form' }),
       rules: {
         name: [
@@ -56,7 +61,8 @@ export default {
             }]
           }
         ]
-      }
+      },
+      formList: antvComponents
     }
   },
   computed: {
@@ -84,17 +90,30 @@ export default {
           console.log('验证通过', values)
         }
       })
+    },
+    // 表单元素单击
+    onClickItem (item, index) {
+      this.$bus.$emit('on-click-item', item, index)
     }
   },
   mounted () {
     this.$nextTick(() => {
       // 获取组件属性
       this.$bus.$on('on-click-widget', params => {
-        console.log(params)
+        this.formList.push(params)
       })
       // 获取表单配置
       this.$bus.$on('on-form-config', config => {
         this.formConfig = Object.assign(this.formConfig, config)
+      })
+      // 获取组件配置
+      this.$bus.$on('on-component-config', (rules, index) => {
+        this.formList[index].options.rules = rules
+        // console.log(this.formList)
+      })
+      // 生成JSON
+      this.$bus.$on('on-create-json', () => {
+        console.log(this.formList)
       })
     })
   }

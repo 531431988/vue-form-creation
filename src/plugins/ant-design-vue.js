@@ -8,6 +8,8 @@ import {
   InputNumber,
   Select,
   Radio,
+  Checkbox,
+  Switch,
   Button,
   Card,
   Tabs,
@@ -21,6 +23,7 @@ import {
 const { Header, Content, Sider, Footer } = Layout
 const FormItem = Form.Item
 const RadioGroup = Radio.Group
+const CheckboxGroup = Checkbox.Group
 const SelectOption = Select.Option
 const { Meta } = Card
 const { TabPane } = Tabs
@@ -41,6 +44,9 @@ const components = [
   SelectOption,
   Radio,
   RadioGroup,
+  Checkbox,
+  CheckboxGroup,
+  Switch,
   Button,
   Meta,
   Card,

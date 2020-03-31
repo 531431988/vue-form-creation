@@ -3,7 +3,7 @@
     <a-button type="danger" size="small" class="mr10">清空</a-button>
     <a-button type size="small" class="mr10">预览</a-button>
     <a-button type size="small" class="mr10">导入JSON</a-button>
-    <a-button type="primary" size="small" class="mr10">生成JSON</a-button>
+    <a-button type="primary" size="small" class="mr10" @click="onCreateJSON">生成JSON</a-button>
     <a-button type="primary" size="small" class="mr10" @click="onCreateVue">生成VUE</a-button>
     <a-drawer
       width="40%"
@@ -33,7 +33,10 @@ export default {
   methods: {
     onCreateVue () {
       this.visible = true
-      this.$bus.$emit('on-create-vue')
+      // this.$bus.$emit('on-create-vue')
+    },
+    onCreateJSON () {
+      this.$bus.$emit('on-create-json')
     }
   }
 }
