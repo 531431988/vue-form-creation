@@ -16,12 +16,23 @@
       <a-form-item label="姓名">
         <a-input v-decorator="rules.name" />
       </a-form-item>
-      <a-form-item :wrapper-col="{ span: 12, offset: 5 }">
+      <a-form-item :wrapper-col="btnLayout">
         <template v-for="(item, index) in formConfig.btns">
-          <a-button :type="item.type" :icon="item.icon" :html-type="item.htmlType">{{item.text}}</a-button>
+          <a-button
+            v-if="item.htmlType === 'submit'"
+            :type="item.type"
+            :icon="item.icon"
+            :html-type="item.text === '保存' || item.text === '提交' ? 'submit' : 'button'"
+            class="mr10"
+          >{{item.text}}</a-button>
+          <a-button
+            v-else
+            :type="item.type"
+            :icon="item.icon"
+            class="mr10"
+            @click="form.resetFields()"
+          >{{item.text}}</a-button>
         </template>
-        <!-- <a-button type="primary" html-type="submit">{{}}</a-button>
-        <a-button type="link" @click="form.resetFields()">重置</a-button>-->
       </a-form-item>
     </a-form>
   </a-layout-content>
@@ -58,6 +69,12 @@ export default {
           wrapperCol: { span: wrapperCol },
         }
         : {}
+    },
+    btnLayout () {
+      const { formLayout, labelCol, wrapperCol } = this.formConfig
+      return formLayout === 'horizontal' ?
+        { offset: formConfig.labelCol }
+        : {}
     }
   },
   methods: {
@@ -79,7 +96,6 @@ export default {
       // 获取表单配置
       this.$bus.$on('on-form-config', config => {
         this.formConfig = Object.assign(this.formConfig, config)
-        console.log(this.formConfig)
       })
     })
   }

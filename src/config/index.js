@@ -27,19 +27,19 @@ export default {
 
 // 表格配置
 const formConfig = {
-  size: 'default',
+  size: 'small',
   formLayout: 'horizontal',
   width: 100,
   align: '',
   labelCol: 3,
   wrapperCol: 21,
   btns: [{
-    icon: '',
+    icon: 'check',
     text: '提交',
     type: 'primary',
     htmlType: 'submit'
   }, {
-    icon: '',
+    icon: 'sync',
     text: '重置',
     type: 'link'
     // }, {

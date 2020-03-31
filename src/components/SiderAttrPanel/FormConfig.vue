@@ -27,8 +27,8 @@
       <a-form-item label="标签的文本占比">
         <a-input-number
           :min="1"
-          :max="24"
-          v-model="formConfig.labelCol"
+          :max="23"
+          v-model="labelCol"
           placeholder="1-24"
           :size="formConfig.size"
         />
@@ -37,45 +37,50 @@
       <a-form-item label="表单控件占比">
         <a-input-number
           :min="1"
-          :max="24"
-          v-model="formConfig.wrapperCol"
+          :max="23"
+          v-model="wrapperCol"
           placeholder="1-24"
           :size="formConfig.size"
         />
       </a-form-item>
     </template>
-
     <a-form-item label="按钮配置">
       <a-row :gutter="4" v-for="(item, index) in formConfig.btns" :key="index">
-        <a-col :span="6">
-          <a-select v-model="item.icon" placeholder="图标" :size="formConfig.size">
-            <a-select-option
-              v-for="icon in iconConfig"
-              :key="icon.value"
-              :value="icon.value"
-            >{{icon.label}}</a-select-option>
-          </a-select>
+        <a-col :span="22">
+          <a-input v-model="item.text" placeholder="按钮名" :size="formConfig.size">
+            <a-tooltip slot="addonBefore" title="可选按钮图标" placement="right">
+              <a-select v-model="item.icon" :size="formConfig.size" style="width: 70px">
+                <a-select-option
+                  v-for="icon in iconConfig"
+                  :key="icon.value"
+                  :value="icon.value"
+                >{{icon.label}}</a-select-option>
+              </a-select>
+            </a-tooltip>
+            <a-tooltip slot="addonAfter" title="可选按钮配色" placement="right">
+              <a-select
+                v-model="item.type"
+                :size="formConfig.size"
+                placeholder="主题"
+                style="width: 60px"
+              >
+                <a-select-option
+                  v-for="btn in btnTheme"
+                  :key="btn.value"
+                  :value="btn.value"
+                >{{btn.label}}</a-select-option>
+              </a-select>
+            </a-tooltip>
+          </a-input>
         </a-col>
-        <a-col :span="6">
-          <a-input v-model="item.text" placeholder="按钮文字" :size="formConfig.size" />
-        </a-col>
-        <a-col :span="8">
-          <a-select v-model="item.type" :size="formConfig.size">
-            <a-select-option
-              v-for="btn in btnTheme"
-              :key="btn.value"
-              :value="btn.value"
-            >{{btn.label}}</a-select-option>
-          </a-select>
-        </a-col>
-        <a-col :span="3" class="tc">
-          <a-button type="link" shape="circle" :size="formConfig.size">
+        <a-col :span="2" class="tc">
+          <a-button type="link" shape="circle" :size="formConfig.size" @click="onDel(index)">
             <a-icon type="delete" v-color="$color.error"></a-icon>
           </a-button>
         </a-col>
       </a-row>
       <div class="tc">
-        <a-button size="small" type="primary" icon="plus" :size="formConfig.size">添加</a-button>
+        <a-button size="small" type="primary" icon="plus" :size="formConfig.size" @click="onAdd">添加</a-button>
       </div>
     </a-form-item>
   </a-form>
@@ -88,17 +93,50 @@ export default {
     return {
       formConfig,
       iconConfig,
-      btnTheme
+      btnTheme,
+      labelCol: formConfig.labelCol,
+      wrapperCol: formConfig.wrapperCol
     }
   },
   watch: {
+    labelCol () {
+      this.wrapperCol = 24 - this.labelCol
+      this.formConfig.wrapperCol = this.wrapperCol
+      this.formConfig.labelCol = this.labelCol
+    },
+    wrapperCol () {
+      this.labelCol = 24 - this.wrapperCol
+      this.formConfig.wrapperCol = this.wrapperCol
+      this.formConfig.labelCol = this.labelCol
+    },
     formConfig: {
       handler () {
-        this.$bus.$emit('on-form-config', this.formConfig)
+        this.upDated()
       },
       deep: true
     }
-  }
+  },
+  methods: {
+    onDel (index) {
+      this.formConfig.btns.splice(index, 1)
+      this.upDated()
+    },
+    onAdd () {
+      this.formConfig.btns.push({
+        icon: '',
+        text: '按钮',
+        type: 'primary'
+      })
+      this.upDated()
+    },
+    upDated () {
+      this.$bus.$emit('on-form-config', Object.assign(this.formConfig, {
+        labelCol: this.labelCol,
+        wrapperCol: this.wrapperCol
+      }))
+    }
+
+  },
 }
 </script>
 

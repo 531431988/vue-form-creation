@@ -15,6 +15,7 @@ import {
   Icon,
   Drawer,
   BackTop,
+  Tooltip,
   notification
 } from 'ant-design-vue'
 const { Header, Content, Sider, Footer } = Layout
@@ -48,7 +49,8 @@ const components = [
   Divider,
   Icon,
   Drawer,
-  BackTop
+  BackTop,
+  Tooltip
 ]
 components.map(component => {
   Vue.use(component)
