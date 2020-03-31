@@ -12,7 +12,7 @@
         :min="1"
         :max="100"
         v-model="formConfig.width"
-        placeholder="1-24"
+        placeholder="百分比最大100"
         :size="formConfig.size"
       />
     </a-form-item>

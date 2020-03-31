@@ -5,6 +5,8 @@
       :layout="formConfig.formLayout"
       :label-col="formItemLayout.labelCol"
       :wrapper-col="formItemLayout.wrapperCol"
+      :labelAlign="formConfig.align"
+      :style="`width: ${formConfig.width}%`"
       @submit="handleSubmit"
     >
       <a-form-item label="姓名">

@@ -30,7 +30,7 @@ const formConfig = {
   size: 'small',
   formLayout: 'horizontal',
   width: 100,
-  align: '',
+  align: 'right',
   labelCol: 3,
   wrapperCol: 21,
   btns: [{
