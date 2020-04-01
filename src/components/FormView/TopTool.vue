@@ -44,7 +44,7 @@ export default {
 
 <style lang="less" scoped>
 .top-tool {
-  padding: 5px;
+  padding: 10px 10px 9px;
   text-align: right;
   position: absolute;
   top: 0;
