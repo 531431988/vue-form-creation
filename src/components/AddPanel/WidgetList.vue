@@ -36,9 +36,9 @@ export default {
         options: {
           ...item.options,
           name: `input_${new Date().valueOf()}`
-        },
+        }
       })
-      this.$bus.$emit('on-click-widget', item)
+      this.$store.commit('ADD_COMPONENT', item)
     }
   }
 }

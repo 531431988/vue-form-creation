@@ -127,11 +127,14 @@ const antvComponents = [{
     name: `input_${new Date().valueOf()}`,
     label: '单行文本',
     placeholder: '请输入关键字',
-    value: null,
+    value: '我是默认值',
     maxLength: null,
     prefix: null,
     suffix: null,
-    width: 100,
+    width: {
+      label: '100',
+      value: '%'
+    },
     allowClear: null,
     required: false,
     rules: []

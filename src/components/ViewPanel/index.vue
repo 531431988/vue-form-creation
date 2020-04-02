@@ -24,19 +24,21 @@
         @on-reset="onReset"
       />
     </a-form-item>
+    <AttrPanel />
   </a-form>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import { formConfig, antvComponents } from '@/config'
-import WidgetView from './WidgetView'
 import FormItem from './FormItem'
 import ButtonItem from './ButtonItem'
+import AttrPanel from '../AttrPanel/index'
 export default {
   components: {
-    WidgetView,
     FormItem,
-    ButtonItem
+    ButtonItem,
+    AttrPanel
   },
   data () {
     return {
@@ -53,11 +55,13 @@ export default {
             }]
           }
         ]
-      },
-      formList: []
+      }
     }
   },
   computed: {
+    ...mapState({
+      formList: state => state.vfc.formView
+    }),
     formItemLayout () {
       const { formLayout, labelCol, wrapperCol } = this.formConfig
       return formLayout === 'horizontal'
@@ -75,6 +79,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_ACTIVE', 'SET_ATTR_PANEL_STATE']),
     onSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
@@ -88,7 +93,8 @@ export default {
     },
     // 表单元素单击
     onClickItem (item, index) {
-      this.$bus.$emit('on-click-item', item, index)
+      this.SET_ATTR_PANEL_STATE(true)
+      this.SET_ACTIVE(index)
     }
   },
   mounted () {

@@ -7,9 +7,7 @@
 </template>
 
 <script>
-import {
-  antvComponents
-} from '@/config'
+import { mapState } from 'vuex'
 import WidgetList from './WidgetList'
 export default {
   components: {
@@ -17,11 +15,12 @@ export default {
   },
   data () {
     return {
-      antvComponents
     }
   },
-  methods: {
-
+  computed: {
+    ...mapState({
+      antvComponents: state => state.vfc.antvComponents
+    })
   }
 }
 </script>

@@ -1,23 +1,21 @@
 <template>
-  <a-layout-sider theme="light" :width="250" class="sider-attr-panel">
-    <a-tabs defaultActiveKey="1" @change="onChange">
-      <a-tab-pane tab="组件配置" key="1">
-        <component :is="is" :options="options" />
-      </a-tab-pane>
-      <a-tab-pane tab="表单配置" key="2" forceRender>
-        <FormConfig />
-      </a-tab-pane>
-    </a-tabs>
-  </a-layout-sider>
+  <a-drawer
+    width="30%"
+    placement="right"
+    :closable="false"
+    :visible="attrPanelShow"
+    @close="SET_ATTR_PANEL_STATE(false)"
+  >
+    <component :is="activeComponent.name" />
+  </a-drawer>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import InputPanel from './InputPanel'
-import FormConfig from './FormConfig'
 export default {
   components: {
-    InputPanel,
-    FormConfig
+    InputPanel
   },
   data () {
     return {
@@ -25,17 +23,21 @@ export default {
       options: null
     }
   },
+  computed: {
+    ...mapState({
+      activeComponent: state => state.vfc.activeComponent,
+      attrPanelShow: state => state.vfc.attrPanelShow
+    })
+  },
   methods: {
-    onChange (key) {
-      console.log(key)
-    }
+    ...mapMutations(['SET_ATTR_PANEL_STATE'])
   },
   mounted () {
-    this.$bus.$on('on-click-item', item => {
-      const { type, options } = item
-      this.options = options
-      this.is = `${type.substr(0, 1).toUpperCase()}${type.substr(1)}Panel`
-    })
+    // this.$bus.$on('on-click-item', item => {
+    //   const { type, options } = item
+    //   this.options = options
+    //   this.is = `${type.substr(0, 1).toUpperCase()}${type.substr(1)}Panel`
+    // })
   }
 }
 </script>

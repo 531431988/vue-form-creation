@@ -7,9 +7,13 @@
       <a-input placeholder="字段标识" v-model="options.label" />
     </a-form-item>
 
+    <a-form-item label="默认值">
+      <a-input placeholder="默认值" v-model="options.value" />
+    </a-form-item>
+
     <a-form-item label="输入框宽度">
-      <a-input v-model="width">
-        <a-select slot="addonAfter" v-model="unit" style="width: 60px">
+      <a-input v-model="options.width.label">
+        <a-select slot="addonAfter" v-model="options.width.value" style="width: 60px">
           <a-select-option value="px">px</a-select-option>
           <a-select-option value="%">%</a-select-option>
         </a-select>
@@ -25,7 +29,7 @@
     </a-form-item>
 
     <a-form-item label="校验">
-      <a-checkbox v-model="required">必填项</a-checkbox>
+      <a-checkbox v-model="options.required">必填项</a-checkbox>
       <a-select v-model="rule">
         <a-select-option
           v-for="(item, index) in rulesList"
@@ -33,25 +37,21 @@
           :value="item.value"
         >{{item.label}}</a-select-option>
       </a-select>
-      <a-input v-model="userRule" placeholder="自定义正则" />
-      <a-input v-if="userRule" v-model="userMsg" placeholder="自定义提示语" />
+      <!-- <a-input v-model="userRule" placeholder="自定义正则" /> -->
+      <!-- <a-input v-if="userRule" v-model="userMsg" placeholder="自定义提示语" /> -->
     </a-form-item>
   </a-form>
 </template>
 
 <script>
-import validator from '@/libs/validator'
+
+import { mapState, mapMutations } from 'vuex'
+// import validator from '@/libs/validator'
 export default {
-  props: ['options'],
   data () {
     return {
-      index: 0,
-      unit: '%',
-      width: this.options.width,
-      required: false,
       rules: [],
       rule: '',
-      userRule: '',
       rulesList: [{
         label: '中文',
         value: 'isChinese'
@@ -59,41 +59,25 @@ export default {
     }
   },
   watch: {
-    width (newVal) {
-      this.setWidth()
-    },
-    unit (newVal) {
-      this.setWidth()
-    },
-    required (newVal) {
-      if (newVal) {
-        this.rules[0] = { required: true, message: '此项必填' }
-      } else {
-        this.rules[0] = []
-      }
-      this.setRules(this.rules)
-    },
-    rule (newVal) {
-      this.rules[1] = {
-        validator: validator[newVal]
-      }
-      this.setRules(this.rules)
+    options: {
+      handler (newVal) {
+        this.UPDATE_COMPONENT({
+          index: this.index,
+          item: this.item
+        })
+      },
+      deep: true
     }
+  },
+  computed: {
+    ...mapState({
+      item: state => state.vfc.activeComponent.item,
+      options: state => state.vfc.activeComponent.item.options,
+      index: state => state.vfc.activeComponent.index
+    })
   },
   methods: {
-    setWidth () {
-      this.options.width = `${this.width}${this.unit}`
-    },
-    setRules (rules) {
-      this.$bus.$emit('on-component-config', [this.options.name, {
-        rules
-      }], this.index)
-    }
-  },
-  mounted () {
-    this.$bus.$on('on-click-item', (item, index) => {
-      this.index = index
-    })
+    ...mapMutations(['UPDATE_COMPONENT'])
   }
 
 }
