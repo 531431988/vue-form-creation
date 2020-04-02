@@ -15,6 +15,7 @@ import {
   Tabs,
   Divider,
   Icon,
+  Modal,
   Drawer,
   BackTop,
   Tooltip,
@@ -54,6 +55,7 @@ const components = [
   TabPane,
   Divider,
   Icon,
+  Modal,
   Drawer,
   BackTop,
   Tooltip

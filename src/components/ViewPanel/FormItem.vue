@@ -38,11 +38,31 @@ export default {
   },
   computed: {
     decorator () {
+      const { required, valid } = this.options
+      console.log(this.options)
+      let rules = []
+      // 必填
+      if (required) {
+        rules = [{ required: true, message: '此项必填' }]
+      // 不必填
+      } else {
+        let v = Object.values(valid).join('')
+        // 有其他规则
+        if (v !== '') {
+          rules.push({
+            pattern: new RegExp(valid.pattern),
+            message: valid.message
+          })
+        // 没有其他规则
+        } else {
+          rules = []
+        }
+      }
       return [
         this.options.name,
         {
           initialValue: this.options.value,
-          rules: this.options.required ? [{ required: true, message: '此项必填' }] : []
+          rules
         }]
     }
   },
@@ -56,6 +76,7 @@ export default {
 <style lang="less" scoped>
 .form-item-edit {
   position: relative;
+  cursor: pointer;
   &:before {
     content: "";
     position: absolute;

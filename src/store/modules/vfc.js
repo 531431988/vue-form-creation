@@ -1,4 +1,5 @@
-import { antvComponents, customComponents } from '@/config'
+import { antvComponents, customComponents } from '@/config/form'
+import validRulesList from '@/config/validator'
 
 const vfc = {
   state: {
@@ -13,11 +14,17 @@ const vfc = {
       index: 0,
       name: '',
       item: null
-    }
+    },
+    // 内置的验证规则列表
+    validRulesList
   },
   mutations: {
+    // 添加校验规则
+    ADD_VALID_RULE (state, params) {
+      state.validRulesList[params.value] = params
+    },
     // 初始化表单数据
-    INIT_VFC (state, params) {
+    INIT_FORM_VIEW (state, params) {
       state.formView = params
     },
     // 添加组件

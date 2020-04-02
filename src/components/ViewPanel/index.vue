@@ -31,7 +31,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import { formConfig } from '@/config'
+import { formConfig } from '@/config/form'
 import FormItem from './FormItem'
 import ButtonItem from './ButtonItem'
 import AttrPanel from '../AttrPanel/index'

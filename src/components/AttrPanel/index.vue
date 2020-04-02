@@ -1,12 +1,12 @@
 <template>
   <a-drawer
-    width="30%"
+    width="25%"
     placement="right"
     :closable="false"
     :visible="attrPanelShow"
     @close="SET_ATTR_PANEL_STATE(false)"
   >
-    <component :is="activeComponent.name" />
+    <component :is="activeComponent.name" class="attr-panel" />
   </a-drawer>
 </template>
 
@@ -36,23 +36,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.sider-attr-panel {
-  position: fixed;
-  right: 0;
-  top: @layout-header-height;
-  box-shadow: -1px 0 4px rgba(0, 21, 41, 0.08);
-  /deep/ .ant-tabs-top-bar {
-    margin-bottom: 0;
-  }
+.attr-panel {
   /deep/ .ant-form-item {
-    margin-bottom: 0;
-  }
-  /deep/ .ant-tabs-tabpane {
-    max-height: calc(100vh - 108px);
-    overflow: hidden;
-    &:hover {
-      overflow: auto;
-    }
+    margin-bottom: 8px;
   }
 }
 </style>
