@@ -12,8 +12,7 @@
       :type="data.type"
       :icon="data.icon"
       class="mr10"
-      @click="onReset"
-      html-type="reset"
+      @click="onCancel"
     >{{data.text}}</a-button>
   </span>
 </template>
@@ -32,7 +31,7 @@ export default {
     }
   },
   methods: {
-    onReset () {
+    onCancel () {
       this.$emit('on-reset')
     }
   }

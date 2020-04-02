@@ -9,14 +9,15 @@
     @submit="onSubmit"
   >
     <FormItem
-      v-for="(item, index) in formList"
+      v-for="(item, index) in data"
       :key="index"
       :options="item.options"
       :type="item.type"
-      @click.native="onClickItem(item, index)"
+      :edit="edit"
+      @click.native="onClickItem(index)"
     />
 
-    <a-form-item :wrapper-col="btnLayout" v-if="formList.length">
+    <a-form-item :wrapper-col="btnLayout" v-if="data.length">
       <ButtonItem
         v-for="(item, index) in formConfig.btns"
         :key="index"
@@ -29,12 +30,23 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import { formConfig, antvComponents } from '@/config'
+import { mapMutations } from 'vuex'
+import { formConfig } from '@/config'
 import FormItem from './FormItem'
 import ButtonItem from './ButtonItem'
 import AttrPanel from '../AttrPanel/index'
+
 export default {
+  props: {
+    data: {
+      type: Array,
+      default: () => []
+    },
+    edit: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     FormItem,
     ButtonItem,
@@ -43,7 +55,6 @@ export default {
   data () {
     return {
       formConfig,
-      antvComponents,
       form: this.$form.createForm(this, { name: 'form' }),
       rules: {
         name: [
@@ -59,9 +70,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      formList: state => state.vfc.formView
-    }),
     formItemLayout () {
       const { formLayout, labelCol, wrapperCol } = this.formConfig
       return formLayout === 'horizontal'
@@ -92,9 +100,11 @@ export default {
       this.form.resetFields()
     },
     // 表单元素单击
-    onClickItem (item, index) {
-      this.SET_ATTR_PANEL_STATE(true)
-      this.SET_ACTIVE(index)
+    onClickItem (index) {
+      if (this.edit) {
+        this.SET_ACTIVE(index)
+        this.SET_ATTR_PANEL_STATE(true)
+      }
     }
   },
   mounted () {

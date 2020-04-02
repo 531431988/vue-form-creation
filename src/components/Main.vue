@@ -1,10 +1,11 @@
 <template>
   <a-layout-content class="main">
-    <ViewPanel />
+    <ViewPanel :data="formView" :edit="true" />
   </a-layout-content>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import ViewPanel from './ViewPanel/index'
 export default {
   components: {
@@ -15,8 +16,10 @@ export default {
 
     }
   },
-  methods: {
-
+  computed: {
+    ...mapState({
+      formView: state => state.vfc.formView
+    })
   }
 }
 </script>

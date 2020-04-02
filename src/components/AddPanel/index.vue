@@ -21,6 +21,8 @@ export default {
     ...mapState({
       antvComponents: state => state.vfc.antvComponents
     })
+  },
+  methods: {
   }
 }
 </script>

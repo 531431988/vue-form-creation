@@ -25,7 +25,7 @@ export default {
   }
 }
 
-// 表格配置
+// 表单配置
 const formConfig = {
   size: 'small',
   formLayout: 'horizontal',
@@ -40,7 +40,7 @@ const formConfig = {
     htmlType: 'submit'
   }, {
     icon: 'sync',
-    text: '重置',
+    text: '取消',
     type: 'link'
     // }, {
     //   text: '查询',
@@ -116,6 +116,7 @@ const btnTheme = [{
 
 // 表单组件通用属性
 const common = {
+  readonly: false,
   disabled: false
 }
 // 基础组件

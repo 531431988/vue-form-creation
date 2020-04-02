@@ -22,6 +22,8 @@ const vfc = {
     },
     // 添加组件
     ADD_COMPONENT (state, params) {
+      params = JSON.parse(JSON.stringify(params))
+      params.options.name = `input_${new Date().valueOf()}`
       state.formView.push(params)
     },
     // 设置编辑的组件
@@ -40,7 +42,8 @@ const vfc = {
     },
     // 更新组件
     UPDATE_COMPONENT (state, { index, item }) {
-      state.formView[index] = item
+      console.log(index, item)
+      state.formView[index] = Object.assign(item)
     }
   },
   actions: {},

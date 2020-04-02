@@ -25,19 +25,8 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-
-    }
-  },
   methods: {
     onClick (item) {
-      item = Object.assign({}, item, {
-        options: {
-          ...item.options,
-          name: `input_${new Date().valueOf()}`
-        }
-      })
       this.$store.commit('ADD_COMPONENT', item)
     }
   }

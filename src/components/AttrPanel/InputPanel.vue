@@ -24,8 +24,9 @@
       <a-input v-model="options.placeholder" />
     </a-form-item>
 
-    <a-form-item label="是否禁用">
-      <a-switch checkedChildren="启用" unCheckedChildren="禁用" v-model="options.disabled" />
+    <a-form-item label="状态">
+      禁用
+      <a-switch checkedChildren="开启" unCheckedChildren="关闭" v-model="options.disabled" />
     </a-form-item>
 
     <a-form-item label="校验">
@@ -58,22 +59,10 @@ export default {
       }]
     }
   },
-  watch: {
-    options: {
-      handler (newVal) {
-        this.UPDATE_COMPONENT({
-          index: this.index,
-          item: this.item
-        })
-      },
-      deep: true
-    }
-  },
   computed: {
     ...mapState({
-      item: state => state.vfc.activeComponent.item,
-      options: state => state.vfc.activeComponent.item.options,
-      index: state => state.vfc.activeComponent.index
+      activeComponent: state => state.vfc.activeComponent,
+      options: state => state.vfc.activeComponent.item.options
     })
   },
   methods: {

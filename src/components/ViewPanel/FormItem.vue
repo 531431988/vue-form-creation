@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="{'form-item-edit': edit}">
     <a-form-item :label="options.label" v-if="type === 'input'">
       <a-input
         v-decorator="decorator"
@@ -8,7 +8,6 @@
         :allowClear="options.allowClear"
         :disabled="options.disabled"
         :style="`width: ${options.width.label}${options.width.value}`"
-        readonly="true"
       >
         <a-icon v-if="options.prefix" slot="prefix" type="user" />
         <a-icon v-if="options.suffix" slot="suffix" type="user" />
@@ -19,7 +18,20 @@
 
 <script>
 export default {
-  props: ['type', 'options'],
+  props: {
+    edit: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      default: ''
+    },
+    options: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
     }
@@ -42,4 +54,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.form-item-edit {
+  position: relative;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+  }
+}
 </style>

@@ -31,13 +31,6 @@ export default {
   },
   methods: {
     ...mapMutations(['SET_ATTR_PANEL_STATE'])
-  },
-  mounted () {
-    // this.$bus.$on('on-click-item', item => {
-    //   const { type, options } = item
-    //   this.options = options
-    //   this.is = `${type.substr(0, 1).toUpperCase()}${type.substr(1)}Panel`
-    // })
   }
 }
 </script>
