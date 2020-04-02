@@ -133,6 +133,7 @@ const antvComponents = [{
     suffix: null,
     width: 100,
     allowClear: null,
+    required: false,
     rules: []
   }
 }, {

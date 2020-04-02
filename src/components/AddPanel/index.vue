@@ -1,6 +1,6 @@
 <template>
   <a-layout-sider theme="light" :width="240" class="sider-component-panel">
-    <WidgetList title="基础组件" :data="antvComponents" />
+    <WidgetList title="组件列表" :data="antvComponents" />
     <!-- <WidgetList title="自定义组件" :data="antvComponents" />
     <WidgetList title="第三方组件" :data="antvComponents" />-->
   </a-layout-sider>
@@ -31,6 +31,6 @@ export default {
   position: fixed;
   left: 0;
   top: @layout-header-height;
-  box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
+  // box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
 }
 </style>

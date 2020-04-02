@@ -1,17 +1,14 @@
 <template>
-  <a-layout-content>
-    <TopTool />
-    <FormView />
+  <a-layout-content class="main">
+    <ViewPanel />
   </a-layout-content>
 </template>
 
 <script>
-import FormView from './FormView/index'
-import TopTool from './FormView/TopTool'
+import ViewPanel from './ViewPanel/index'
 export default {
   components: {
-    TopTool,
-    FormView
+    ViewPanel
   },
   data () {
     return {

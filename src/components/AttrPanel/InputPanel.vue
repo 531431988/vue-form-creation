@@ -27,7 +27,11 @@
     <a-form-item label="校验">
       <a-checkbox v-model="required">必填项</a-checkbox>
       <a-select v-model="rule">
-        <a-select-option v-for="(item, index) in rulesList" :value="item.value">{{item.label}}</a-select-option>
+        <a-select-option
+          v-for="(item, index) in rulesList"
+          :key="index"
+          :value="item.value"
+        >{{item.label}}</a-select-option>
       </a-select>
       <a-input v-model="userRule" placeholder="自定义正则" />
       <a-input v-if="userRule" v-model="userMsg" placeholder="自定义提示语" />

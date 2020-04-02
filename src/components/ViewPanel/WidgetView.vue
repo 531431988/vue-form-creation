@@ -22,6 +22,8 @@ export default {
 
 <style lang="less" scoped>
 .widget-view {
+  padding: 24px 24px 0;
+  margin-bottom: 24px;
   position: relative;
   border: 2px solid @primary-color;
   &:before {

@@ -6,7 +6,7 @@
     :wrapper-col="formItemLayout.wrapperCol"
     :labelAlign="formConfig.align"
     :style="`width: ${formConfig.width}%`"
-    @submit="handleSubmit"
+    @submit="onSubmit"
   >
     <FormItem
       v-for="(item, index) in formList"
@@ -17,22 +17,12 @@
     />
 
     <a-form-item :wrapper-col="btnLayout" v-if="formList.length">
-      <template v-for="(item, index) in formConfig.btns">
-        <a-button
-          v-if="item.htmlType === 'submit'"
-          :type="item.type"
-          :icon="item.icon"
-          :html-type="item.text === '保存' || item.text === '提交' ? 'submit' : 'button'"
-          class="mr10"
-        >{{item.text}}</a-button>
-        <a-button
-          v-else
-          :type="item.type"
-          :icon="item.icon"
-          class="mr10"
-          @click="form.resetFields()"
-        >{{item.text}}</a-button>
-      </template>
+      <ButtonItem
+        v-for="(item, index) in formConfig.btns"
+        :key="index"
+        :data="item"
+        @on-reset="onReset"
+      />
     </a-form-item>
   </a-form>
 </template>
@@ -41,10 +31,12 @@
 import { formConfig, antvComponents } from '@/config'
 import WidgetView from './WidgetView'
 import FormItem from './FormItem'
+import ButtonItem from './ButtonItem'
 export default {
   components: {
     WidgetView,
-    FormItem
+    FormItem,
+    ButtonItem
   },
   data () {
     return {
@@ -83,13 +75,16 @@ export default {
     }
   },
   methods: {
-    handleSubmit (e) {
+    onSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log('验证通过', values)
         }
       })
+    },
+    onReset () {
+      this.form.resetFields()
     },
     // 表单元素单击
     onClickItem (item, index) {

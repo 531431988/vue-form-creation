@@ -1,10 +1,12 @@
 import Header from './Header'
 import Main from './Main'
-import SiderComponentPanel from './SiderComponentPanel/index'
-import SiderAttrPanel from './SiderAttrPanel/index'
+import AddPanel from './AddPanel/index'
+import ViewPanel from './ViewPanel/index'
+import AttrPanel from './AttrPanel/index'
 export {
   Header,
   Main,
-  SiderComponentPanel,
-  SiderAttrPanel
+  AddPanel,
+  ViewPanel,
+  AttrPanel
 }
