@@ -67,7 +67,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['ADD_VALID_RULE', 'INIT_FORM_VIEW']),
+    ...mapMutations(['INIT_FORM_VIEW']),
     onInit () {
       this.INIT_FORM_VIEW()
     },
@@ -86,10 +86,10 @@ export default {
           return
         }
         const { label, value, message } = values
-        this.ADD_VALID_RULE({ label, pattern: value, value: randomName('valid'), message })
+        this.$store.dispatch('AddValidRule', { label, pattern: value, value: randomName('valid'), message })
         form.resetFields()
-        this.validModalShow = false;
-      });
+        this.validModalShow = false
+      })
     }
   }
 }

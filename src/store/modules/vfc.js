@@ -1,5 +1,6 @@
 import { antvComponents, customComponents } from '@/config/form'
-import validRulesList from '@/config/validator'
+import { getValidRulesList, addValidRule } from '@/api/vfc'
+import message from 'ant-design-vue/es/message'
 
 const vfc = {
   state: {
@@ -16,9 +17,13 @@ const vfc = {
       item: null
     },
     // 内置的验证规则列表
-    validRulesList
+    validRulesList: []
   },
   mutations: {
+    // 设置校验规则列表数据
+    SET_VALID_RULE_LIST (state, params) {
+      state.validRulesList = params
+    },
     // 添加校验规则
     ADD_VALID_RULE (state, params) {
       state.validRulesList[params.value] = params
@@ -54,7 +59,27 @@ const vfc = {
       state.formView[index] = item
     }
   },
-  actions: {},
+  actions: {
+    // 获取自定义校验规则
+    GetvalidRulesList ({ commit }) {
+      getValidRulesList().then(res => {
+        const { data } = res
+        commit('SET_VALID_RULE_LIST', data)
+      })
+    },
+    // 新增自定义校验规则
+    AddValidRule ({ commit }, params) {
+      addValidRule().then(res => {
+        const { data } = res
+        if (data) {
+          commit('ADD_VALID_RULE', params)
+          message.success('添加成功')
+        } else {
+          message.error('添加失败')
+        }
+      })
+    }
+  },
   getters: {
 
   }

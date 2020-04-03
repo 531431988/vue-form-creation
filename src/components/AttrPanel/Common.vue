@@ -74,6 +74,9 @@ export default {
       validRulesList: state => state.vfc.validRulesList
     })
   },
+  created () {
+    this.$store.dispatch('GetvalidRulesList')
+  },
   methods: {
     ...mapMutations(['UPDATE_COMPONENT']),
     // 更新验证规则

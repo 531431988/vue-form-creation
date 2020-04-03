@@ -10,6 +10,8 @@ import vue from 'vue-highlight.js/lib/languages/vue'
 import 'highlight.js/styles/default.css'
 import 'highlight.js/styles/atelier-dune-light.css'
 
+if (process.env.NODE_ENV !== 'production') require('@/mock')
+
 Vue.use(VueStorage, config.storageOptions)
 Vue.use(VueHighlightJS, {
   languages: {

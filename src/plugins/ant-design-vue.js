@@ -19,6 +19,7 @@ import {
   Drawer,
   BackTop,
   Tooltip,
+  message,
   notification
 } from 'ant-design-vue'
 const { Header, Content, Sider, Footer } = Layout
@@ -65,4 +66,5 @@ components.map(component => {
 })
 
 Vue.prototype.$notification = notification
+Vue.prototype.$message = message
 Vue.prototype.$Form = Form

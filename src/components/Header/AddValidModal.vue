@@ -4,6 +4,7 @@
     :visible="visible"
     okText="添加"
     cancelText="取消"
+    :keyboard="false"
     @cancel="() => { $emit('on-cancel') }"
     @ok="() => { $emit('on-ok') }"
   >
