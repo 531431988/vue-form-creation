@@ -8,7 +8,7 @@
         <a-button class="ml10" @click="validModalShow = true">添加校验规则</a-button>
         <a-button class="ml10" @click="FormConfigShow = true">表单配置</a-button>
         <a-button type="danger" ghost class="ml10" @click="onInit">清空</a-button>
-        <a-button type="primary" ghost class="ml10" @click="onPreview">预览</a-button>
+        <a-button type="primary" ghost class="ml10" @click="previewShow = true">预览</a-button>
         <a-button type="primary" class="ml10">保存</a-button>
       </a-col>
     </a-row>
@@ -30,7 +30,7 @@
       :visible="previewShow"
       @close="previewShow = false"
     >
-      <ViewPanel :data="formView" />
+      <ViewPanel :data="formView" :edit="true" />
     </a-drawer>
 
     <AddValidModal
@@ -70,9 +70,6 @@ export default {
     ...mapMutations(['INIT_FORM_VIEW']),
     onInit () {
       this.INIT_FORM_VIEW()
-    },
-    onPreview () {
-      this.previewShow = true
     },
     onCancel () {
       this.validModalShow = false

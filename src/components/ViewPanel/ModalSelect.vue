@@ -2,7 +2,7 @@
   <a-modal title="表单模式选择" width="40%" :closable="false" :visible="visible" class="modal-select">
     <a-row :gutter="12">
       <a-col :span="12" v-for="(item, index) in list" :key="index">
-        <Card :data="item" @click.native="onSelect(index)" />
+        <Card :data="item" @click.native="onSelect(index,item)" />
       </a-col>
     </a-row>
     <div class="tc" slot="footer">
@@ -50,12 +50,13 @@ export default {
   },
   methods: {
     // 选择模式
-    onSelect (index) {
-      this.list.map(item => Object.assign(item, { checked: !item.checked }))
+    onSelect (index, item) {
+      this.list.forEach(child => (child.checked = false))
+      item.checked = true
       this.active = index
     },
     onOk () {
-      this.$emit('on-click')
+      this.$emit('on-ok')
       this.$store.commit('SET_TYPE', this.active)
     }
   }

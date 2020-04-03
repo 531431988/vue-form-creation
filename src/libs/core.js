@@ -3,7 +3,6 @@ import VueStorage from 'vue-ls'
 import VueHighlightJS from 'vue-highlight.js'
 import config from '@/config/index'
 import '@/directive'
-import Bus from '@/libs/bus'
 import css from 'highlight.js/lib/languages/css'
 import javascript from 'highlight.js/lib/languages/javascript'
 import vue from 'vue-highlight.js/lib/languages/vue'
@@ -21,7 +20,6 @@ Vue.use(VueHighlightJS, {
   }
 })
 
-Vue.prototype.$bus = Bus
 Vue.prototype.$config = config
 Vue.prototype.$color = config.color
 window.document.title = config.title

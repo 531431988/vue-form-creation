@@ -30,7 +30,7 @@ const CheckboxGroup = Checkbox.Group
 const SelectOption = Select.Option
 const { Meta } = Card
 const { TabPane } = Tabs
-const { CollapsePane } = Collapse
+const CollapsePanel = Collapse.Panel
 
 const components = [
   Layout,
@@ -57,7 +57,7 @@ const components = [
   Tabs,
   TabPane,
   Collapse,
-  CollapsePane,
+  CollapsePanel,
   Divider,
   Icon,
   Modal,
@@ -70,5 +70,11 @@ components.map(component => {
 })
 
 Vue.prototype.$notification = notification
+Vue.prototype.$info = Modal.info
+Vue.prototype.$success = Modal.success
+Vue.prototype.$error = Modal.error
+Vue.prototype.$warning = Modal.warning
+Vue.prototype.$confirm = Modal.confirm
+Vue.prototype.$destroyAll = Modal.destroyAll
 Vue.prototype.$message = message
 Vue.prototype.$Form = Form

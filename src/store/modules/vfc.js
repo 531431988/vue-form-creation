@@ -1,3 +1,4 @@
+import { randomName } from '@/libs/utils'
 import { antvComponents, customComponents } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
@@ -42,11 +43,12 @@ const vfc = {
     ADD_COMPONENT (state, params) {
       // 基础模式
       if (state.type === 0) {
+        console.log('添加基础表单组件')
         params = JSON.parse(JSON.stringify(params))
-        params.options.name = `input_${new Date().valueOf()}`
+        params.options.name = randomName('input')
         state.formView.push(params)
       } else {
-
+        console.log('添加高级表单组件')
       }
     },
     // 设置编辑的组件
