@@ -34,13 +34,13 @@ export default {
   .ant-layout-content {
     position: relative;
     margin: 0 0 0 256px;
-    padding: 45px 10px 10px;
+    padding: 45px 5% 10px;
   }
   .ant-layout-sider {
   }
   .sider-component-panel,
   .ant-layout-content {
-    background: #fff;
+    background: #fcfcfc;
     max-height: calc(100vh - 64px);
     overflow: auto;
     overflow: hidden;

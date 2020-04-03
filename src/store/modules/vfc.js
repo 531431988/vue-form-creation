@@ -24,7 +24,7 @@ const vfc = {
       state.validRulesList[params.value] = params
     },
     // 初始化表单数据
-    INIT_FORM_VIEW (state, params) {
+    INIT_FORM_VIEW (state, params = []) {
       state.formView = params
     },
     // 添加组件

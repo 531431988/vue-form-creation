@@ -1,18 +1,20 @@
 <template>
   <div :class="{'form-item-edit': edit}">
-    <a-form-item :label="options.label" v-if="type === 'input'">
-      <a-input
-        v-decorator="decorator"
-        :placeholder="options.placeholder"
-        :maxLength="options.maxLength"
-        :allowClear="options.allowClear"
-        :disabled="options.disabled"
-        :style="`width: ${options.width.label}${options.width.value}`"
-      >
-        <a-icon v-if="options.prefix" slot="prefix" type="user" />
-        <a-icon v-if="options.suffix" slot="suffix" type="user" />
-      </a-input>
-    </a-form-item>
+    <transition appear name="fadeUp">
+      <a-form-item :label="options.label" v-if="type === 'input'">
+        <a-input
+          v-decorator="decorator"
+          :placeholder="options.placeholder"
+          :maxLength="options.maxLength"
+          :allowClear="options.allowClear"
+          :disabled="options.disabled"
+          :style="`width: ${options.width.label}${options.width.value}`"
+        >
+          <a-icon v-if="options.prefix" slot="prefix" type="user" />
+          <a-icon v-if="options.suffix" slot="suffix" type="user" />
+        </a-input>
+      </a-form-item>
+    </transition>
   </div>
 </template>
 
@@ -32,6 +34,8 @@ export default {
       default: () => ({})
     }
   },
+  components: {
+  },
   data () {
     return {
     }
@@ -44,7 +48,7 @@ export default {
       // 必填
       if (required) {
         rules = [{ required: true, message: '此项必填' }]
-      // 不必填
+        // 不必填
       } else {
         let v = Object.values(valid).join('')
         // 有其他规则
@@ -53,7 +57,7 @@ export default {
             pattern: new RegExp(valid.pattern),
             message: valid.message
           })
-        // 没有其他规则
+          // 没有其他规则
         } else {
           rules = []
         }
@@ -65,15 +69,11 @@ export default {
           rules
         }]
     }
-  },
-  methods: {
-  },
-  mounted () {
   }
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
 .form-item-edit {
   position: relative;
   cursor: pointer;

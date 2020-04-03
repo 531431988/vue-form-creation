@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { formConfig, iconConfig, btnTheme } from '@/config'
+import { formConfig, iconConfig, btnTheme } from '@/config/form'
 export default {
   data () {
     return {

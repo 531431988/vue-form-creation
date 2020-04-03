@@ -13,6 +13,7 @@
       </a-col>
     </a-row>
     <a-drawer
+      title="表单全局配置"
       width="30%"
       placement="right"
       :closable="false"
@@ -22,6 +23,7 @@
       <FormConfig />
     </a-drawer>
     <a-drawer
+      title="表单预览"
       width="40%"
       placement="left"
       :closable="false"
@@ -31,16 +33,20 @@
       <ViewPanel :data="formView" />
     </a-drawer>
 
-    <AddValidModal ref="addValidModal" :visible="validModalShow" @on-cancel="onCancel"
-      @on-ok="onOk" />
+    <AddValidModal
+      ref="addValidModal"
+      :visible="validModalShow"
+      @on-cancel="onCancel"
+      @on-ok="onOk"
+    />
   </a-layout-header>
 </template>
 
 <script>
 import { randomName } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
-import FormConfig from './AttrPanel/FormConfig'
-import ViewPanel from './ViewPanel/index'
+import FormConfig from '@/components/AttrPanel/FormConfig'
+import ViewPanel from '@/components/ViewPanel/index'
 import AddValidModal from './AddValidModal'
 export default {
   components: {
@@ -68,12 +74,12 @@ export default {
     onPreview () {
       this.previewShow = true
     },
-    onCancel() {
+    onCancel () {
       this.validModalShow = false
       this.$refs.addValidModal.form.resetFields()
     },
     // 保存正则
-    onOk() {
+    onOk () {
       const form = this.$refs.addValidModal.form
       form.validateFields((err, values) => {
         if (err) {
