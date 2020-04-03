@@ -48,9 +48,10 @@ const vfc = {
       state.attrPanelShow = params
     },
     // 更新组件
-    UPDATE_COMPONENT (state, { index, item }) {
-      console.log(index, item)
-      state.formView[index] = Object.assign(item)
+    UPDATE_COMPONENT (state, { value, index, item }) {
+      item = JSON.parse(JSON.stringify(item))
+      item.options.valid = state.validRulesList[value]
+      state.formView[index] = item
     }
   },
   actions: {},

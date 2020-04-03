@@ -3,7 +3,7 @@ const validRulesList = {
   isChinese: {
     label: '中文',
     value: 'isChinese',
-    pattern: '/^\p{Unified_Ideograph}+$/u',
+    pattern: '/^[\u4e00-\u9fa5]+$/',
     message: '只能输入中文'
   },
   isPhone: {

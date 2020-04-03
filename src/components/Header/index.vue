@@ -6,9 +6,9 @@
       </a-col>
       <a-col class="vui-flex-item tr">
         <a-button class="ml10" @click="validModalShow = true">添加校验规则</a-button>
-        <a-button class="ml10" @click="onPreview">预览</a-button>
         <a-button class="ml10" @click="FormConfigShow = true">表单配置</a-button>
-        <a-button type="danger" class="ml10" @click="onInit">清空</a-button>
+        <a-button type="danger" ghost class="ml10" @click="onInit">清空</a-button>
+        <a-button type="primary" ghost class="ml10" @click="onPreview">预览</a-button>
         <a-button type="primary" class="ml10">保存</a-button>
       </a-col>
     </a-row>

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { evil } from '@/libs/utils'
 export default {
   props: {
     edit: {
@@ -43,24 +44,19 @@ export default {
   computed: {
     decorator () {
       const { required, valid } = this.options
-      console.log(this.options)
+      let v = Object.values(valid).join('')
       let rules = []
       // 必填
       if (required) {
         rules = [{ required: true, message: '此项必填' }]
-        // 不必填
+      }
+      if (v !== '') {
+        rules = [...rules, {
+          pattern: evil(valid.pattern),
+          message: valid.message
+        }]
       } else {
-        let v = Object.values(valid).join('')
-        // 有其他规则
-        if (v !== '') {
-          rules.push({
-            pattern: new RegExp(valid.pattern),
-            message: valid.message
-          })
-          // 没有其他规则
-        } else {
-          rules = []
-        }
+        rules = [...rules]
       }
       return [
         this.options.name,
