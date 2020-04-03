@@ -1,5 +1,5 @@
 <template>
-  <a-form class="pd10">
+  <a-form class="pd10 form-item-margin-sm">
     <a-form-item>
       <span slot="label">
         字段标识&nbsp;

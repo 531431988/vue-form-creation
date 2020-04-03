@@ -48,7 +48,6 @@ export default {
       overflow: auto;
     }
   }
-
   .ant-layout-sider {
     height: 100%;
   }

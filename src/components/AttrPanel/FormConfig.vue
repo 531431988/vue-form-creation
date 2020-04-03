@@ -1,5 +1,5 @@
 <template>
-  <a-form class="pd10">
+  <a-form class="pd10 form-item-margin-sm">
     <a-form-item label="表单布局">
       <a-radio-group v-model="formConfig.formLayout" buttonStyle="solid" :size="formConfig.size">
         <a-radio-button value="horizontal">水平</a-radio-button>

@@ -37,8 +37,5 @@ export default {
 
 <style lang="less" scoped>
 .attr-panel {
-  /deep/ .ant-form-item {
-    margin-bottom: 8px;
-  }
 }
 </style>

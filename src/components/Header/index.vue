@@ -14,7 +14,7 @@
     </a-row>
     <a-drawer
       title="表单全局配置"
-      width="30%"
+      width="25%"
       placement="right"
       :closable="false"
       :visible="FormConfigShow"
