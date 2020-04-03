@@ -13,6 +13,7 @@ import {
   Button,
   Card,
   Tabs,
+  Collapse,
   Divider,
   Icon,
   Modal,
@@ -29,6 +30,7 @@ const CheckboxGroup = Checkbox.Group
 const SelectOption = Select.Option
 const { Meta } = Card
 const { TabPane } = Tabs
+const { CollapsePane } = Collapse
 
 const components = [
   Layout,
@@ -54,6 +56,8 @@ const components = [
   Card,
   Tabs,
   TabPane,
+  Collapse,
+  CollapsePane,
   Divider,
   Icon,
   Modal,

@@ -4,6 +4,8 @@ import message from 'ant-design-vue/es/message'
 
 const vfc = {
   state: {
+    // 表单模式（0:基础 1: 高级）
+    type: 0,
     antvComponents,
     customComponents,
     // 表单视图
@@ -20,6 +22,10 @@ const vfc = {
     validRulesList: []
   },
   mutations: {
+    // 设置表单模式
+    SET_TYPE (state, params) {
+      state.type = params
+    },
     // 设置校验规则列表数据
     SET_VALID_RULE_LIST (state, params) {
       state.validRulesList = params
@@ -34,9 +40,14 @@ const vfc = {
     },
     // 添加组件
     ADD_COMPONENT (state, params) {
-      params = JSON.parse(JSON.stringify(params))
-      params.options.name = `input_${new Date().valueOf()}`
-      state.formView.push(params)
+      // 基础模式
+      if (state.type === 0) {
+        params = JSON.parse(JSON.stringify(params))
+        params.options.name = `input_${new Date().valueOf()}`
+        state.formView.push(params)
+      } else {
+
+      }
     },
     // 设置编辑的组件
     SET_ACTIVE (state, index) {

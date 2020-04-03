@@ -25,6 +25,8 @@
         @on-reset="onReset"
       />
     </a-form-item>
+
+    <ModalSelect :visible="visible" @on-click="visible = false" />
     <AttrPanel />
   </a-form>
 </template>
@@ -32,6 +34,7 @@
 <script>
 import { mapMutations } from 'vuex'
 import { formConfig } from '@/config/form'
+import ModalSelect from './ModalSelect'
 import FormItem from './FormItem'
 import ButtonItem from './ButtonItem'
 import AttrPanel from '../AttrPanel/index'
@@ -48,12 +51,14 @@ export default {
     }
   },
   components: {
+    ModalSelect,
     FormItem,
     ButtonItem,
     AttrPanel
   },
   data () {
     return {
+      visible: true,
       formConfig,
       form: this.$form.createForm(this, { name: 'form' }),
       rules: {
