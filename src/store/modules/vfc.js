@@ -1,4 +1,4 @@
-import { randomName } from '@/libs/utils'
+import { createUID } from '@/libs/utils'
 import { antvComponents, customComponents } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
@@ -6,11 +6,37 @@ import message from 'ant-design-vue/es/message'
 const vfc = {
   state: {
     // 表单模式（0:基础 1: 高级）
-    type: 0,
+    type: null,
     antvComponents,
     customComponents,
     // 表单视图
     formView: [],
+    baseForm: [],
+    collapseForm: [{
+      title: '表单名称1',
+      key: createUID(),
+      view: [],
+      children: [{
+        title: '子表单1',
+        key: createUID(),
+        view: []
+      }, {
+        title: '子表单2',
+        key: createUID(),
+        view: [],
+        children: [{
+          title: '子表单2',
+          key: createUID(),
+          view: []
+        }]
+      }]
+    }, {
+      title: '表单名称2',
+      key: createUID(),
+      view: []
+    }],
+    // 当前选择的折叠面板
+    activeCollapse: null,
     // 属性面板
     attrPanelShow: false,
     // 当前编辑组件
@@ -37,23 +63,70 @@ const vfc = {
     },
     // 初始化表单数据
     INIT_FORM_VIEW (state, params = []) {
-      state.formView = params
+      state.baseForm = params
+      state.activeCollapse = null
+      state.activeComponent = {
+        index: 0,
+        name: '',
+        item: null
+      }
     },
     // 添加组件
     ADD_COMPONENT (state, params) {
+      params = JSON.parse(JSON.stringify(params))
+      params.options.name = createUID()
+      state.baseForm.push(params)
       // 基础模式
       if (state.type === 0) {
         console.log('添加基础表单组件')
-        params = JSON.parse(JSON.stringify(params))
-        params.options.name = randomName('input')
-        state.formView.push(params)
+        state.activeCollapse = []
       } else {
-        console.log('添加高级表单组件')
+        if (state.activeCollapse) {
+          // 递归设置
+          const addCollapseForm = data => {
+            data.forEach(item => {
+              if (item.children && item.children.length) {
+                addCollapseForm(item.children)
+              } else {
+                if (item.key === state.activeCollapse) {
+                  item.view = [...state.baseForm]
+                }
+              }
+            })
+          }
+          addCollapseForm(state.collapseForm)
+          console.log('添加高级表单组件')
+        } else {
+          message.error('请选择要添加的位置')
+        }
       }
     },
+    // 设置编辑的折叠面板
+    SET_ACTIVE_COLLAPSE (state, key) {
+      state.activeCollapse = key
+    },
     // 设置编辑的组件
-    SET_ACTIVE (state, index) {
-      const item = state.formView[index]
+    SET_ACTIVE_COMPONENT (state, index) {
+      let item = null
+      // 高级模式表单
+      if (state.type === 1) {
+        // 递归设置
+        const addCollapseForm = data => {
+          data.forEach(child => {
+            if (child.children && child.children.length) {
+              addCollapseForm(child.children)
+            } else {
+              if (child.key === state.activeCollapse) {
+                item = child.view[index]
+              }
+            }
+          })
+        }
+        addCollapseForm(state.collapseForm)
+      } else {
+        // 普通模式表单
+        item = state.baseForm[index]
+      }
       const name = `${item.type.substr(0, 1).toUpperCase()}${item.type.substr(1)}Panel`
       state.activeComponent = {
         index,
@@ -69,7 +142,7 @@ const vfc = {
     UPDATE_COMPONENT (state, { value, index, item }) {
       item = JSON.parse(JSON.stringify(item))
       item.options.valid = state.validRulesList[value]
-      state.formView[index] = item
+      state.baseForm[index] = item
     }
   },
   actions: {

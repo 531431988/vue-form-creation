@@ -24,7 +24,7 @@ export default {
   props: {
     edit: {
       type: Boolean,
-      default: false
+      default: true
     },
     type: {
       type: String,
@@ -44,13 +44,12 @@ export default {
   computed: {
     decorator () {
       const { required, valid } = this.options
-      let v = Object.values(valid).join('')
       let rules = []
       // 必填
       if (required) {
         rules = [{ required: true, message: '此项必填' }]
       }
-      if (v !== '') {
+      if (valid.value) {
         rules = [...rules, {
           pattern: evil(valid.pattern),
           message: valid.message
@@ -58,6 +57,7 @@ export default {
       } else {
         rules = [...rules]
       }
+      console.log('rules', rules)
       return [
         this.options.name,
         {

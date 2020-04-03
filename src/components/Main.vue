@@ -1,18 +1,21 @@
 <template>
   <a-layout-content class="main">
     <ModalSelect :visible="visible" @on-ok="visible = false" />
-    <ViewPanel :data="formView" :edit="true" />
+    <BaseForm :data="baseForm" v-if="type === 0" />
+    <CollapseForm :data="collapseForm" v-if="type === 1" />
   </a-layout-content>
 </template>
 
 <script>
 import ModalSelect from './ViewPanel/ModalSelect'
 import { mapState } from 'vuex'
-import ViewPanel from './ViewPanel/index'
+import BaseForm from './ViewPanel/BaseForm'
+import CollapseForm from './ViewPanel/CollapseForm'
 export default {
   components: {
     ModalSelect,
-    ViewPanel
+    BaseForm,
+    CollapseForm
   },
   data () {
     return {
@@ -21,7 +24,9 @@ export default {
   },
   computed: {
     ...mapState({
-      formView: state => state.vfc.formView
+      type: state => state.vfc.type,
+      baseForm: state => state.vfc.baseForm,
+      collapseForm: state => state.vfc.collapseForm
     })
   }
 }

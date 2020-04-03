@@ -45,7 +45,6 @@
       <a-checkbox v-model="options.required">是否必填</a-checkbox>
       <a-row type="flex">
         <a-col>验证规则：</a-col>
-        {{options.valid.value}}
         <a-col class="vui-flex-item">
           <a-select v-model="options.valid.value" @change="onChangeValid">
             <a-select-option

@@ -1,4 +1,4 @@
-import { randomName } from '@/libs/utils'
+import { createUID } from '@/libs/utils'
 // 表单配置
 const formConfig = {
   size: 'small',
@@ -97,10 +97,10 @@ const antvComponents = [{
   type: 'input',
   icon: 'edit',
   options: {
-    name: randomName('input'),
+    name: createUID(),
     label: '单行文本',
     placeholder: '请输入关键字',
-    value: '我是默认值',
+    value: '',
     maxLength: null,
     prefix: null,
     suffix: null,

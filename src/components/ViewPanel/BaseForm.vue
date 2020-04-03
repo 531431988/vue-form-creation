@@ -44,7 +44,7 @@ export default {
     },
     edit: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   components: {
@@ -87,7 +87,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_ACTIVE', 'SET_ATTR_PANEL_STATE']),
+    ...mapMutations(['SET_ACTIVE_COMPONENT', 'SET_ATTR_PANEL_STATE']),
     onSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
@@ -102,7 +102,7 @@ export default {
     // 表单元素单击
     onClickItem (index) {
       if (this.edit) {
-        this.SET_ACTIVE(index)
+        this.SET_ACTIVE_COMPONENT(index)
         this.SET_ATTR_PANEL_STATE(true)
       }
     }

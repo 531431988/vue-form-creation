@@ -30,7 +30,8 @@
       :visible="previewShow"
       @close="previewShow = false"
     >
-      <ViewPanel :data="formView" :edit="true" />
+      <BaseForm :data="baseForm" v-if="type === 0" :edit="false" />
+      <CollapseForm :data="collapseForm" v-if="type === 1" :edit="false" />
     </a-drawer>
 
     <AddValidModal
@@ -43,15 +44,17 @@
 </template>
 
 <script>
-import { randomName } from '@/libs/utils'
+import { createUID } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
 import FormConfig from '@/components/AttrPanel/FormConfig'
-import ViewPanel from '@/components/ViewPanel/index'
+import BaseForm from '../ViewPanel/BaseForm'
+import CollapseForm from '../ViewPanel/CollapseForm'
 import AddValidModal from './AddValidModal'
 export default {
   components: {
     FormConfig,
-    ViewPanel,
+    BaseForm,
+    CollapseForm,
     AddValidModal
   },
   data () {
@@ -63,7 +66,9 @@ export default {
   },
   computed: {
     ...mapState({
-      formView: state => state.vfc.formView
+      type: state => state.vfc.type,
+      baseForm: state => state.vfc.baseForm,
+      collapseForm: state => state.vfc.collapseForm
     })
   },
   methods: {
@@ -83,7 +88,7 @@ export default {
           return
         }
         const { label, value, message } = values
-        this.$store.dispatch('AddValidRule', { label, pattern: value, value: randomName('valid'), message })
+        this.$store.dispatch('AddValidRule', { label, pattern: value, value: createUID(), message })
         form.resetFields()
         this.validModalShow = false
       })

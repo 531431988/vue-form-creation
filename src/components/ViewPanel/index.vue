@@ -17,7 +17,7 @@ export default {
     },
     edit: {
       type: Boolean,
-      default: false
+      default: true
     }
   },
   components: {
