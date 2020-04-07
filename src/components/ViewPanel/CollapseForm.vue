@@ -1,25 +1,30 @@
 <template>
-  <div>
-    <a-collapse v-model="activeKey" expandIconPosition="right" accordion>
-      <a-collapse-panel :header="item.title" v-for="(item) in data" :key="item.key">
-        <CollapseForm
-          :data="item.children"
-          :edit="edit"
-          v-if="item.children && item.children.length"
-        />
-        <template v-else>
-          <BaseForm :data="item.view" :edit="edit" />
+  <a-collapse v-model="activeKey" expandIconPosition="right">
+    <a-collapse-panel
+      :header="item.title"
+      v-for="item in data"
+      :key="item.key"
+      :class="{active: activeCollapse === item.key && edit}"
+    >
+      <CollapseForm
+        :data="item.children"
+        :edit="edit"
+        v-if="item.children && item.children.length"
+      />
+      <template v-else>
+        <BaseForm :data="item.view" :edit="edit" />
+        <template slot="extra" v-if="edit">
           <a-button
-            :type="activeCollapse === item.key ? 'primary' : ''"
+            v-if="activeCollapse !== item.key"
+            type="primary"
             size="small"
-            v-if="edit"
-            slot="extra"
             @click.stop="onClick(item)"
-          >{{activeCollapse === item.key ? '编辑中' : '开始编辑'}}</a-button>
+          >添加组件</a-button>
+          <span class="t-primary" v-else>编辑中（可从左侧组件列表中选择需要添加的组件）</span>
         </template>
-      </a-collapse-panel>
-    </a-collapse>
-  </div>
+      </template>
+    </a-collapse-panel>
+  </a-collapse>
 </template>
 
 <script>
@@ -63,4 +68,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.active {
+  border: 2px solid @primary-color !important;
+}
 </style>
