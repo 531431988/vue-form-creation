@@ -6,7 +6,9 @@
       :options="item.options"
       :type="item.type"
       :edit="edit"
-      @click.native="onClickItem(index)"
+      :del="del"
+      @on-click="onClickItem(index)"
+      @on-del="onDel(index)"
     />
     <a-empty v-if="!data.length" description="暂无组件，可在左侧组件列表中点击添加组件" />
     <AttrPanel :visible="visible" @close="visible = false" />
@@ -27,6 +29,10 @@ export default {
     edit: {
       type: Boolean,
       default: true
+    },
+    del: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
@@ -39,13 +45,18 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_ACTIVE_COMPONENT']),
+    ...mapMutations(['SET_ACTIVE_COMPONENT', 'DEL_COMPONENT']),
     // 表单元素单击
     onClickItem (index) {
       if (this.edit) {
         this.SET_ACTIVE_COMPONENT(index)
         this.visible = true
       }
+    },
+    // 删除
+    onDel (index) {
+      console.log(index)
+      this.DEL_COMPONENT(index)
     }
   }
 

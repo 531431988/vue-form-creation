@@ -1,21 +1,35 @@
 <template>
-  <span :class="{'form-item-edit': edit && baseFormConfig.formLayout !== 'inline'}">
-    <transition appear name="fadeUp">
-      <a-form-item :label="options.label" v-if="type === 'input'">
-        <a-input
-          v-decorator="decorator"
-          :placeholder="options.placeholder"
-          :maxLength="options.maxLength"
-          :allowClear="options.allowClear"
-          :disabled="options.disabled"
-          :style="`width: ${options.width.label}${options.width.value}`"
-        >
-          <a-icon v-if="options.prefix" slot="prefix" type="user" />
-          <a-icon v-if="options.suffix" slot="suffix" type="user" />
-        </a-input>
-      </a-form-item>
-    </transition>
-  </span>
+  <transition-group :class="formItemEditClass" tag="div" appear name="fadeUp">
+    <a-form-item
+      :label="options.label"
+      v-if="type === 'input'"
+      :class="{'vui-flex-item': edit}"
+      key="1"
+      @click.native="$emit('on-click')"
+    >
+      <a-input
+        v-decorator="decorator"
+        :placeholder="options.placeholder"
+        :maxLength="options.maxLength"
+        :allowClear="options.allowClear"
+        :disabled="options.disabled"
+        :style="`width: ${options.width.label}${options.width.value}`"
+      >
+        <a-icon v-if="options.prefix" slot="prefix" type="user" />
+        <a-icon v-if="options.suffix" slot="suffix" type="user" />
+      </a-input>
+    </a-form-item>
+    <a-button
+      type="link"
+      class="del"
+      v-if="edit && del"
+      shape="circle"
+      key="2"
+      @click="$emit('on-del')"
+    >
+      <a-icon type="delete" v-color="$color.error"></a-icon>
+    </a-button>
+  </transition-group>
 </template>
 
 <script>
@@ -34,6 +48,10 @@ export default {
     options: {
       type: Object,
       default: () => ({})
+    },
+    del: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
@@ -44,8 +62,16 @@ export default {
   },
   computed: {
     ...mapState({
-      baseFormConfig: state => state.vfc.baseFormConfig
+      baseFormConfig: state => state.vfc.baseFormConfig,
+      activeCollapse: state => state.vfc.activeCollapse
     }),
+    formItemEditClass () {
+      return {
+        'form-item-edit': this.edit && this.baseFormConfig.formLayout !== 'inline',
+        'vui-flex': this.edit,
+        'vui-flex-middle': this.edit
+      }
+    },
     decorator () {
       const { required, valid } = this.options
       let rules = []
@@ -69,6 +95,8 @@ export default {
           rules
         }]
     }
+  },
+  methods: {
   }
 }
 </script>
@@ -78,14 +106,20 @@ export default {
   position: relative;
   cursor: pointer;
   display: block;
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
+  /deep/ .ant-form-item {
+    &:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      width: 100%;
+    }
+  }
+  .del {
+    margin-bottom: 24px;
   }
 }
 </style>

@@ -13,7 +13,7 @@
           v-if="item.children && item.children.length"
         />
         <template v-else>
-          <BaseForm :data="item.view" :edit="edit" />
+          <BaseForm :data="item.view" :edit="edit" :del="activeCollapse === item.key" />
           <template slot="extra" v-if="edit">
             <a-button
               v-if="activeCollapse !== item.key"

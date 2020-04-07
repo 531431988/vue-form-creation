@@ -132,6 +132,25 @@ const vfc = {
         }
       }
     },
+    // 删除组件
+    DEL_COMPONENT (state, index) {
+      if (state.type === 0) {
+        state.baseForm.splice(index, 1)
+      } else {
+        const eachCollapseForm = data => {
+          data.forEach(item => {
+            if (item.children && item.children.length) {
+              eachCollapseForm(item.children)
+            } else {
+              if (item.key === state.activeCollapse) {
+                item.view.splice(index, 1)
+              }
+            }
+          })
+        }
+        eachCollapseForm(state.collapseForm)
+      }
+    },
     // 设置编辑的折叠面板
     SET_ACTIVE_COLLAPSE (state, key) {
       state.activeCollapse = key
