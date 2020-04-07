@@ -1,19 +1,26 @@
 <template>
   <a-drawer
+    :destroyOnClose="true"
     width="25%"
     placement="right"
     :closable="false"
-    :visible="attrPanelShow"
-    @close="SET_ATTR_PANEL_STATE(false)"
+    :visible="visible"
+    @close="$emit('close')"
   >
     <component :is="activeComponent.name" class="attr-panel" />
   </a-drawer>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import InputPanel from './InputPanel'
 export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     InputPanel
   },
@@ -25,12 +32,10 @@ export default {
   },
   computed: {
     ...mapState({
-      activeComponent: state => state.vfc.activeComponent,
-      attrPanelShow: state => state.vfc.attrPanelShow
+      activeComponent: state => state.vfc.activeComponent
     })
   },
   methods: {
-    ...mapMutations(['SET_ATTR_PANEL_STATE'])
   }
 }
 </script>

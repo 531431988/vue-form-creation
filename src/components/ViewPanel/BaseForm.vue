@@ -25,7 +25,7 @@
         @on-reset="onReset"
       />
     </a-form-item>
-    <AttrPanel />
+    <AttrPanel :visible="visible" @close="visible = false" />
   </a-form>
 </template>
 
@@ -63,12 +63,14 @@ export default {
             }]
           }
         ]
-      }
+      },
+      visible: false
     }
   },
   computed: {
     ...mapState({
-      baseFormConfig: state => state.vfc.baseFormConfig
+      baseFormConfig: state => state.vfc.baseFormConfig,
+      attrPanelShow: state => state.vfc.attrPanelShow
     }),
     formItemLayout () {
       const { formLayout, labelCol, wrapperCol } = this.baseFormConfig
@@ -87,7 +89,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_ACTIVE_COMPONENT', 'SET_ATTR_PANEL_STATE']),
+    ...mapMutations(['SET_ACTIVE_COMPONENT']),
     onSubmit (e) {
       e.preventDefault()
       this.form.validateFields((err, values) => {
@@ -103,7 +105,7 @@ export default {
     onClickItem (index) {
       if (this.edit) {
         this.SET_ACTIVE_COMPONENT(index)
-        this.SET_ATTR_PANEL_STATE(true)
+        this.visible = true
       }
     }
   }

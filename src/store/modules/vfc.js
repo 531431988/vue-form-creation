@@ -28,7 +28,6 @@ const addCollapseForm = obj => {
     }
   })
   if (index !== -1 && view !== null && params === null) {
-    console.log('view', view)
     return view
   }
 }
@@ -69,8 +68,6 @@ const vfc = {
     }],
     // 当前选择的折叠面板
     activeCollapse: null,
-    // 属性面板
-    attrPanelShow: false,
     // 当前编辑组件
     activeComponent: {
       index: 0,
@@ -110,7 +107,6 @@ const vfc = {
       state.baseForm.push(params)
       // 基础表单
       if (state.type === 0) {
-        console.log('添加基础表单组件')
         state.activeCollapse = []
       } else {
         // 嵌套表单
@@ -120,7 +116,6 @@ const vfc = {
             active: state.activeCollapse,
             params
           })
-          console.log('添加高级表单组件')
         } else {
           message.error('请选择要添加的位置')
         }
@@ -149,10 +144,6 @@ const vfc = {
         name,
         item: view
       }
-    },
-    // 设置组件面板状态
-    SET_ATTR_PANEL_STATE (state, params) {
-      state.attrPanelShow = params
     },
     // 更新组件
     UPDATE_COMPONENT (state, { value, index, item }) {
