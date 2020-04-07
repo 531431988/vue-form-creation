@@ -31,8 +31,7 @@
       :visible="previewShow"
       @close="previewShow = false"
     >
-      <BaseForm :data="baseForm" v-if="type === 0" :edit="false" />
-      <CollapseForm :data="collapseForm" v-if="type === 1" :edit="false" />
+      <ViewPanel :data="type ? collapseForm: baseForm " :edit="false" />
     </a-drawer>
 
     <AddValidModal
@@ -49,15 +48,13 @@ import { createUID } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
 import BaseFormConfig from '../AttrPanel/BaseFormConfig'
 import CollapseFormConfig from '../AttrPanel/CollapseFormConfig'
-import BaseForm from '../ViewPanel/BaseForm'
-import CollapseForm from '../ViewPanel/CollapseForm'
+import ViewPanel from '../ViewPanel/index'
 import AddValidModal from './AddValidModal'
 export default {
   components: {
     BaseFormConfig,
     CollapseFormConfig,
-    BaseForm,
-    CollapseForm,
+    ViewPanel,
     AddValidModal
   },
   data () {

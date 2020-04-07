@@ -1,13 +1,35 @@
 <template>
-  <div>
+  <a-form
+    :form="form"
+    :layout="baseFormConfig.formLayout"
+    :label-col="formItemLayout.labelCol"
+    :wrapper-col="formItemLayout.wrapperCol"
+    :labelAlign="baseFormConfig.align"
+    :style="`width: ${baseFormConfig.width}%`"
+    @submit="onSubmit"
+  >
     <BaseForm :data="data" :edit="edit" v-if="type === 0" />
     <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
-  </div>
+
+    <a-form-item
+      :wrapper-col="type ? null : btnLayout"
+      :class="{tc: type, mt20: type}"
+      v-if="data.length"
+    >
+      <ButtonItem
+        v-for="(item, index) in baseFormConfig.btns"
+        :key="index"
+        :data="item"
+        @on-reset="onReset"
+      />
+    </a-form-item>
+  </a-form>
 </template>
 
 <script>
 import BaseForm from '@/components/ViewPanel/BaseForm'
 import CollapseForm from '@/components/ViewPanel/CollapseForm'
+import ButtonItem from './ButtonItem'
 import { mapState } from 'vuex'
 export default {
   props: {
@@ -22,19 +44,47 @@ export default {
   },
   components: {
     BaseForm,
-    CollapseForm
+    CollapseForm,
+    ButtonItem
   },
   data () {
     return {
+      form: this.$form.createForm(this, { name: 'form' })
     }
   },
   computed: {
     ...mapState({
-      type: state => state.vfc.type
-    })
+      type: state => state.vfc.type,
+      baseFormConfig: state => state.vfc.baseFormConfig
+    }),
+    formItemLayout () {
+      const { formLayout, labelCol, wrapperCol } = this.baseFormConfig
+      return formLayout === 'horizontal'
+        ? {
+          labelCol: { span: labelCol },
+          wrapperCol: { span: wrapperCol },
+        }
+        : {}
+    },
+    btnLayout () {
+      const { formLayout } = this.baseFormConfig
+      return formLayout === 'horizontal' ?
+        { offset: this.baseFormConfig.labelCol }
+        : {}
+    }
   },
   methods: {
-
+    onSubmit (e) {
+      e.preventDefault()
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log('验证通过', values)
+        }
+      })
+    },
+    onReset () {
+      this.form.resetFields()
+    }
   }
 }
 </script>

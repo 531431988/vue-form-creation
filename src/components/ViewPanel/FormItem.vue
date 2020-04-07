@@ -1,5 +1,5 @@
 <template>
-  <span :class="{'form-item-edit': edit}">
+  <span :class="{'form-item-edit': edit && baseFormConfig.formLayout !== 'inline'}">
     <transition appear name="fadeUp">
       <a-form-item :label="options.label" v-if="type === 'input'">
         <a-input
@@ -20,6 +20,7 @@
 
 <script>
 import { evil } from '@/libs/utils'
+import { mapState } from 'vuex'
 export default {
   props: {
     edit: {
@@ -42,6 +43,9 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      baseFormConfig: state => state.vfc.baseFormConfig
+    }),
     decorator () {
       const { required, valid } = this.options
       let rules = []

@@ -1,13 +1,5 @@
 <template>
-  <a-form
-    :form="form"
-    :layout="baseFormConfig.formLayout"
-    :label-col="formItemLayout.labelCol"
-    :wrapper-col="formItemLayout.wrapperCol"
-    :labelAlign="baseFormConfig.align"
-    :style="`width: ${baseFormConfig.width}%`"
-    @submit="onSubmit"
-  >
+  <div>
     <FormItem
       v-for="(item, index) in data"
       :key="index"
@@ -16,24 +8,15 @@
       :edit="edit"
       @click.native="onClickItem(index)"
     />
-
-    <a-form-item :wrapper-col="btnLayout" v-if="data.length">
-      <ButtonItem
-        v-for="(item, index) in baseFormConfig.btns"
-        :key="index"
-        :data="item"
-        @on-reset="onReset"
-      />
-    </a-form-item>
     <AttrPanel :visible="visible" @close="visible = false" />
-  </a-form>
+  </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-import FormItem from './FormItem'
-import ButtonItem from './ButtonItem'
 import AttrPanel from '../AttrPanel/index'
+import FormItem from './FormItem'
+import { mapMutations } from 'vuex'
+
 export default {
   props: {
     data: {
@@ -47,60 +30,15 @@ export default {
   },
   components: {
     FormItem,
-    ButtonItem,
     AttrPanel
   },
   data () {
     return {
-      form: this.$form.createForm(this, { name: 'form' }),
-      rules: {
-        name: [
-          'name',
-          {
-            rules: [{
-              required: true,
-              message: '此项不能为空'
-            }]
-          }
-        ]
-      },
       visible: false
-    }
-  },
-  computed: {
-    ...mapState({
-      baseFormConfig: state => state.vfc.baseFormConfig,
-      attrPanelShow: state => state.vfc.attrPanelShow
-    }),
-    formItemLayout () {
-      const { formLayout, labelCol, wrapperCol } = this.baseFormConfig
-      return formLayout === 'horizontal'
-        ? {
-          labelCol: { span: labelCol },
-          wrapperCol: { span: wrapperCol },
-        }
-        : {}
-    },
-    btnLayout () {
-      const { formLayout } = this.baseFormConfig
-      return formLayout === 'horizontal' ?
-        { offset: this.baseFormConfig.labelCol }
-        : {}
     }
   },
   methods: {
     ...mapMutations(['SET_ACTIVE_COMPONENT']),
-    onSubmit (e) {
-      e.preventDefault()
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('验证通过', values)
-        }
-      })
-    },
-    onReset () {
-      this.form.resetFields()
-    },
     // 表单元素单击
     onClickItem (index) {
       if (this.edit) {
