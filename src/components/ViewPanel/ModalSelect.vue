@@ -41,7 +41,7 @@ export default {
         checked: true
       }, {
         src: require('@/assets/imgs/collapse-form.png'),
-        title: '高级表单',
+        title: '高级嵌套表单',
         desc: '可实现多层折叠嵌套的表单',
         checked: false
       }],

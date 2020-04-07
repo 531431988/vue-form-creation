@@ -2,16 +2,20 @@
   <a-layout-header>
     <a-row type="flex">
       <a-col>
-        <h2 class="b">表单配置工具</h2>
+        <h2 class="b">表单配置工具——{{type ? '高级嵌套' : '基础'}}模式</h2>
       </a-col>
       <a-col class="vui-flex-item tr">
         <a-button class="ml10" @click="validModalShow = true">添加校验规则</a-button>
+        <a-button class="ml10" @click="onChangeModal">切换模式</a-button>
         <a-button class="ml10" @click="FormConfigShow = true">表单全局配置</a-button>
-        <a-button type="danger" ghost class="ml10" @click="onInit">清空</a-button>
+        <a-button type="danger" ghost class="ml10" @click="onClear">清空</a-button>
         <a-button type="primary" ghost class="ml10" @click="previewShow = true">预览</a-button>
         <a-button type="primary" class="ml10">保存</a-button>
       </a-col>
     </a-row>
+
+    <ModalSelect :visible="modalShow" @on-ok="modalShow = false" />
+
     <a-drawer
       :title="type ? '高级表单全局配置' : '基础表单全局配置'"
       width="25%"
@@ -46,12 +50,14 @@
 <script>
 import { createUID } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
+import ModalSelect from '../ViewPanel/ModalSelect'
 import BaseFormConfig from '../AttrPanel/BaseFormConfig'
 import CollapseFormConfig from '../AttrPanel/CollapseFormConfig'
 import ViewPanel from '../ViewPanel/index'
 import AddValidModal from './AddValidModal'
 export default {
   components: {
+    ModalSelect,
     BaseFormConfig,
     CollapseFormConfig,
     ViewPanel,
@@ -59,9 +65,11 @@ export default {
   },
   data () {
     return {
+      modalShow: true,
       FormConfigShow: false,
       previewShow: false,
-      validModalShow: false
+      validModalShow: false,
+      disabled: true
     }
   },
   computed: {
@@ -72,9 +80,33 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['INIT_FORM_VIEW']),
-    onInit () {
-      this.INIT_FORM_VIEW()
+    ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE']),
+    // 切换模式
+    onChangeModal () {
+      this.$confirm({
+        title: '切换模式',
+        content: '您确定要切换模式吗？切换后已经配置好的数据将丢失！！！',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          this.SET_TYPE(this.type ? 0 : 1)
+          this.INIT_FORM_VIEW({ type: 'change' })
+          this.$message.success(`切换${this.type ? '高级嵌套' : '基础'}模式成功`)
+        }
+      })
+    },
+    // 清空
+    onClear () {
+      this.$confirm({
+        title: '清空确认',
+        content: '您确定要清空所有组件吗？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          this.INIT_FORM_VIEW({ type: 'change' })
+          this.$message.success('清空成功')
+        }
+      })
     },
     onCancel () {
       this.validModalShow = false

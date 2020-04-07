@@ -8,6 +8,7 @@
       :edit="edit"
       @click.native="onClickItem(index)"
     />
+    <a-empty v-if="!data.length" description="暂无组件，可在左侧组件列表中点击添加组件" />
     <AttrPanel :visible="visible" @close="visible = false" />
   </div>
 </template>

@@ -91,8 +91,19 @@ const vfc = {
       state.validRulesList[params.value] = params
     },
     // 初始化表单数据
-    INIT_FORM_VIEW (state, params = []) {
-      state.baseForm = params
+    INIT_FORM_VIEW (state, { component = [], type = '' }) {
+      // 切换表单模式
+      if (type === 'change') {
+        state.baseForm = []
+        state.collapseForm = [{
+          title: '表单名称1',
+          key: createUID(),
+          view: []
+        }]
+      } else {
+        // 初始化
+        state.baseForm = component
+      }
       state.activeCollapse = null
       state.activeComponent = {
         index: 0,

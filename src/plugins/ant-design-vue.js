@@ -21,6 +21,7 @@ import {
   Drawer,
   BackTop,
   Tooltip,
+  Empty,
   message,
   notification
 } from 'ant-design-vue'
@@ -65,7 +66,8 @@ const components = [
   Modal,
   Drawer,
   BackTop,
-  Tooltip
+  Tooltip,
+  Empty
 ]
 components.map(component => {
   Vue.use(component)
