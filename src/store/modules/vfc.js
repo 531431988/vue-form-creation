@@ -6,20 +6,24 @@ import message from 'ant-design-vue/es/message'
 // 递归编辑表单组件
 let view = null
 const addCollapseForm = obj => {
-  const { data, active, index = -1, params = null } = obj
+  const { data, active, index = -1, params = null, type = '' } = obj
   data.forEach(item => {
     if (item.children && item.children.length) {
       addCollapseForm({
         data: item.children,
         active,
         index,
-        params
+        params,
+        type
       })
     } else {
       if (item.key === active) {
-        if (index === -1) {
+        if (type === 'add') {
           // 新增
           item.view.push(params)
+        } else if (type === 'del') {
+          // 删除
+          item.view.splice(index, 1)
         } else {
           // 编辑
           view = item.view[index]
@@ -118,14 +122,15 @@ const vfc = {
       state.baseForm.push(params)
       // 基础表单
       if (state.type === 0) {
-        state.activeCollapse = []
+        state.activeCollapse = null
       } else {
         // 嵌套表单
         if (state.activeCollapse) {
           addCollapseForm({
             data: state.collapseForm,
             active: state.activeCollapse,
-            params
+            params,
+            type: 'add'
           })
         } else {
           message.error('请选择要添加的位置')
@@ -137,18 +142,11 @@ const vfc = {
       if (state.type === 0) {
         state.baseForm.splice(index, 1)
       } else {
-        const eachCollapseForm = data => {
-          data.forEach(item => {
-            if (item.children && item.children.length) {
-              eachCollapseForm(item.children)
-            } else {
-              if (item.key === state.activeCollapse) {
-                item.view.splice(index, 1)
-              }
-            }
-          })
-        }
-        eachCollapseForm(state.collapseForm)
+        addCollapseForm({
+          data: state.collapseForm,
+          active: state.activeCollapse,
+          type: 'del'
+        })
       }
     },
     // 设置编辑的折叠面板
