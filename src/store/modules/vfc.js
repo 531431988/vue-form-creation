@@ -3,6 +3,36 @@ import { antvComponents, baseFormConfig, iconConfig, btnTheme } from '@/config/f
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
 
+// 递归编辑表单组件
+let view = null
+const addCollapseForm = obj => {
+  const { data, active, index = -1, params = null } = obj
+  data.forEach(item => {
+    if (item.children && item.children.length) {
+      addCollapseForm({
+        data: item.children,
+        active,
+        index,
+        params
+      })
+    } else {
+      if (item.key === active) {
+        if (index === -1) {
+          // 新增
+          item.view.push(params)
+        } else {
+          // 编辑
+          view = item.view[index]
+        }
+      }
+    }
+  })
+  if (index !== -1 && view !== null && params === null) {
+    console.log('view', view)
+    return view
+  }
+}
+
 const vfc = {
   state: {
     iconConfig,
@@ -78,25 +108,18 @@ const vfc = {
       params = JSON.parse(JSON.stringify(params))
       params.options.name = createUID()
       state.baseForm.push(params)
-      // 基础模式
+      // 基础表单
       if (state.type === 0) {
         console.log('添加基础表单组件')
         state.activeCollapse = []
       } else {
+        // 嵌套表单
         if (state.activeCollapse) {
-          // 递归设置
-          const addCollapseForm = data => {
-            data.forEach(item => {
-              if (item.children && item.children.length) {
-                addCollapseForm(item.children)
-              } else {
-                if (item.key === state.activeCollapse) {
-                  item.view = [...state.baseForm]
-                }
-              }
-            })
-          }
-          addCollapseForm(state.collapseForm)
+          addCollapseForm({
+            data: state.collapseForm,
+            active: state.activeCollapse,
+            params
+          })
           console.log('添加高级表单组件')
         } else {
           message.error('请选择要添加的位置')
@@ -109,31 +132,22 @@ const vfc = {
     },
     // 设置编辑的组件
     SET_ACTIVE_COMPONENT (state, index) {
-      let item = null
-      // 高级模式表单
-      if (state.type === 1) {
-        // 递归设置
-        const addCollapseForm = data => {
-          data.forEach(child => {
-            if (child.children && child.children.length) {
-              addCollapseForm(child.children)
-            } else {
-              if (child.key === state.activeCollapse) {
-                item = child.view[index]
-              }
-            }
-          })
-        }
-        addCollapseForm(state.collapseForm)
+      // 基础表单
+      if (state.type === 0) {
+        // 嵌套表单
+        view = state.baseForm[index]
       } else {
-        // 普通模式表单
-        item = state.baseForm[index]
+        view = addCollapseForm({
+          data: state.collapseForm,
+          active: state.activeCollapse,
+          index
+        })
       }
-      const name = `${item.type.substr(0, 1).toUpperCase()}${item.type.substr(1)}Panel`
+      const name = `${view.type.substr(0, 1).toUpperCase()}${view.type.substr(1)}Panel`
       state.activeComponent = {
         index,
         name,
-        item
+        item: view
       }
     },
     // 设置组件面板状态
