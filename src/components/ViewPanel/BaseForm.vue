@@ -1,11 +1,11 @@
 <template>
   <a-form
     :form="form"
-    :layout="formConfig.formLayout"
+    :layout="baseFormConfig.formLayout"
     :label-col="formItemLayout.labelCol"
     :wrapper-col="formItemLayout.wrapperCol"
-    :labelAlign="formConfig.align"
-    :style="`width: ${formConfig.width}%`"
+    :labelAlign="baseFormConfig.align"
+    :style="`width: ${baseFormConfig.width}%`"
     @submit="onSubmit"
   >
     <FormItem
@@ -19,7 +19,7 @@
 
     <a-form-item :wrapper-col="btnLayout" v-if="data.length">
       <ButtonItem
-        v-for="(item, index) in formConfig.btns"
+        v-for="(item, index) in baseFormConfig.btns"
         :key="index"
         :data="item"
         @on-reset="onReset"
@@ -30,12 +30,10 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
-import { formConfig } from '@/config/form'
+import { mapState, mapMutations } from 'vuex'
 import FormItem from './FormItem'
 import ButtonItem from './ButtonItem'
 import AttrPanel from '../AttrPanel/index'
-
 export default {
   props: {
     data: {
@@ -54,7 +52,6 @@ export default {
   },
   data () {
     return {
-      formConfig,
       form: this.$form.createForm(this, { name: 'form' }),
       rules: {
         name: [
@@ -70,8 +67,11 @@ export default {
     }
   },
   computed: {
+    ...mapState({
+      baseFormConfig: state => state.vfc.baseFormConfig
+    }),
     formItemLayout () {
-      const { formLayout, labelCol, wrapperCol } = this.formConfig
+      const { formLayout, labelCol, wrapperCol } = this.baseFormConfig
       return formLayout === 'horizontal'
         ? {
           labelCol: { span: labelCol },
@@ -80,9 +80,9 @@ export default {
         : {}
     },
     btnLayout () {
-      const { formLayout, labelCol } = this.formConfig
+      const { formLayout } = this.baseFormConfig
       return formLayout === 'horizontal' ?
-        { offset: formConfig.labelCol }
+        { offset: this.baseFormConfig.labelCol }
         : {}
     }
   },

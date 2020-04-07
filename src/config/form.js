@@ -1,7 +1,7 @@
 import { createUID } from '@/libs/utils'
 // 表单配置
-const formConfig = {
-  size: 'small',
+const baseFormConfig = {
+  size: 'default',
   formLayout: 'horizontal',
   width: 100,
   align: 'right',
@@ -144,7 +144,7 @@ const customComponents = []
 const layoutComponents = []
 
 export {
-  formConfig,
+  baseFormConfig,
   iconConfig,
   btnTheme,
   antvComponents,

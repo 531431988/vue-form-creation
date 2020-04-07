@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'form-item-edit': edit}">
+  <span :class="{'form-item-edit': edit}">
     <transition appear name="fadeUp">
       <a-form-item :label="options.label" v-if="type === 'input'">
         <a-input
@@ -15,7 +15,7 @@
         </a-input>
       </a-form-item>
     </transition>
-  </div>
+  </span>
 </template>
 
 <script>
@@ -73,7 +73,8 @@ export default {
 .form-item-edit {
   position: relative;
   cursor: pointer;
-  &:before {
+  display: block;
+  &:after {
     content: "";
     position: absolute;
     top: 0;

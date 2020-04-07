@@ -6,21 +6,22 @@
       </a-col>
       <a-col class="vui-flex-item tr">
         <a-button class="ml10" @click="validModalShow = true">添加校验规则</a-button>
-        <a-button class="ml10" @click="FormConfigShow = true">表单配置</a-button>
+        <a-button class="ml10" @click="FormConfigShow = true">表单全局配置</a-button>
         <a-button type="danger" ghost class="ml10" @click="onInit">清空</a-button>
         <a-button type="primary" ghost class="ml10" @click="previewShow = true">预览</a-button>
         <a-button type="primary" class="ml10">保存</a-button>
       </a-col>
     </a-row>
     <a-drawer
-      title="表单全局配置"
+      :title="type ? '高级表单全局配置' : '基础表单全局配置'"
       width="25%"
       placement="right"
       :closable="false"
       :visible="FormConfigShow"
       @close="FormConfigShow = false"
     >
-      <FormConfig />
+      <BaseFormConfig v-if="type === 0" />
+      <CollapseFormConfig v-if="type === 1" />
     </a-drawer>
     <a-drawer
       title="表单预览"
@@ -46,13 +47,15 @@
 <script>
 import { createUID } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
-import FormConfig from '@/components/AttrPanel/FormConfig'
+import BaseFormConfig from '../AttrPanel/BaseFormConfig'
+import CollapseFormConfig from '../AttrPanel/CollapseFormConfig'
 import BaseForm from '../ViewPanel/BaseForm'
 import CollapseForm from '../ViewPanel/CollapseForm'
 import AddValidModal from './AddValidModal'
 export default {
   components: {
-    FormConfig,
+    BaseFormConfig,
+    CollapseFormConfig,
     BaseForm,
     CollapseForm,
     AddValidModal

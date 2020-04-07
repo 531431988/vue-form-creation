@@ -1,17 +1,19 @@
 import { createUID } from '@/libs/utils'
-import { antvComponents, customComponents } from '@/config/form'
+import { antvComponents, baseFormConfig, iconConfig, btnTheme } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
 
 const vfc = {
   state: {
+    iconConfig,
+    btnTheme,
     // 表单模式（0:基础 1: 高级）
     type: null,
     antvComponents,
-    customComponents,
-    // 表单视图
-    formView: [],
+    // 基础表单
     baseForm: [],
+    baseFormConfig,
+    // 高级表单
     collapseForm: [{
       title: '表单名称1',
       key: createUID(),
@@ -143,6 +145,10 @@ const vfc = {
       item = JSON.parse(JSON.stringify(item))
       item.options.valid = state.validRulesList[value]
       state.baseForm[index] = item
+    },
+    // 更新基础表单属性面板
+    UPDATE_BASE_FORM_CONFIG (state, { key, val }) {
+      state.baseFormConfig[key] = val
     }
   },
   actions: {
