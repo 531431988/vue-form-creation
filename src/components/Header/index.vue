@@ -8,21 +8,15 @@
         <a-button class="ml10" @click="validModalShow = true">添加校验规则</a-button>
         <a-button class="ml10" @click="onChangeModal">切换模式</a-button>
         <a-button class="ml10" @click="FormConfigShow = true">表单全局配置</a-button>
-        <a-button
-          type="danger"
-          ghost
-          class="ml10"
-          @click="onClear"
-          :disabled="baseForm.length ? false : true"
-        >清空</a-button>
+        <a-button type="danger" ghost class="ml10" @click="onClear" :disabled="disabled">清空</a-button>
         <a-button
           type="primary"
           ghost
           class="ml10"
           @click="previewShow = true"
-          :disabled="baseForm.length ? false : true"
+          :disabled="disabled"
         >预览</a-button>
-        <a-button type="primary" class="ml10" :disabled="baseForm.length ? false : true">保存</a-button>
+        <a-button type="primary" class="ml10" :disabled="disabled">保存</a-button>
       </a-col>
     </a-row>
 
@@ -80,8 +74,7 @@ export default {
       modalShow: true,
       FormConfigShow: false,
       previewShow: false,
-      validModalShow: false,
-      disabled: true
+      validModalShow: false
     }
   },
   computed: {
@@ -89,7 +82,18 @@ export default {
       type: state => state.vfc.type,
       baseForm: state => state.vfc.baseForm,
       collapseForm: state => state.vfc.collapseForm
-    })
+    }),
+    // 设置按钮状态
+    disabled () {
+      let disabled = false
+      if (this.type) {
+        let arr = this.isData(this.collapseForm).flat(Infinity)
+        disabled = arr.find(item => item) ? false : true
+      } else {
+        disabled = this.baseForm.length ? false : true
+      }
+      return disabled
+    }
   },
   methods: {
     ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE']),
@@ -120,6 +124,7 @@ export default {
         }
       })
     },
+    // 取消添加正则
     onCancel () {
       this.validModalShow = false
       this.$refs.addValidModal.form.resetFields()
@@ -135,6 +140,16 @@ export default {
         this.$store.dispatch('AddValidRule', { label, pattern: value, value: createUID(), message })
         form.resetFields()
         this.validModalShow = false
+      })
+    },
+    // 递归判断是否有数据
+    isData (data) {
+      return data.map(item => {
+        if (item.children && item.children.length) {
+          return this.isData(item.children)
+        } else {
+          return item.view && item.view.length > 0
+        }
       })
     }
   }
