@@ -3,17 +3,26 @@
     <a-form-item label="嵌套表单层级配置">
       <a-tree
         class="form-config-tree"
-        draggable
+        :draggable="draggable"
         @dragenter="onDragEnter"
         @drop="onDrop"
-        :treeData="treeData"
+        :treeData="collapseForm"
         showLine
+        :blockNode="true"
       >
-        <a-icon slot="switcherIcon" type="down" />
-        <template slot="title" slot-scope="{title, key}">
+        <a-icon slot="switcherIcon" type="caret-down" />
+        <template slot="title" slot-scope="item">
           <div class="vui-flex vui-flex-middle">
-            <span class="vui-flex-item">{{title}}</span>
-            <a-icon type="delete"></a-icon>
+            <a-input
+              :defaultValue="item.title"
+              size="small"
+              @change="onChange($event, item)"
+              @focus="draggable = false"
+              @blur="draggable = true"
+              class="vui-flex-item"
+            />
+            <a-icon type="plus" class="ml10" @click="onAdd(item)"></a-icon>
+            <a-icon type="delete" class="ml10" @click="onDel(item)"></a-icon>
           </div>
         </template>
       </a-tree>
@@ -22,7 +31,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
+import { recursCollapseForm } from '@/libs/utils'
 import CommonFormConfig from './CommonFormConfig'
 export default {
   components: {
@@ -30,38 +40,25 @@ export default {
   },
   data () {
     return {
-      treeData: []
+      draggable: true
     }
   },
   computed: {
     ...mapState({
       collapseForm: state => {
-        const initData = obj => {
-          obj.forEach(item => {
-            if (item.children && item.children.length) {
-              initData(item.children)
-            }
-            item.slots = {
-              title: 'title'
-            }
-            item.scopedSlots = {
-              title: 'title',
-              key: 'key',
-              view: 'view',
-              children: 'children'
-            }
-          })
-        }
-        initData(state.vfc.collapseForm)
+        recursCollapseForm(state.vfc.collapseForm, null, item => {
+          item.scopedSlots = {
+            title: 'title'
+          }
+        })
         return state.vfc.collapseForm
       }
     })
   },
   created () {
-    this.treeData = this.collapseForm
-    console.log(this.treeData)
   },
   methods: {
+    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'INIT_FORM_VIEW']),
     onDragEnter (info) {
       console.log(info)
       // expandedKeys 需要受控时设置
@@ -83,7 +80,7 @@ export default {
           }
         })
       }
-      const data = [...this.treeData]
+      const data = [...this.collapseForm]
 
       // Find dragObject
       let dragObj
@@ -121,7 +118,31 @@ export default {
           ar.splice(i + 1, 0, dragObj)
         }
       }
-      this.treeData = data
+      this.INIT_FORM_VIEW({
+        component: data,
+        type: 'change'
+      })
+      // this.collapseForm = data
+    },
+    // 修改名称
+    onChange (e, item) {
+      this.EDIT_COLLAPSE_FORM_NAME({ key: item.key, name: e.target.value })
+    },
+    onAdd (item) {
+      console.log(item)
+    },
+    // 删除
+    onDel (item) {
+      this.$confirm({
+        title: '删除确认',
+        content: '您确定要删除此项吗？',
+        okText: '确认',
+        cancelText: '取消',
+        onOk: () => {
+          this.DEL_COLLAPSE_FORM(item.key)
+          this.$message.success('删除成功')
+        }
+      })
     }
   }
 }
@@ -129,8 +150,9 @@ export default {
 
 <style lang="less" scoped>
 .form-config-tree {
-  /deep/ .ant-tree-node-content-wrapper {
-    width: 100%;
+  /deep/ li .ant-tree-node-content-wrapper {
+    height: auto;
+    line-height: 1.5;
   }
 }
 </style>

@@ -1,39 +1,7 @@
-import { createUID } from '@/libs/utils'
+import { createUID, recursCollapseForm } from '@/libs/utils'
 import { antvComponents, baseFormConfig, iconConfig, btnTheme } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
-
-// 递归编辑表单组件
-let view = null
-const addCollapseForm = obj => {
-  const { data, active, index = -1, params = null, type = '' } = obj
-  data.forEach(item => {
-    if (item.children && item.children.length) {
-      addCollapseForm({
-        data: item.children,
-        active,
-        index,
-        params,
-        type
-      })
-    }
-    if (item.key === active) {
-      if (type === 'add') {
-        // 新增
-        item.view.push(params)
-      } else if (type === 'del') {
-        // 删除
-        item.view.splice(index, 1)
-      } else {
-        // 编辑
-        view = item.view[index]
-      }
-    }
-  })
-  if (index !== -1 && view !== null) {
-    return view
-  }
-}
 
 const vfc = {
   state: {
@@ -98,7 +66,7 @@ const vfc = {
       // 切换表单模式
       if (type === 'change') {
         state.baseForm = []
-        state.collapseForm = [{
+        state.collapseForm = component.length ? component : [{
           title: '表单名称1',
           key: createUID(),
           view: []
@@ -125,11 +93,8 @@ const vfc = {
       } else {
         // 嵌套表单
         if (state.activeCollapse) {
-          addCollapseForm({
-            data: state.collapseForm,
-            active: state.activeCollapse,
-            params,
-            type: 'add'
+          recursCollapseForm(state.collapseForm, state.activeCollapse, item => {
+            item.view.push(params)
           })
         } else {
           message.error('请选择要添加的位置')
@@ -141,10 +106,8 @@ const vfc = {
       if (state.type === 0) {
         state.baseForm.splice(index, 1)
       } else {
-        addCollapseForm({
-          data: state.collapseForm,
-          active: state.activeCollapse,
-          type: 'del'
+        recursCollapseForm(state.collapseForm, state.activeCollapse, item => {
+          item.view.splice(index, 1)
         })
       }
     },
@@ -154,15 +117,14 @@ const vfc = {
     },
     // 设置编辑的组件
     SET_ACTIVE_COMPONENT (state, index) {
+      let view = null
       // 基础表单
       if (state.type === 0) {
         // 嵌套表单
         view = state.baseForm[index]
       } else {
-        view = addCollapseForm({
-          data: state.collapseForm,
-          active: state.activeCollapse,
-          index
+        recursCollapseForm(state.collapseForm, state.activeCollapse, item => {
+          view = item.view[index]
         })
       }
       const name = `${view.type.substr(0, 1).toUpperCase()}${view.type.substr(1)}Panel`
@@ -171,6 +133,25 @@ const vfc = {
         name,
         item: view
       }
+    },
+    // 修改嵌套表单名称
+    EDIT_COLLAPSE_FORM_NAME (state, { key, name }) {
+      recursCollapseForm(state.collapseForm, key, item => {
+        item.title = name
+      })
+    },
+    // 删除嵌套表单
+    DEL_COLLAPSE_FORM (state, key) {
+      const searchOption = (arr, key) => {
+        arr.forEach((item, index) => {
+          if (item.key === key) {
+            arr.splice(index, 1)
+          } else if (item.children && item.children.length > 0) {
+            searchOption(item.children, key)
+          }
+        })
+      }
+      searchOption(state.collapseForm, key)
     },
     // 更新组件
     UPDATE_COMPONENT (state, { value, index, item }) {

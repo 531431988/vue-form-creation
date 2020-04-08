@@ -51,6 +51,9 @@
         />
       </a-form-item>
     </template>
+
+    <slot></slot>
+
     <a-form-item label="按钮配置（图标 文字 颜色）">
       <a-row :gutter="4" v-for="(item, index) in baseFormConfig.btns" :key="index">
         <a-col :span="22">
@@ -90,7 +93,6 @@
         <a-button type="primary" icon="plus" :size="baseFormConfig.size" @click="onAdd">添加</a-button>
       </div>
     </a-form-item>
-    <slot></slot>
   </a-form>
 </template>
 

@@ -19,8 +19,21 @@ const createUID = () => {
   return uuid
 }
 
+// 递归嵌套表单
+const recursCollapseForm = (data, active = null, callback) => {
+  data.forEach((item, index) => {
+    if (item.children && item.children.length) {
+      recursCollapseForm(item.children, active, callback)
+    }
+    if (item.key === active || !active) {
+      callback && callback(item, index)
+    }
+  })
+}
+
 export {
   randomName,
   evil,
-  createUID
+  createUID,
+  recursCollapseForm
 }
