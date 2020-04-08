@@ -16,22 +16,21 @@ const addCollapseForm = obj => {
         params,
         type
       })
-    } else {
-      if (item.key === active) {
-        if (type === 'add') {
-          // 新增
-          item.view.push(params)
-        } else if (type === 'del') {
-          // 删除
-          item.view.splice(index, 1)
-        } else {
-          // 编辑
-          view = item.view[index]
-        }
+    }
+    if (item.key === active) {
+      if (type === 'add') {
+        // 新增
+        item.view.push(params)
+      } else if (type === 'del') {
+        // 删除
+        item.view.splice(index, 1)
+      } else {
+        // 编辑
+        view = item.view[index]
       }
     }
   })
-  if (index !== -1 && view !== null && params === null) {
+  if (index !== -1 && view !== null) {
     return view
   }
 }

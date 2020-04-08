@@ -1,156 +1,136 @@
 <template>
-  <a-form class="pd10 form-item-margin-sm">
-    <a-form-item label="表单布局">
-      <a-radio-group
-        v-model="baseFormConfig.formLayout"
-        buttonStyle="solid"
-        :size="baseFormConfig.size"
+  <CommonFormConfig>
+    <a-form-item label="嵌套表单层级配置">
+      <a-tree
+        class="form-config-tree"
+        draggable
+        @dragenter="onDragEnter"
+        @drop="onDrop"
+        :treeData="treeData"
+        showLine
       >
-        <a-radio-button value="horizontal">水平</a-radio-button>
-        <a-radio-button value="vertical">垂直</a-radio-button>
-        <a-radio-button value="inline">内联</a-radio-button>
-      </a-radio-group>
+        <a-icon slot="switcherIcon" type="down" />
+        <template slot="title" slot-scope="{title, key}">
+          <div class="vui-flex vui-flex-middle">
+            <span class="vui-flex-item">{{title}}</span>
+            <a-icon type="delete"></a-icon>
+          </div>
+        </template>
+      </a-tree>
     </a-form-item>
-    <a-form-item label="表单宽度（%）">
-      <a-input-number
-        :min="1"
-        :max="100"
-        v-model="baseFormConfig.width"
-        placeholder="百分比最大100"
-        :size="baseFormConfig.size"
-      />
-    </a-form-item>
-    <template v-if="baseFormConfig.formLayout === 'horizontal'">
-      <a-form-item label="标签的文本对齐方式">
-        <a-radio-group
-          v-model="baseFormConfig.align"
-          buttonStyle="solid"
-          :size="baseFormConfig.size"
-        >
-          <a-radio-button value="left">左对齐</a-radio-button>
-          <a-radio-button value="right">右对齐</a-radio-button>
-        </a-radio-group>
-      </a-form-item>
-      <a-form-item label="标签的文本占比">
-        <a-input-number
-          :min="1"
-          :max="23"
-          v-model="baseFormConfig.labelCol"
-          placeholder="1-24"
-          :size="baseFormConfig.size"
-        />
-      </a-form-item>
-
-      <a-form-item label="表单控件占比">
-        <a-input-number
-          :min="1"
-          :max="23"
-          v-model="baseFormConfig.wrapperCol"
-          placeholder="1-24"
-          :size="baseFormConfig.size"
-        />
-      </a-form-item>
-    </template>
-    <a-form-item label="按钮配置（图标 文字 颜色）">
-      <a-row :gutter="4" v-for="(item, index) in baseFormConfig.btns" :key="index">
-        <a-col :span="22">
-          <a-input v-model="item.text" placeholder="按钮名" :size="baseFormConfig.size">
-            <a-tooltip slot="addonBefore" title="可选按钮图标" placement="right">
-              <a-select v-model="item.icon" :size="baseFormConfig.size" style="width: 80px">
-                <a-select-option
-                  v-for="icon in iconConfig"
-                  :key="icon.value"
-                  :value="icon.value"
-                >{{icon.label}}</a-select-option>
-              </a-select>
-            </a-tooltip>
-            <a-tooltip slot="addonAfter" title="可选按钮配色" placement="right">
-              <a-select
-                v-model="item.type"
-                :size="baseFormConfig.size"
-                placeholder="主题"
-                style="width: 80px"
-              >
-                <a-select-option
-                  v-for="btn in btnTheme"
-                  :key="btn.value"
-                  :value="btn.value"
-                >{{btn.label}}</a-select-option>
-              </a-select>
-            </a-tooltip>
-          </a-input>
-        </a-col>
-        <a-col :span="2" class="tc">
-          <a-button type="link" shape="circle" :size="baseFormConfig.size" @click="onDel(index)">
-            <a-icon type="delete" v-color="$color.error"></a-icon>
-          </a-button>
-        </a-col>
-      </a-row>
-      <div class="tc">
-        <a-button type="primary" icon="plus" :size="baseFormConfig.size" @click="onAdd">添加</a-button>
-      </div>
-    </a-form-item>
-  </a-form>
+  </CommonFormConfig>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
+import CommonFormConfig from './CommonFormConfig'
 export default {
+  components: {
+    CommonFormConfig
+  },
   data () {
     return {
-      labelCol: 3,
-      wrapperCol: 21
-    }
-  },
-  created () {
-    console.log(this.baseFormConfig)
-  },
-  watch: {
-    'baseFormConfig.labelCol' () {
-      this.UPDATE_BASE_FORM_CONFIG({
-        key: 'wrapperCol',
-        val: 24 - this.baseFormConfig.labelCol
-      })
-    },
-    'baseFormConfig.wrapperCol' () {
-      this.UPDATE_BASE_FORM_CONFIG({
-        key: 'labelCol',
-        val: 24 - this.baseFormConfig.wrapperCol
-      })
+      treeData: []
     }
   },
   computed: {
     ...mapState({
-      baseFormConfig: state => state.vfc.baseFormConfig,
-      iconConfig: state => state.vfc.iconConfig,
-      btnTheme: state => state.vfc.btnTheme
+      collapseForm: state => {
+        const initData = obj => {
+          obj.forEach(item => {
+            if (item.children && item.children.length) {
+              initData(item.children)
+            }
+            item.slots = {
+              title: 'title'
+            }
+            item.scopedSlots = {
+              title: 'title',
+              key: 'key',
+              view: 'view',
+              children: 'children'
+            }
+          })
+        }
+        initData(state.vfc.collapseForm)
+        return state.vfc.collapseForm
+      }
     })
   },
+  created () {
+    this.treeData = this.collapseForm
+    console.log(this.treeData)
+  },
   methods: {
-    ...mapMutations(['UPDATE_BASE_FORM_CONFIG']),
-    onDel (index) {
-      const { btns } = this.baseFormConfig
-      btns.splice(index, 1)
-      this.UPDATE_BASE_FORM_CONFIG({
-        key: 'btns',
-        val: btns
-      })
+    onDragEnter (info) {
+      console.log(info)
+      // expandedKeys 需要受控时设置
+      // this.expandedKeys = info.expandedKeys
     },
-    onAdd () {
-      const { btns } = this.baseFormConfig
-      btns.push({
-        icon: '',
-        text: '按钮',
-        type: 'primary'
+    onDrop (info) {
+      console.log(info)
+      const dropKey = info.node.eventKey
+      const dragKey = info.dragNode.eventKey
+      const dropPos = info.node.pos.split('-')
+      const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1])
+      const loop = (data, key, callback) => {
+        data.forEach((item, index, arr) => {
+          if (item.key === key) {
+            return callback(item, index, arr)
+          }
+          if (item.children) {
+            return loop(item.children, key, callback)
+          }
+        })
+      }
+      const data = [...this.treeData]
+
+      // Find dragObject
+      let dragObj
+      loop(data, dragKey, (item, index, arr) => {
+        arr.splice(index, 1)
+        dragObj = item
       })
-      this.UPDATE_BASE_FORM_CONFIG({
-        key: 'btns',
-        val: btns
-      })
+      if (!info.dropToGap) {
+        // Drop on the content
+        loop(data, dropKey, item => {
+          item.children = item.children || []
+          // where to insert 示例添加到尾部，可以是随意位置
+          item.children.push(dragObj)
+        })
+      } else if (
+        (info.node.children || []).length > 0 && // Has children
+        info.node.expanded && // Is expanded
+        dropPosition === 1 // On the bottom gap
+      ) {
+        loop(data, dropKey, item => {
+          item.children = item.children || []
+          // where to insert 示例添加到尾部，可以是随意位置
+          item.children.unshift(dragObj)
+        });
+      } else {
+        let ar
+        let i
+        loop(data, dropKey, (item, index, arr) => {
+          ar = arr
+          i = index
+        })
+        if (dropPosition === -1) {
+          ar.splice(i, 0, dragObj)
+        } else {
+          ar.splice(i + 1, 0, dragObj)
+        }
+      }
+      this.treeData = data
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
+.form-config-tree {
+  /deep/ .ant-tree-node-content-wrapper {
+    width: 100%;
+  }
+}
 </style>
