@@ -1,3 +1,17 @@
+import SecureLS from 'secure-ls'
+import config from '@/config'
+const LS = new SecureLS(config.storageOptions)
+
+// localStorage 数据加密处理
+const ls = {
+  get (name) {
+    return LS.get(`${config.storageOptions.namespace}${name}`)
+  },
+  set (name, data = []) {
+    return LS.set(`${config.storageOptions.namespace}${name}`, data)
+  }
+}
+
 // 随机名称
 const randomName = (name, length = 8) => {
   return `${name}_${Number(Math.random().toString().substr(3, length))}${new Date().valueOf()}`
@@ -46,6 +60,7 @@ const addCollapseFormChild = key => {
 }
 
 export {
+  ls,
   randomName,
   evil,
   createUID,

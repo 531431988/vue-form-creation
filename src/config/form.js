@@ -107,8 +107,8 @@ const antvComponents = [{
     prefix: null,
     suffix: null,
     width: {
-      label: '100',
-      value: '%'
+      label: '200',
+      value: 'px'
     },
     allowClear: null,
     required: false,

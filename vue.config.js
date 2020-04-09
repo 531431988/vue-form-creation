@@ -14,9 +14,6 @@ module.exports = {
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
 
-    // 防止多页面打包卡顿
-    config.plugins.delete('named-chunks')
-
     // 删除moment除zh-cn中文包外的其它语言包，无需在代码中手动引入zh-cn语言包。
     config
       .plugin('ignore')
@@ -47,9 +44,9 @@ module.exports = {
     const cdn = {
       js: [
         // 访问https://unpkg.com/vue/dist/vue.min.js获取最新版本
-        '//unpkg.com/vue@2.6.10/dist/vue.min.js',
-        '//unpkg.com/vuex@3.1.1/dist/vuex.min.js',
-        '//unpkg.com/axios@0.19.0/dist/axios.min.js'
+        '//cdn.bootcss.com/vue/2.6.11/vue.min.js',
+        '//cdn.bootcss.com/vuex/3.1.3/vuex.min.js',
+        '//cdn.bootcss.com/axios/0.19.2/axios.min.js'
       ]
     }
     config.plugin('html').tap(args => {

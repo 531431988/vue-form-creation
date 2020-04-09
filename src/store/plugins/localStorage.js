@@ -1,12 +1,9 @@
-import SecureLS from 'secure-ls'
-import config from '@/config'
-const ls = new SecureLS(config.storageOptions)
-const name = `${config.storageOptions.namespace}state`
+import { ls } from '@/libs/utils'
 // 数据持久化
 export default store => {
-  if (ls.get(name)) store.replaceState(ls.get(name))
+  if (ls.get('state')) store.replaceState(ls.get('state'))
   // 当有mutations操作时执行
   store.subscribe((mutations, state) => {
-    ls.set(name, state)
+    ls.set('state', state)
   })
 }
