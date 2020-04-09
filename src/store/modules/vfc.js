@@ -1,4 +1,4 @@
-import { createUID, recursCollapseForm } from '@/libs/utils'
+import { createUID, recursCollapseForm, addCollapseFormChild } from '@/libs/utils'
 import { antvComponents, baseFormConfig, collapseFormConfig, iconConfig, btnTheme } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
@@ -15,7 +15,7 @@ const vfc = {
     baseFormConfig,
     // 高级表单
     collapseFormConfig,
-    collapseForm: collapseFormConfig.collapse,
+    collapseForm: [addCollapseFormChild(createUID('collapse'))],
     // 当前选择的折叠面板
     activeCollapse: null,
     // 当前编辑组件
@@ -45,7 +45,7 @@ const vfc = {
       // 切换表单模式
       if (type === 'change') {
         state.baseForm = []
-        state.collapseForm = component.length ? component : collapseFormConfig.collapse
+        state.collapseForm = component.length ? component : [addCollapseFormChild(createUID('collapse'))]
       } else {
         // 初始化
         state.baseForm = component
@@ -128,21 +128,17 @@ const vfc = {
         })
       }
       searchOption(state.collapseForm, key)
+      // 强制更新
+      state.collapseForm = JSON.parse(JSON.stringify(state.collapseForm))
     },
     // 新增嵌套表单层级
     ADD_COLLAPSE_FORM (state, key) {
-      const searchOption = (arr, key) => {
-        arr.forEach(item => {
-          if (!item.children) item.children = []
-          if (item.key === key) {
-            item.children.push(...collapseFormConfig.collapse)
-          }
-          if (item.children && item.children.length > 0) {
-            searchOption(item.children, key)
-          }
-        })
-      }
-      searchOption(state.collapseForm, key)
+      recursCollapseForm(state.collapseForm, key, item => {
+        if (item.key === key) {
+          item.children.push(addCollapseFormChild(createUID('collapse')))
+        }
+      })
+      state.collapseForm = JSON.parse(JSON.stringify(state.collapseForm))
     },
     // 更新组件
     UPDATE_COMPONENT (state, { value, index, item }) {

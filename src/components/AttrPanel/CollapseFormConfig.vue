@@ -8,6 +8,8 @@
         @drop="onDrop"
         :treeData="collapseForm"
         showLine
+        defaultExpandParent
+        autoExpandParent
         :blockNode="true"
       >
         <a-icon slot="switcherIcon" type="caret-down" />
@@ -39,7 +41,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { createUID, recursCollapseForm } from '@/libs/utils'
+import { createUID, addCollapseFormChild } from '@/libs/utils'
 import CommonFormConfig from './CommonFormConfig'
 export default {
   components: {
@@ -134,14 +136,7 @@ export default {
     // 添加父级
     onAddParent () {
       let component = JSON.parse(JSON.stringify(this.collapseForm))
-      component.push({
-        title: '表单名称',
-        key: createUID('collapse'),
-        view: [],
-        scopedSlots: {
-          title: 'title'
-        }
-      })
+      component.push(addCollapseFormChild(createUID('collapse')))
       this.INIT_FORM_VIEW({
         component,
         type: 'change'

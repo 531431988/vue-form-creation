@@ -22,6 +22,7 @@ const createUID = (name = '') => {
 // 递归嵌套表单
 const recursCollapseForm = (data, active = null, callback) => {
   data.forEach((item, index) => {
+    if (!item.children) item.children = []
     if (item.children && item.children.length) {
       recursCollapseForm(item.children, active, callback)
     }
@@ -31,9 +32,22 @@ const recursCollapseForm = (data, active = null, callback) => {
   })
 }
 
+// 添加嵌套表单子元素
+const addCollapseFormChild = key => {
+  return {
+    title: '表单名称',
+    key,
+    view: [],
+    scopedSlots: {
+      title: 'title'
+    }
+  }
+}
+
 export {
   randomName,
   evil,
   createUID,
-  recursCollapseForm
+  recursCollapseForm,
+  addCollapseFormChild
 }
