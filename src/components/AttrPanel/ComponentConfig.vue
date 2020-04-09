@@ -9,7 +9,13 @@
       </span>
       <a-input placeholder="字段唯一标识" v-model="options.name" />
     </a-form-item>
-    <a-form-item label="字段名称">
+    <a-form-item>
+      <span slot="label">
+        字段名称&nbsp;
+        <a-tooltip title="该字段显示的名字">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
       <a-input placeholder="请输入字段名称" v-model="options.label" />
     </a-form-item>
 
@@ -23,16 +29,28 @@
       <a-input placeholder="默认值" v-model="options.value" />
     </a-form-item>
 
-    <a-form-item label="组件宽度">
+    <a-form-item>
+      <span slot="label">
+        组件宽度&nbsp;
+        <a-tooltip title="单位百分比时最大宽100%">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
       <a-input v-model="options.width.label" :maxLength="3">
-        <a-select slot="addonAfter" v-model="options.width.value" style="width: 60px">
-          <a-select-option value="px">px</a-select-option>
-          <a-select-option value="%">%</a-select-option>
+        <a-select slot="addonAfter" v-model="options.width.value" style="width: 80px">
+          <a-select-option value="px">像素</a-select-option>
+          <a-select-option value="%">百分比</a-select-option>
         </a-select>
       </a-input>
     </a-form-item>
 
-    <a-form-item label="占位内容（输入提示语）" v-if="options.placeholder">
+    <a-form-item v-if="options.placeholder">
+      <span slot="label">
+        占位内容&nbsp;
+        <a-tooltip title="当用户没有输入时的提示文字">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
       <a-input v-model="options.placeholder" />
     </a-form-item>
     <a-form-item label="是否禁用">
@@ -55,9 +73,9 @@
           </a-select>
         </a-col>
       </a-row>
-      <div>自定义：</div>
+      <!-- <div>自定义：</div>
       <a-input placeholder="请输入自定义正则表达式" />
-      <a-input placeholder="自定义错误提示语" />
+      <a-input placeholder="自定义错误提示语" />-->
     </a-form-item>
   </a-form>
 </template>

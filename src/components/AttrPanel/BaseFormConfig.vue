@@ -1,12 +1,12 @@
 <template>
-  <CommonFormConfig>基础</CommonFormConfig>
+  <FormConfig>基础</FormConfig>
 </template>
 
 <script>
-import CommonFormConfig from './CommonFormConfig'
+import FormConfig from './FormConfig'
 export default {
   components: {
-    CommonFormConfig
+    FormConfig
   }
 }
 </script>

@@ -1,13 +1,13 @@
 <template>
-  <Common>1</Common>
+  <ComponentConfig>1</ComponentConfig>
 </template>
 
 <script>
 
-import Common from './Common'
+import ComponentConfig from './ComponentConfig'
 export default {
   components: {
-    Common
+    ComponentConfig
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <CommonFormConfig>
+  <FormConfig>
     <a-form-item label="嵌套表单层级配置">
       <a-tree
         class="form-config-tree"
@@ -38,16 +38,16 @@
         <a-button type="primary" :size="formConfig.size" @click="onAddParent">添加层级</a-button>
       </div>
     </a-form-item>
-  </CommonFormConfig>
+  </FormConfig>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 import { createUID, addCollapseFormChild } from '@/libs/utils'
-import CommonFormConfig from './CommonFormConfig'
+import FormConfig from './FormConfig'
 export default {
   components: {
-    CommonFormConfig
+    FormConfig
   },
   data () {
     return {
