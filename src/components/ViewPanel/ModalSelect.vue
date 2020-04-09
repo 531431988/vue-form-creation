@@ -12,20 +12,22 @@
 </template>
 
 <script>
+import baseFormImg from '../../assets/imgs/base-form.png'
+import collapseFormImg from '../../assets/imgs/collapse-form.png'
 const Card = {
   props: ['data'],
   template: `
-    <a-card :class="{active: data.checked}" hoverable>
-      <img
-        alt="example"
-        :src="data.src"
-        slot="cover"
-      />
-      <a-card-meta :title="data.title">
-        <template slot="description">{{data.desc}}</template>
-      </a-card-meta>
-    </a-card>
-  `
+        <a-card :class="{active: data.checked}" hoverable>
+          <img
+            alt="example"
+            :src="data.src"
+            slot="cover"
+          />
+          <a-card-meta :title="data.title">
+            <template slot="description">{{data.desc}}</template>
+          </a-card-meta>
+        </a-card>
+      `
 }
 export default {
   props: ['visible'],
@@ -35,12 +37,12 @@ export default {
   data () {
     return {
       list: [{
-        src: require('@/assets/imgs/base-form.png'),
+        src: baseFormImg,
         title: '基础表单',
         desc: '常规表单，单层无嵌套',
         checked: true
       }, {
-        src: require('@/assets/imgs/collapse-form.png'),
+        src: collapseFormImg,
         title: '高级嵌套表单',
         desc: '可实现多层折叠嵌套的表单',
         checked: false

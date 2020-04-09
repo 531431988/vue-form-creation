@@ -1,5 +1,6 @@
 
 const path = require('path')
+const webpack = require('webpack')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i
 const env = process.env.NODE_ENV === 'production'
@@ -8,21 +9,23 @@ module.exports = {
   chainWebpack: config => {
     // 来将 svg 图标作为 Vue 组件导入
     const svgRule = config.module.rule('svg')
-    svgRule.uses.clear();
+    svgRule.uses.clear()
     svgRule
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
-    // 修复HMR
-    // config.resolve.symlinks(true)
+
+    // 防止多页面打包卡顿
+    config.plugins.delete('named-chunks')
+
     // 删除moment除zh-cn中文包外的其它语言包，无需在代码中手动引入zh-cn语言包。
-    // config
-    //   .plugin('ignore')
-    //   .use(
-    //     new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/)
-    //   )
+    config
+      .plugin('ignore')
+      .use(
+        new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn$/)
+      )
     // 添加别名
     config.resolve.alias
-      //内部为正则表达式  vue结尾的
+      // 内部为正则表达式  vue结尾的
       .set('vue$', 'vue/dist/vue.esm.js')
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('@ant-design/icons/lib/dist$', resolve('./icons.js'))
@@ -30,19 +33,38 @@ module.exports = {
       // 压缩图片
       config.module
         .rule('images')
+        .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
         .use('image-webpack-loader')
         .loader('image-webpack-loader')
         .options({
           mozjpeg: { progressive: true, quality: 65 },
           optipng: { enabled: false },
-          pngquant: { quality: [0.65, 0.9], speed: 4 },
+          pngquant: { quality: [0.65, 0.90], speed: 4 },
           gifsicle: { interlaced: false }
-          // webp: { quality: 75 }
         })
     }
+    // 配置 externals 引入 cdn 资源
+    const cdn = {
+      js: [
+        // 访问https://unpkg.com/vue/dist/vue.min.js获取最新版本
+        '//unpkg.com/vue@2.6.10/dist/vue.min.js',
+        '//unpkg.com/vuex@3.1.1/dist/vuex.min.js',
+        '//unpkg.com/axios@0.19.0/dist/axios.min.js'
+      ]
+    }
+    config.plugin('html').tap(args => {
+      // html中添加cdn
+      args[0].cdn = cdn
+      return args
+    })
     return config
   },
   configureWebpack: config => {
+    config.externals = {
+      vue: 'Vue',
+      vuex: 'Vuex',
+      axios: 'axios'
+    }
     config.resolve.extensions = ['.vue', '.js', '.jsx', '.json', '.less', '.css', '.scss', '.jpg', '.png', '.svg']
     if (env) {
       const plugins = []
@@ -62,17 +84,31 @@ module.exports = {
       config.optimization = {
         splitChunks: {
           cacheGroups: {
-            libs: {
-              name: 'chunk-libs',
+            common: {
+              name: 'chunk-common',
+              chunks: 'initial',
+              minChunks: 2,
+              maxInitialRequests: 5,
+              minSize: 0,
+              priority: 1,
+              reuseExistingChunk: true,
+              enforce: true
+            },
+            vendors: {
+              name: 'chunk-vendors',
               test: /[\\/]node_modules[\\/]/,
-              priority: 10,
-              chunks: 'initial'
+              chunks: 'initial',
+              priority: 2,
+              reuseExistingChunk: true,
+              enforce: true
             },
             antvUI: {
-              name: 'chunk-antvUI',
-              priority: 20,
+              name: 'chunk-antv',
               test: /[\\/]node_modules[\\/]ant-design-vue[\\/]/,
-              chunks: 'all'
+              chunks: 'all',
+              priority: 3,
+              reuseExistingChunk: true,
+              enforce: true
             }
           }
         }
@@ -91,7 +127,7 @@ module.exports = {
     'style-resources-loader': {
       preProcessor: 'less',
       patterns: [resolve('./src/less/theme.less')]
-    },
+    }
   },
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
   productionSourceMap: false,
