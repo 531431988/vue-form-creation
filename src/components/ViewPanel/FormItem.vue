@@ -1,5 +1,5 @@
 <template>
-  <transition-group :class="formItemEditClass" tag="div" appear name="fadeUp">
+  <transition-group appear name="fadeUp" :class="className">
     <a-form-item
       :label="options.label"
       v-if="type === 'input'"
@@ -62,14 +62,20 @@ export default {
   },
   computed: {
     ...mapState({
-      baseFormConfig: state => state.vfc.baseFormConfig,
-      activeCollapse: state => state.vfc.activeCollapse
+      formConfig: state => {
+        const { type, baseFormConfig, collapseFormConfig } = state.vfc
+        return type === 0 ? baseFormConfig : collapseFormConfig
+      }
     }),
-    formItemEditClass () {
+    className () {
+      const { formLayout } = this.formConfig
       return {
-        'form-item-edit': this.edit && this.baseFormConfig.formLayout !== 'inline',
-        'vui-flex': this.edit,
-        'vui-flex-middle': this.edit
+        'form-item-wrap': this.edit,
+        'form-item-edit': this.edit && formLayout !== 'inline',
+        'inline': this.edit && formLayout === 'inline',
+        'vertical': this.edit && formLayout === 'vertical',
+        'vui-flex': formLayout === 'horizontal' || formLayout === 'vertical',
+        'vui-flex-middle': formLayout === 'horizontal' || formLayout === 'vertical'
       }
     },
     decorator () {
@@ -119,7 +125,21 @@ export default {
     }
   }
   .del {
+    margin-top: 0;
     margin-bottom: 24px;
+  }
+  &.vertical .del {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.form-item-wrap {
+  .ant-form-item {
+    margin-right: 8px !important;
+  }
+  &.inline .del {
+    margin: 3px 16px 0 0;
   }
 }
 </style>

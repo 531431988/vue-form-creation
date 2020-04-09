@@ -1,6 +1,6 @@
 import { createUID } from '@/libs/utils'
-// 表单配置
-const baseFormConfig = {
+// 通用表单属性
+const commonFormAttr = {
   size: 'default',
   formLayout: 'horizontal',
   width: 100,
@@ -16,11 +16,22 @@ const baseFormConfig = {
     icon: 'sync',
     text: '取消',
     type: 'link'
-    // }, {
-    //   text: '查询',
-    //   type: 'primary'
   }]
 }
+// 基础表单配置
+const baseFormConfig = JSON.parse(JSON.stringify(commonFormAttr))
+// 嵌套表单配置
+const collapseFormConfig = Object.assign(JSON.parse(JSON.stringify(commonFormAttr)), {
+  collapse: [{
+    title: '表单名称',
+    key: createUID('collapse'),
+    view: [],
+    scopedSlots: {
+      title: 'title'
+    }
+  }]
+})
+
 // 图标配置
 const iconConfig = [{
   label: '刷新',
@@ -87,7 +98,7 @@ const btnTheme = [{
 }]
 
 // 表单组件通用属性
-const common = {
+const commonComponentAttr = {
   readonly: false,
   disabled: false
 }
@@ -97,7 +108,7 @@ const antvComponents = [{
   type: 'input',
   icon: 'edit',
   options: {
-    name: createUID(),
+    name: createUID('input'),
     label: '单行文本',
     placeholder: '请输入关键字',
     value: '',
@@ -135,7 +146,7 @@ const antvComponents = [{
   }
 }]
 antvComponents.map(item => {
-  item.options = Object.assign(item.options, common)
+  item.options = Object.assign(item.options, commonComponentAttr)
 })
 // 自定义组件
 const customComponents = []
@@ -145,6 +156,7 @@ const layoutComponents = []
 
 export {
   baseFormConfig,
+  collapseFormConfig,
   iconConfig,
   btnTheme,
   antvComponents,

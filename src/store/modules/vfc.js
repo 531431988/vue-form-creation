@@ -1,5 +1,5 @@
 import { createUID, recursCollapseForm } from '@/libs/utils'
-import { antvComponents, baseFormConfig, iconConfig, btnTheme } from '@/config/form'
+import { antvComponents, baseFormConfig, collapseFormConfig, iconConfig, btnTheme } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
 
@@ -14,28 +14,14 @@ const vfc = {
     baseForm: [],
     baseFormConfig,
     // 高级表单
+    collapseFormConfig,
     collapseForm: [{
-      title: '表单名称1',
-      key: createUID(),
+      title: '表单名称',
+      key: createUID('collapse'),
       view: [],
-      children: [{
-        title: '子表单1',
-        key: createUID(),
-        view: []
-      }, {
-        title: '子表单2',
-        key: createUID(),
-        view: [],
-        children: [{
-          title: '子表单2',
-          key: createUID(),
-          view: []
-        }]
-      }]
-    }, {
-      title: '表单名称2',
-      key: createUID(),
-      view: []
+      scopedSlots: {
+        title: 'title'
+      }
     }],
     // 当前选择的折叠面板
     activeCollapse: null,
@@ -67,9 +53,12 @@ const vfc = {
       if (type === 'change') {
         state.baseForm = []
         state.collapseForm = component.length ? component : [{
-          title: '表单名称1',
-          key: createUID(),
-          view: []
+          title: '表单名称',
+          key: createUID('collapse'),
+          view: [],
+          scopedSlots: {
+            title: 'title'
+          }
         }]
       } else {
         // 初始化
@@ -85,7 +74,7 @@ const vfc = {
     // 添加组件
     ADD_COMPONENT (state, params) {
       params = JSON.parse(JSON.stringify(params))
-      params.options.name = createUID()
+      params.options.name = createUID('form')
       state.baseForm.push(params)
       // 基础表单
       if (state.type === 0) {
@@ -146,7 +135,30 @@ const vfc = {
         arr.forEach((item, index) => {
           if (item.key === key) {
             arr.splice(index, 1)
-          } else if (item.children && item.children.length > 0) {
+          }
+          if (item.children && item.children.length > 0) {
+            searchOption(item.children, key)
+          }
+        })
+      }
+      searchOption(state.collapseForm, key)
+    },
+    // 新增嵌套表单层级
+    ADD_COLLAPSE_FORM (state, key) {
+      const searchOption = (arr, key) => {
+        arr.forEach(item => {
+          if (!item.children) item.children = []
+          if (item.key === key) {
+            item.children.push({
+              title: '表单名称',
+              key: createUID('collapse'),
+              view: [],
+              scopedSlots: {
+                title: 'title'
+              }
+            })
+          }
+          if (item.children && item.children.length > 0) {
             searchOption(item.children, key)
           }
         })
@@ -161,7 +173,7 @@ const vfc = {
     },
     // 更新基础表单属性面板
     UPDATE_BASE_FORM_CONFIG (state, { key, val }) {
-      state.baseFormConfig[key] = val
+      state[state.type === 0 ? 'baseFormConfig' : 'collapseFormConfig'][key] = val
     }
   },
   actions: {

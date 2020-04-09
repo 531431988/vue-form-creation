@@ -19,20 +19,27 @@
               @change="onChange($event, item)"
               @focus="draggable = false"
               @blur="draggable = true"
-              class="vui-flex-item"
+              class="vui-flex-item mr30"
             />
-            <a-icon type="plus" class="ml10" @click="onAdd(item)"></a-icon>
-            <a-icon type="delete" class="ml10" @click="onDel(item)"></a-icon>
+            <a-button type="link" size="small" shape="circle" @click="onAdd(item)">
+              <a-icon type="plus" v-color="$color.primary"></a-icon>
+            </a-button>
+            <a-button type="link" size="small" shape="circle" @click="onDel(item)">
+              <a-icon type="delete" v-color="$color.error"></a-icon>
+            </a-button>
           </div>
         </template>
       </a-tree>
+      <div class="tc">
+        <a-button type="primary" :size="baseFormConfig.size" @click="onAddParent">添加层级</a-button>
+      </div>
     </a-form-item>
   </CommonFormConfig>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { recursCollapseForm } from '@/libs/utils'
+import { createUID, recursCollapseForm } from '@/libs/utils'
 import CommonFormConfig from './CommonFormConfig'
 export default {
   components: {
@@ -45,20 +52,14 @@ export default {
   },
   computed: {
     ...mapState({
-      collapseForm: state => {
-        recursCollapseForm(state.vfc.collapseForm, null, item => {
-          item.scopedSlots = {
-            title: 'title'
-          }
-        })
-        return state.vfc.collapseForm
-      }
+      baseFormConfig: state => state.vfc.baseFormConfig,
+      collapseForm: state => state.vfc.collapseForm
     })
   },
   created () {
   },
   methods: {
-    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'INIT_FORM_VIEW']),
+    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'INIT_FORM_VIEW', 'ADD_COLLAPSE_FORM']),
     onDragEnter (info) {
       console.log(info)
       // expandedKeys 需要受控时设置
@@ -104,7 +105,7 @@ export default {
           item.children = item.children || []
           // where to insert 示例添加到尾部，可以是随意位置
           item.children.unshift(dragObj)
-        });
+        })
       } else {
         let ar
         let i
@@ -122,14 +123,27 @@ export default {
         component: data,
         type: 'change'
       })
-      // this.collapseForm = data
     },
     // 修改名称
     onChange (e, item) {
       this.EDIT_COLLAPSE_FORM_NAME({ key: item.key, name: e.target.value })
     },
+    // 添加父级
+    onAddParent () {
+      let component = JSON.parse(JSON.stringify(this.collapseForm))
+      component.push({
+        title: '表单名称',
+        key: createUID('collapse'),
+        view: []
+      })
+      this.INIT_FORM_VIEW({
+        component,
+        type: 'change'
+      })
+    },
+    // 添加子级
     onAdd (item) {
-      console.log(item)
+      this.ADD_COLLAPSE_FORM(item.key)
     },
     // 删除
     onDel (item) {
@@ -151,8 +165,10 @@ export default {
 <style lang="less" scoped>
 .form-config-tree {
   /deep/ li .ant-tree-node-content-wrapper {
+    padding: 0;
     height: auto;
     line-height: 1.5;
+    cursor: move;
   }
 }
 </style>

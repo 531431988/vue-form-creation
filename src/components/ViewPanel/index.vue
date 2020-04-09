@@ -1,23 +1,23 @@
 <template>
   <a-form
     :form="form"
-    :layout="baseFormConfig.formLayout"
+    :layout="formConfig.formLayout"
     :label-col="formItemLayout.labelCol"
     :wrapper-col="formItemLayout.wrapperCol"
-    :labelAlign="baseFormConfig.align"
-    :style="`width: ${baseFormConfig.width}%`"
+    :labelAlign="formConfig.align"
+    :style="`width: ${formConfig.width}%`"
     @submit="onSubmit"
   >
     <BaseForm :data="data" :edit="edit" v-if="type === 0" />
     <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
 
     <a-form-item
-      :wrapper-col="type ? null : btnLayout"
-      :class="{tc: type, mt20: type}"
+      :wrapper-col="type ? 24 : btnLayout"
+      :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline'}"
       v-if="data.length"
     >
       <ButtonItem
-        v-for="(item, index) in baseFormConfig.btns"
+        v-for="(item, index) in formConfig.btns"
         :key="index"
         :data="item"
         @on-reset="onReset"
@@ -55,10 +55,13 @@ export default {
   computed: {
     ...mapState({
       type: state => state.vfc.type,
-      baseFormConfig: state => state.vfc.baseFormConfig
+      formConfig: state => {
+        const { type, baseFormConfig, collapseFormConfig } = state.vfc
+        return type === 0 ? baseFormConfig : collapseFormConfig
+      }
     }),
     formItemLayout () {
-      const { formLayout, labelCol, wrapperCol } = this.baseFormConfig
+      const { formLayout, labelCol, wrapperCol } = this.formConfig
       return formLayout === 'horizontal'
         ? {
           labelCol: { span: labelCol },
@@ -67,9 +70,9 @@ export default {
         : {}
     },
     btnLayout () {
-      const { formLayout } = this.baseFormConfig
+      const { formLayout } = this.formConfig
       return formLayout === 'horizontal' ?
-        { offset: this.baseFormConfig.labelCol }
+        { offset: this.formConfig.labelCol }
         : {}
     }
   },
