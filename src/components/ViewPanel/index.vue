@@ -12,7 +12,7 @@
     <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
 
     <a-form-item
-      :wrapper-col="type ? 24 : btnLayout"
+      :wrapper-col="type ? {span: 24} : btnLayout"
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline'}"
       v-if="data.length"
     >
@@ -70,9 +70,9 @@ export default {
         : {}
     },
     btnLayout () {
-      const { formLayout } = this.formConfig
+      const { formLayout, labelCol } = this.formConfig
       return formLayout === 'horizontal' ?
-        { offset: this.formConfig.labelCol }
+        { offset: labelCol }
         : {}
     }
   },

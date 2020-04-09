@@ -1,6 +1,6 @@
 <template>
   <a-layout-content class="main">
-    <ViewPanel :data="type ? collapseForm : baseForm" />
+    <ViewPanel :data="data" />
   </a-layout-content>
 </template>
 
@@ -18,9 +18,10 @@ export default {
   },
   computed: {
     ...mapState({
-      type: state => state.vfc.type,
-      baseForm: state => state.vfc.baseForm,
-      collapseForm: state => state.vfc.collapseForm
+      data: state => {
+        const { type, baseForm, collapseForm } = state.vfc
+        return type === 0 ? baseForm : collapseForm
+      }
     })
   }
 }

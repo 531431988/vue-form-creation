@@ -31,7 +31,7 @@
         </template>
       </a-tree>
       <div class="tc">
-        <a-button type="primary" :size="baseFormConfig.size" @click="onAddParent">添加层级</a-button>
+        <a-button type="primary" :size="formConfig.size" @click="onAddParent">添加层级</a-button>
       </div>
     </a-form-item>
   </CommonFormConfig>
@@ -52,7 +52,10 @@ export default {
   },
   computed: {
     ...mapState({
-      baseFormConfig: state => state.vfc.baseFormConfig,
+      formConfig: state => {
+        const { type, baseFormConfig, collapseFormConfig } = state.vfc
+        return type === 0 ? baseFormConfig : collapseFormConfig
+      },
       collapseForm: state => state.vfc.collapseForm
     })
   },
@@ -134,7 +137,10 @@ export default {
       component.push({
         title: '表单名称',
         key: createUID('collapse'),
-        view: []
+        view: [],
+        scopedSlots: {
+          title: 'title'
+        }
       })
       this.INIT_FORM_VIEW({
         component,

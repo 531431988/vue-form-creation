@@ -19,7 +19,7 @@
               v-if="activeCollapse !== item.key"
               type="primary"
               size="small"
-              @click.stop="onClick(item)"
+              @click.stop="onAdd(item)"
             >添加组件</a-button>
             <span class="t-primary" v-else>编辑中（可从左侧组件列表中选择需要添加的组件）</span>
           </template>
@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     ...mapMutations(['INIT_FORM_VIEW', 'SET_ACTIVE_COLLAPSE']),
-    onClick (item) {
+    onAdd (item) {
       const { key } = item
       this.activeKey = [key]
       this.INIT_FORM_VIEW({})

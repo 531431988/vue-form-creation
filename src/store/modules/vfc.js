@@ -15,14 +15,7 @@ const vfc = {
     baseFormConfig,
     // 高级表单
     collapseFormConfig,
-    collapseForm: [{
-      title: '表单名称',
-      key: createUID('collapse'),
-      view: [],
-      scopedSlots: {
-        title: 'title'
-      }
-    }],
+    collapseForm: collapseFormConfig.collapse,
     // 当前选择的折叠面板
     activeCollapse: null,
     // 当前编辑组件
@@ -52,14 +45,7 @@ const vfc = {
       // 切换表单模式
       if (type === 'change') {
         state.baseForm = []
-        state.collapseForm = component.length ? component : [{
-          title: '表单名称',
-          key: createUID('collapse'),
-          view: [],
-          scopedSlots: {
-            title: 'title'
-          }
-        }]
+        state.collapseForm = component.length ? component : collapseFormConfig.collapse
       } else {
         // 初始化
         state.baseForm = component
@@ -149,14 +135,7 @@ const vfc = {
         arr.forEach(item => {
           if (!item.children) item.children = []
           if (item.key === key) {
-            item.children.push({
-              title: '表单名称',
-              key: createUID('collapse'),
-              view: [],
-              scopedSlots: {
-                title: 'title'
-              }
-            })
+            item.children.push(...collapseFormConfig.collapse)
           }
           if (item.children && item.children.length > 0) {
             searchOption(item.children, key)
