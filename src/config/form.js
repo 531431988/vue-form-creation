@@ -106,6 +106,8 @@ const antvComponents = [{
     maxLength: null,
     prefix: null,
     suffix: null,
+    addonBefore: null,
+    addonAfter: null,
     width: {
       label: '200',
       value: 'px'

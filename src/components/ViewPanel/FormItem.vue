@@ -14,10 +14,11 @@
         :allowClear="options.allowClear"
         :disabled="options.disabled"
         :style="`width: ${options.width.label}${options.width.value}`"
-      >
-        <a-icon v-if="options.prefix" slot="prefix" type="user" />
-        <a-icon v-if="options.suffix" slot="suffix" type="user" />
-      </a-input>
+        :prefix="options.prefix"
+        :suffix="options.suffix"
+        :addonBefore="options.addonBefore"
+        :addonAfter="options.addonAfter"
+      ></a-input>
     </a-form-item>
     <a-button
       type="link"
@@ -120,7 +121,7 @@ export default {
       right: 0;
       bottom: 0;
       left: 0;
-      z-index: 1;
+      z-index: 3;
       width: 100%;
     }
   }
