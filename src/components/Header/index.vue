@@ -78,6 +78,9 @@ export default {
       validModalShow: false
     }
   },
+  created () {
+    this.modalShow = this.type !== null ? false : true
+  },
   computed: {
     ...mapState({
       type: state => state.vfc.type,

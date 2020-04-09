@@ -19,8 +19,8 @@ export default {
   cookieExpires: 1,
   api: process.env.VUE_APP_BASE_API,
   storageOptions: {
-    namespace: 'ovit__', // key prefix
-    name: 'ls', // name variable Vue.[ls] or this.[$ls],
-    storage: 'local' // storage name session, local, memory
+    encodingType: 'aes',
+    encryptionSecret: 'ovit__',
+    namespace: 'ovit__'
   }
 }

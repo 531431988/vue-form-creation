@@ -14,7 +14,7 @@
     <a-form-item
       :wrapper-col="type ? {span: 24} : btnLayout"
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline'}"
-      v-if="data.length"
+      v-if="data.length && type !== null"
     >
       <ButtonItem
         v-for="(item, index) in formConfig.btns"
