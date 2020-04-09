@@ -1,12 +1,18 @@
 <template>
   <transition-group appear name="fadeUp" :class="className">
     <a-form-item
-      :label="options.label"
       v-if="type === 'input'"
       :class="{'vui-flex-item': edit}"
       key="1"
       @click.native="$emit('on-click')"
     >
+      <span slot="label">
+        {{options.label}}&nbsp;
+        <a-tooltip v-if="options.tooltip" :title="options.tooltip">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
+
       <a-input
         v-decorator="decorator"
         :placeholder="options.placeholder"

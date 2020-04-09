@@ -59,6 +59,16 @@
 
     <slot></slot>
 
+    <a-form-item>
+      <span slot="label">
+        字段提示信息&nbsp;
+        <a-tooltip title="当前字段的说明">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
+      <a-input placeholder="请输入字段说明" v-model="options.tooltip" />
+    </a-form-item>
+
     <a-form-item label="校验">
       <a-checkbox v-model="options.required">是否必填</a-checkbox>
       <a-row type="flex">

@@ -119,7 +119,8 @@ const antvComponents = [{
       value: '',
       pattern: '',
       message: ''
-    }
+    },
+    tooltip: null
   }
 }, {
   name: '多行文本',
