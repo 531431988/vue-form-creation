@@ -4,13 +4,15 @@
       <a-tree
         class="form-config-tree"
         :draggable="draggable"
-        @dragenter="onDragEnter"
-        @drop="onDrop"
         :treeData="collapseForm"
+        :expandedKeys="expandCollapseKey"
         showLine
         defaultExpandParent
         autoExpandParent
         :blockNode="true"
+        @dragenter="onDragEnter"
+        @drop="onDrop"
+        @expand="onExpand"
       >
         <a-icon slot="switcherIcon" type="caret-down" />
         <template slot="title" slot-scope="item">
@@ -54,6 +56,7 @@ export default {
   },
   computed: {
     ...mapState({
+      expandCollapseKey: state => state.vfc.expandCollapseKey,
       formConfig: state => {
         const { type, baseFormConfig, collapseFormConfig } = state.vfc
         return type === 0 ? baseFormConfig : collapseFormConfig
@@ -64,7 +67,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'INIT_FORM_VIEW', 'ADD_COLLAPSE_FORM']),
+    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'INIT_FORM_VIEW', 'ADD_COLLAPSE_FORM', 'SET_EXPAND_COLLAPSE']),
     onDragEnter (info) {
       console.log(info)
       // expandedKeys 需要受控时设置
@@ -128,6 +131,10 @@ export default {
         component: data,
         type: 'change'
       })
+    },
+    // 折叠或展开
+    onExpand (expandedKeys) {
+      this.SET_EXPAND_COLLAPSE(expandedKeys)
     },
     // 修改名称
     onChange (e, item) {

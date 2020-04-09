@@ -16,6 +16,8 @@ const vfc = {
     // 高级表单
     collapseFormConfig,
     collapseForm: [addCollapseFormChild(createUID('collapse'))],
+    // 当前展开的折叠面板
+    expandCollapseKey: [],
     // 当前选择的折叠面板
     activeCollapse: null,
     // 当前编辑组件
@@ -57,7 +59,7 @@ const vfc = {
         item: null
       }
     },
-    // 添加组件
+    // 添加组件（基础 嵌套）
     ADD_COMPONENT (state, params) {
       params = JSON.parse(JSON.stringify(params))
       params.options.name = createUID('form')
@@ -76,7 +78,7 @@ const vfc = {
         }
       }
     },
-    // 删除组件
+    // 删除组件（基础 嵌套）
     DEL_COMPONENT (state, index) {
       if (state.type === 0) {
         state.baseForm.splice(index, 1)
@@ -85,6 +87,10 @@ const vfc = {
           item.view.splice(index, 1)
         })
       }
+    },
+    // 设置展开的折叠面板
+    SET_EXPAND_COLLAPSE (state, key) {
+      state.expandCollapseKey = key
     },
     // 设置编辑的折叠面板
     SET_ACTIVE_COLLAPSE (state, key) {

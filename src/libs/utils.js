@@ -40,7 +40,8 @@ const addCollapseFormChild = key => {
     view: [],
     scopedSlots: {
       title: 'title'
-    }
+    },
+    expand: false
   }
 }
 

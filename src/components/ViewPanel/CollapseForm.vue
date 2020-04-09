@@ -1,6 +1,11 @@
 <template>
   <div>
-    <a-collapse v-model="activeKey" expandIconPosition="right" v-if="data.length">
+    <a-collapse
+      v-model="activeKey"
+      expandIconPosition="right"
+      v-if="data.length"
+      @change="onChange"
+    >
       <a-collapse-panel
         :header="item.title"
         v-for="item in data"
@@ -53,18 +58,30 @@ export default {
       activeKey: []
     }
   },
+  created () {
+    this.activeKey = this.expandCollapseKey
+  },
+  watch: {
+    expandCollapseKey () {
+      this.activeKey = this.expandCollapseKey
+    }
+  },
   computed: {
     ...mapState({
-      activeCollapse: state => state.vfc.activeCollapse
+      activeCollapse: state => state.vfc.activeCollapse,
+      expandCollapseKey: state => state.vfc.expandCollapseKey
     })
   },
   methods: {
-    ...mapMutations(['INIT_FORM_VIEW', 'SET_ACTIVE_COLLAPSE']),
+    ...mapMutations(['INIT_FORM_VIEW', 'SET_ACTIVE_COLLAPSE', 'SET_EXPAND_COLLAPSE']),
     onAdd (item) {
       const { key } = item
       this.activeKey = [key]
       this.INIT_FORM_VIEW({})
       this.SET_ACTIVE_COLLAPSE(key)
+    },
+    onChange (key) {
+      this.SET_EXPAND_COLLAPSE(key)
     }
   }
 }
