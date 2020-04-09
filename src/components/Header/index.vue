@@ -9,13 +9,13 @@
         <a-button class="ml10" @click="onChangeModal">切换模式</a-button>
         <a-button class="ml10" @click="FormConfigShow = true">表单全局配置</a-button>
         <a-button type="danger" ghost class="ml10" @click="onClear" :disabled="disabled">清空</a-button>
-        <!-- <a-button
+        <a-button
           type="primary"
           ghost
           class="ml10"
           @click="previewShow = true"
           :disabled="disabled"
-        >预览</a-button>-->
+        >预览</a-button>
         <a-button type="primary" class="ml10" :disabled="disabled">保存</a-button>
       </a-col>
     </a-row>

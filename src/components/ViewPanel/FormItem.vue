@@ -74,8 +74,8 @@ export default {
         'form-item-edit': this.edit && formLayout !== 'inline',
         'inline': this.edit && formLayout === 'inline',
         'vertical': this.edit && formLayout === 'vertical',
-        'vui-flex': formLayout === 'horizontal' || formLayout === 'vertical',
-        'vui-flex-middle': formLayout === 'horizontal' || formLayout === 'vertical'
+        'vui-flex': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical'),
+        'vui-flex-middle': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical')
       }
     },
     decorator () {

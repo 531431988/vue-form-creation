@@ -81,7 +81,9 @@ export default {
       this.SET_ACTIVE_COLLAPSE(key)
     },
     onChange (key) {
-      this.SET_EXPAND_COLLAPSE(key)
+      if (this.edit) {
+        this.SET_EXPAND_COLLAPSE(key)
+      }
     }
   }
 }
