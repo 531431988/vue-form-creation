@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import attrMixins from './attrMixins'
+import attr from './attr'
 export default {
-  mixins: [attrMixins]
+  mixins: [attr]
 }
 </script>
 

@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { evil } from '@/libs/utils'
 import { mapState } from 'vuex'
 import VInput from './VInput'
 import VTextarea from './VTextarea'
