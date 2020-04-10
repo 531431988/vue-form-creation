@@ -22,8 +22,6 @@ module.exports = {
       )
     // 添加别名
     config.resolve.alias
-      // 内部为正则表达式  vue结尾的
-      .set('vue$', 'vue/dist/vue.esm.js')
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('@ant-design/icons/lib/dist$', resolve('./icons.js'))
     if (env) {
@@ -41,27 +39,27 @@ module.exports = {
         })
     }
     // 配置 externals 引入 cdn 资源
-    const cdn = {
-      js: [
-        // 访问https://unpkg.com/vue/dist/vue.min.js获取最新版本
-        '//cdn.bootcss.com/vue/2.6.11/vue.min.js',
-        '//cdn.bootcss.com/vuex/3.1.3/vuex.min.js',
-        '//cdn.bootcss.com/axios/0.19.2/axios.min.js'
-      ]
-    }
-    config.plugin('html').tap(args => {
-      // html中添加cdn
-      args[0].cdn = cdn
-      return args
-    })
+    // const cdn = {
+    //   js: [
+    //     // 访问https://unpkg.com/vue/dist/vue.min.js获取最新版本
+    //     '//cdn.bootcss.com/vue/2.6.11/vue.min.js',
+    //     '//cdn.bootcss.com/vuex/3.1.3/vuex.min.js',
+    //     '//cdn.bootcss.com/axios/0.19.2/axios.min.js'
+    //   ]
+    // }
+    // config.plugin('html').tap(args => {
+    //   // html中添加cdn
+    //   args[0].cdn = cdn
+    //   return args
+    // })
     return config
   },
   configureWebpack: config => {
-    config.externals = {
-      vue: 'Vue',
-      vuex: 'Vuex',
-      axios: 'axios'
-    }
+    // config.externals = {
+    //   vue: 'Vue',
+    //   vuex: 'Vuex',
+    //   axios: 'axios'
+    // }
     config.resolve.extensions = ['.vue', '.js', '.jsx', '.json', '.less', '.css', '.scss', '.jpg', '.png', '.svg']
     if (env) {
       const plugins = []

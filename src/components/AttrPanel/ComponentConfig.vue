@@ -37,7 +37,12 @@
         </a-tooltip>
       </span>
       <a-input v-model="options.width.label" :maxLength="3">
-        <a-select slot="addonAfter" v-model="options.width.value" style="width: 80px">
+        <a-select
+          slot="addonAfter"
+          v-model="options.width.value"
+          style="width: 80px"
+          @change="onChangeSelect"
+        >
           <a-select-option value="px">像素</a-select-option>
           <a-select-option value="%">百分比</a-select-option>
         </a-select>
@@ -109,7 +114,24 @@ export default {
     // 更新验证规则
     onChangeValid (value) {
       let { item, index } = this.activeComponent
-      this.UPDATE_COMPONENT({ value, index, item })
+      item.options.valid = this.validRulesList[value]
+      this.UPDATE_COMPONENT({ index, item })
+    },
+    // 切换单位
+    onChangeSelect (value, option) {
+      let { item, index } = this.activeComponent
+      if (value === '%') {
+        item.options.width = {
+          label: '100',
+          value: '%'
+        }
+      } else {
+        item.options.width = {
+          label: item.options.width.label,
+          value
+        }
+      }
+      this.UPDATE_COMPONENT({ index, item })
     }
   }
 

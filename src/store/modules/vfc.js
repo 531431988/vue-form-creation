@@ -147,9 +147,7 @@ const vfc = {
       state.collapseForm = JSON.parse(JSON.stringify(state.collapseForm))
     },
     // 更新组件
-    UPDATE_COMPONENT (state, { value, index, item }) {
-      item = JSON.parse(JSON.stringify(item))
-      item.options.valid = state.validRulesList[value]
+    UPDATE_COMPONENT (state, { index, item }) {
       state.baseForm[index] = item
     },
     // 更新基础表单属性面板

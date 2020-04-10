@@ -72,14 +72,16 @@ export default {
   },
   data () {
     return {
-      modalShow: true,
+      modalShow: this.type,
       FormConfigShow: false,
       previewShow: false,
       validModalShow: false
     }
   },
-  created () {
-    this.modalShow = this.type !== null ? false : true
+  watch: {
+    type () {
+      this.modalShow = this.type === null ? true : false
+    }
   },
   computed: {
     ...mapState({
@@ -125,6 +127,7 @@ export default {
         onOk: () => {
           this.INIT_FORM_VIEW({ type: 'change' })
           ls.remove('state')
+          this.SET_TYPE(null)
           this.$message.success('清空成功')
         }
       })
