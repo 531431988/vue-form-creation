@@ -1,31 +1,12 @@
 <template>
   <transition-group appear name="fadeUp" :class="className">
-    <a-form-item
-      v-if="type === 'input'"
+    <component
+      :is="`V${type.substr(0, 1).toUpperCase()}${type.substr(1)}`"
+      :options="options"
       :class="{'vui-flex-item': edit}"
-      key="1"
+      :key="options.name"
       @click.native="$emit('on-click')"
-    >
-      <span slot="label">
-        {{options.label}}&nbsp;
-        <a-tooltip v-if="options.tooltip" :title="options.tooltip">
-          <a-icon type="question-circle-o" />
-        </a-tooltip>
-      </span>
-
-      <a-input
-        v-decorator="decorator"
-        :placeholder="options.placeholder"
-        :maxLength="options.maxLength"
-        :allowClear="options.allowClear"
-        :disabled="options.disabled"
-        :style="`width: ${options.width.label}${options.width.value}`"
-        :prefix="options.prefix"
-        :suffix="options.suffix"
-        :addonBefore="options.addonBefore"
-        :addonAfter="options.addonAfter"
-      ></a-input>
-    </a-form-item>
+    />
     <a-button
       type="link"
       class="del"
@@ -42,6 +23,8 @@
 <script>
 import { evil } from '@/libs/utils'
 import { mapState } from 'vuex'
+import VInput from './VInput'
+
 export default {
   props: {
     edit: {
@@ -62,6 +45,7 @@ export default {
     }
   },
   components: {
+    VInput
   },
   data () {
     return {
@@ -84,31 +68,7 @@ export default {
         'vui-flex': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical'),
         'vui-flex-middle': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical')
       }
-    },
-    decorator () {
-      const { required, valid } = this.options
-      let rules = []
-      // 必填
-      if (required) {
-        rules = [{ required: true, message: '此项必填' }]
-      }
-      if (valid.value) {
-        rules = [...rules, {
-          pattern: evil(valid.pattern),
-          message: valid.message
-        }]
-      } else {
-        rules = [...rules]
-      }
-      return [
-        this.options.name,
-        {
-          initialValue: this.options.value,
-          rules
-        }]
     }
-  },
-  methods: {
   }
 }
 </script>

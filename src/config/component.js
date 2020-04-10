@@ -95,7 +95,7 @@ const antvComponents = [{
   icon: 'clock-circle',
   options: null
 }, {
-  name: '上传',
+  name: '上传文件',
   type: 'upload',
   icon: 'upload',
   options: null
