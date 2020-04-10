@@ -1,11 +1,7 @@
 <template>
   <div>
-    <a-collapse
-      v-model="activeKey"
-      expandIconPosition="right"
-      v-if="data.length"
-      @change="onChange"
-    >
+    <a-empty v-if="!data.length && edit" description="暂无组件，可在左侧组件列表中点击添加组件" />
+    <a-collapse v-model="activeKey" expandIconPosition="right" v-else @change="onChange">
       <a-collapse-panel
         :header="item.title"
         v-for="item in data"
@@ -31,7 +27,6 @@
         </template>
       </a-collapse-panel>
     </a-collapse>
-    <a-empty v-else description="暂无组件，可在左侧组件列表中点击添加组件" />
   </div>
 </template>
 

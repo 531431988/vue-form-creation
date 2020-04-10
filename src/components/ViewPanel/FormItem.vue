@@ -100,7 +100,6 @@ export default {
       } else {
         rules = [...rules]
       }
-      console.log('rules', rules)
       return [
         this.options.name,
         {

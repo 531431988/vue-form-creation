@@ -10,7 +10,7 @@
       @on-click="onClickItem(index)"
       @on-del="onDel(index)"
     />
-    <a-empty v-if="!data.length" description="暂无组件，可在左侧组件列表中点击添加组件" />
+    <a-empty v-if="!data.length && edit" description="暂无组件，可在左侧组件列表中点击添加组件" />
     <AttrPanel :visible="visible" @close="visible = false" />
   </div>
 </template>
@@ -48,7 +48,8 @@ export default {
     ...mapMutations(['SET_ACTIVE_COMPONENT', 'DEL_COMPONENT']),
     // 表单元素单击
     onClickItem (index) {
-      if (this.edit) {
+      // 编辑中才可展开属性面板
+      if (this.edit && this.del) {
         this.SET_ACTIVE_COMPONENT(index)
         this.visible = true
       }
