@@ -65,7 +65,27 @@ const antvComponents = [{
   name: '密码框',
   type: 'password',
   icon: 'lock',
-  options: null
+  options: {
+    name: createUID('password'),
+    label: '密码框',
+    placeholder: '请输入关键字',
+    value: '',
+    maxLength: null,
+    width: {
+      label: '300',
+      value: 'px'
+    },
+    allowClear: null,
+    required: false,
+    visibilityToggle: true,
+    valid: {
+      label: '',
+      value: '',
+      pattern: '',
+      message: ''
+    },
+    tooltip: null
+  }
 }, {
   name: '数字输入框',
   type: 'inputNumber',

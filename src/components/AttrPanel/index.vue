@@ -15,6 +15,7 @@
 import { mapState } from 'vuex'
 import InputPanel from './InputPanel'
 import TextareaPanel from './TextareaPanel'
+import PasswordPanel from './PasswordPanel'
 export default {
   props: {
     visible: {
@@ -24,7 +25,8 @@ export default {
   },
   components: {
     InputPanel,
-    TextareaPanel
+    TextareaPanel,
+    PasswordPanel
   },
   data () {
     return {

@@ -25,6 +25,7 @@ import { evil } from '@/libs/utils'
 import { mapState } from 'vuex'
 import VInput from './VInput'
 import VTextarea from './VTextarea'
+import VPassword from './VPassword'
 
 export default {
   props: {
@@ -47,7 +48,8 @@ export default {
   },
   components: {
     VInput,
-    VTextarea
+    VTextarea,
+    VPassword
   },
   data () {
     return {
