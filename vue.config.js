@@ -126,6 +126,7 @@ module.exports = {
       patterns: [resolve('./src/less/theme.less')]
     }
   },
+  outputDir: process.env.VUE_OUTPUTDIR,
   publicPath: process.env.VUE_APP_PUBLIC_PATH,
   productionSourceMap: false,
   runtimeCompiler: true,

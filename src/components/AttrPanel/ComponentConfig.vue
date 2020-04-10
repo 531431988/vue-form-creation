@@ -19,7 +19,7 @@
       <a-input placeholder="请输入字段名称" v-model="options.label" />
     </a-form-item>
 
-    <a-form-item>
+    <!-- <a-form-item>
       <span slot="label">
         默认值&nbsp;
         <a-tooltip title="初始化显示的内容">
@@ -27,7 +27,7 @@
         </a-tooltip>
       </span>
       <a-input placeholder="默认值" v-model="options.value" />
-    </a-form-item>
+    </a-form-item>-->
 
     <a-form-item>
       <span slot="label">

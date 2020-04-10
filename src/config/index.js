@@ -20,7 +20,7 @@ export default {
   api: process.env.VUE_APP_BASE_API,
   storageOptions: {
     encodingType: 'aes',
-    encryptionSecret: 'ovit__',
+    encryptionSecret: '_ovit_',
     namespace: 'ovit__'
   }
 }

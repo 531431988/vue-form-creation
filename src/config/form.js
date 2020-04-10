@@ -122,22 +122,22 @@ const antvComponents = [{
     },
     tooltip: null
   }
-}, {
-  name: '多行文本',
-  type: 'textarea',
-  icon: 'code',
-  options: {
-    placeholder: '',
-    addonAfter: null,
-    addonBefore: null,
-    defaultValue: null,
-    value: null,
-    maxLength: null,
-    prefix: null,
-    suffix: null,
-    autosize: false,
-    allowClear: null
-  }
+  // }, {
+  //   name: '多行文本',
+  //   type: 'textarea',
+  //   icon: 'code',
+  //   options: {
+  //     placeholder: '',
+  //     addonAfter: null,
+  //     addonBefore: null,
+  //     defaultValue: null,
+  //     value: null,
+  //     maxLength: null,
+  //     prefix: null,
+  //     suffix: null,
+  //     autosize: false,
+  //     allowClear: null
+  //   }
 }]
 antvComponents.map(item => {
   item.options = Object.assign(item.options, commonComponentAttr)

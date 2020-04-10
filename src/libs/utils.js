@@ -1,14 +1,18 @@
 import SecureLS from 'secure-ls'
 import config from '@/config'
 const LS = new SecureLS(config.storageOptions)
+const LSNAME = config.storageOptions.namespace
 
 // localStorage 数据加密处理
 const ls = {
   get (name) {
-    return LS.get(`${config.storageOptions.namespace}${name}`)
+    return LS.get(`${LSNAME}${name}`)
   },
   set (name, data = []) {
-    return LS.set(`${config.storageOptions.namespace}${name}`, data)
+    return LS.set(`${LSNAME}${name}`, data)
+  },
+  remove (name) {
+    LS.remove(`${LSNAME}${name}`)
   }
 }
 

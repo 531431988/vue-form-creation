@@ -20,6 +20,8 @@
             <a-input
               :defaultValue="item.title"
               size="small"
+              @mousemove.native.stop
+              @mousedown.native.stop
               @change="onChange($event, item)"
               @focus="draggable = false"
               @blur="draggable = true"

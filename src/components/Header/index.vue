@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { createUID } from '@/libs/utils'
+import { ls, createUID } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
 import ModalSelect from '../ViewPanel/ModalSelect'
 import BaseFormConfig from '../AttrPanel/BaseFormConfig'
@@ -124,6 +124,7 @@ export default {
         cancelText: '取消',
         onOk: () => {
           this.INIT_FORM_VIEW({ type: 'change' })
+          ls.remove('state')
           this.$message.success('清空成功')
         }
       })
