@@ -56,9 +56,9 @@
 </template>
 
 <script>
-import panelMixins from './panelMixins'
+import attrMixins from './attrMixins'
 export default {
-  mixins: [panelMixins]
+  mixins: [attrMixins]
 }
 </script>
 

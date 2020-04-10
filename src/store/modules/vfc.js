@@ -109,7 +109,7 @@ const vfc = {
           view = item.view[index]
         })
       }
-      const name = `V${view.type.substr(0, 1).toUpperCase()}${view.type.substr(1)}Panel`
+      const name = `V${view.type.substr(0, 1).toUpperCase()}${view.type.substr(1)}Attr`
       state.activeComponent = {
         index,
         name,

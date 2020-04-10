@@ -7,6 +7,13 @@ const commonComponentAttr = {
   placeholder: '请输入关键字',
   value: '',
   required: false,
+  valid: {
+    type: null,
+    label: '',
+    value: '',
+    pattern: '',
+    message: ''
+  },
   tooltip: null
 }
 // 基础组件
@@ -24,13 +31,7 @@ const antvComponents = [{
       label: '300',
       value: 'px'
     },
-    allowClear: null,
-    valid: {
-      label: '',
-      value: '',
-      pattern: '',
-      message: ''
-    }
+    allowClear: null
   }
 }, {
   name: '多行文本',
@@ -45,12 +46,6 @@ const antvComponents = [{
     allowClear: null,
     autoSize: {
       minRows: 2
-    },
-    valid: {
-      label: '',
-      value: '',
-      pattern: '',
-      message: ''
     }
   }
 }, {
@@ -64,13 +59,7 @@ const antvComponents = [{
       value: 'px'
     },
     allowClear: null,
-    visibilityToggle: true,
-    valid: {
-      label: '',
-      value: '',
-      pattern: '',
-      message: ''
-    }
+    visibilityToggle: true
   }
 }, {
   name: '数字输入框',
@@ -82,12 +71,6 @@ const antvComponents = [{
     width: {
       label: '150',
       value: 'px'
-    },
-    valid: {
-      label: '',
-      value: '',
-      pattern: '',
-      message: ''
     }
   }
 }, {

@@ -10,19 +10,18 @@
   >
     <BaseForm :data="data" :edit="edit" v-if="type === 0" />
     <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
-
-    <a-form-item
-      :wrapper-col="type ? {span: 24} : btnLayout"
-      :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline'}"
-      v-if="data.length && type !== null"
+    <div
+      :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline', 'form-item-edit': edit}"
     >
-      <ButtonItem
-        v-for="(item, index) in formConfig.btns"
-        :key="index"
-        :data="item"
-        @on-reset="onReset"
-      />
-    </a-form-item>
+      <a-form-item :wrapper-col="type ? {span: 24} : btnLayout" v-if="data.length && type !== null">
+        <ButtonItem
+          v-for="(item, index) in formConfig.btns"
+          :key="index"
+          :data="item"
+          @on-reset="onReset"
+        />
+      </a-form-item>
+    </div>
   </a-form>
 </template>
 
@@ -100,4 +99,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.form-item-edit {
+  cursor: default;
+}
 </style>
