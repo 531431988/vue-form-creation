@@ -7,14 +7,12 @@
       </a-tooltip>
     </span>
 
-    <a-input-password
+    <a-input-number
       v-decorator="decorator"
       :placeholder="options.placeholder"
       :maxLength="options.maxLength"
-      :allowClear="options.allowClear"
       :disabled="options.disabled"
       :style="`width: ${options.width.label}${options.width.value}`"
-      :visibilityToggle="options.visibilityToggle"
     />
   </a-form-item>
 </template>

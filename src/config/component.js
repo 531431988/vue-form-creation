@@ -3,7 +3,11 @@ import { createUID } from '@/libs/utils'
 // 组件通用属性
 const commonComponentAttr = {
   readonly: false,
-  disabled: false
+  disabled: false,
+  placeholder: '请输入关键字',
+  value: '',
+  required: false,
+  tooltip: null
 }
 // 基础组件
 const antvComponents = [{
@@ -11,10 +15,6 @@ const antvComponents = [{
   type: 'input',
   icon: 'edit',
   options: {
-    name: createUID('input'),
-    label: '单行文本',
-    placeholder: '请输入关键字',
-    value: '',
     maxLength: null,
     prefix: null,
     suffix: null,
@@ -25,31 +25,24 @@ const antvComponents = [{
       value: 'px'
     },
     allowClear: null,
-    required: false,
     valid: {
       label: '',
       value: '',
       pattern: '',
       message: ''
-    },
-    tooltip: null
+    }
   }
 }, {
   name: '多行文本',
   type: 'textarea',
   icon: 'code',
   options: {
-    name: createUID('textarea'),
-    label: '多行文本',
-    placeholder: '请输入关键字',
-    value: '',
     maxLength: null,
     width: {
       label: '100',
       value: '%'
     },
     allowClear: null,
-    required: false,
     autoSize: {
       minRows: 2
     },
@@ -58,39 +51,44 @@ const antvComponents = [{
       value: '',
       pattern: '',
       message: ''
-    },
-    tooltip: null
+    }
   }
 }, {
   name: '密码框',
   type: 'password',
   icon: 'lock',
   options: {
-    name: createUID('password'),
-    label: '密码框',
-    placeholder: '请输入关键字',
-    value: '',
     maxLength: null,
     width: {
       label: '300',
       value: 'px'
     },
     allowClear: null,
-    required: false,
     visibilityToggle: true,
     valid: {
       label: '',
       value: '',
       pattern: '',
       message: ''
-    },
-    tooltip: null
+    }
   }
 }, {
   name: '数字输入框',
   type: 'inputNumber',
   icon: 'calculator',
-  options: null
+  options: {
+    maxLength: null,
+    width: {
+      label: '200',
+      value: 'px'
+    },
+    valid: {
+      label: '',
+      value: '',
+      pattern: '',
+      message: ''
+    }
+  }
 }, {
   name: '单选框',
   type: 'radio',
@@ -145,7 +143,10 @@ const antvComponents = [{
 
 antvComponents.map(item => {
   if (item.options) {
-    item.options = Object.assign(item.options, commonComponentAttr)
+    item.options = Object.assign(item.options, commonComponentAttr, {
+      label: item.name,
+      name: createUID(item.type),
+    })
   }
 })
 // 自定义组件
