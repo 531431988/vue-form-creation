@@ -21,7 +21,7 @@ const antvComponents = [{
     addonBefore: null,
     addonAfter: null,
     width: {
-      label: '200',
+      label: '300',
       value: 'px'
     },
     allowClear: null,
@@ -38,7 +38,29 @@ const antvComponents = [{
   name: '多行文本',
   type: 'textarea',
   icon: 'code',
-  options: null
+  options: {
+    name: createUID('textarea'),
+    label: '多行文本',
+    placeholder: '请输入关键字',
+    value: '',
+    maxLength: null,
+    width: {
+      label: '100',
+      value: '%'
+    },
+    allowClear: null,
+    required: false,
+    autoSize: {
+      minRows: 2
+    },
+    valid: {
+      label: '',
+      value: '',
+      pattern: '',
+      message: ''
+    },
+    tooltip: null
+  }
 }, {
   name: '密码框',
   type: 'password',

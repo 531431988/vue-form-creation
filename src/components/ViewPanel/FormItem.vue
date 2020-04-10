@@ -24,6 +24,7 @@
 import { evil } from '@/libs/utils'
 import { mapState } from 'vuex'
 import VInput from './VInput'
+import VTextarea from './VTextarea'
 
 export default {
   props: {
@@ -45,7 +46,8 @@ export default {
     }
   },
   components: {
-    VInput
+    VInput,
+    VTextarea
   },
   data () {
     return {

@@ -14,6 +14,7 @@
 <script>
 import { mapState } from 'vuex'
 import InputPanel from './InputPanel'
+import TextareaPanel from './TextareaPanel'
 export default {
   props: {
     visible: {
@@ -22,7 +23,8 @@ export default {
     }
   },
   components: {
-    InputPanel
+    InputPanel,
+    TextareaPanel
   },
   data () {
     return {
