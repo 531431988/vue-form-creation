@@ -78,6 +78,11 @@ export default {
       validModalShow: false
     }
   },
+  created () {
+    if (!this.$ls.get('state')) {
+      this.modalShow = true
+    }
+  },
   watch: {
     type () {
       this.modalShow = this.type === null ? true : false

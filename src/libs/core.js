@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import config from '@/config/index'
 import Bus from './bus'
+import { ls } from '@/libs/utils'
 import '@/directive'
 import '@/mock'
 
 // if (process.env.NODE_ENV !== 'production') require('@/mock')
+Vue.prototype.$ls = ls
 Vue.prototype.$bus = Bus
 Vue.prototype.$config = config
 Vue.prototype.$color = config.color
