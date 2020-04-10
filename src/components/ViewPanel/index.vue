@@ -88,7 +88,14 @@ export default {
     onReset () {
       this.form.resetFields()
     }
-  }
+  },
+  mounted () {
+    if (this.edit) {
+      this.$bus.$on('on-reset', () => {
+        this.form.resetFields()
+      })
+    }
+  },
 }
 </script>
 

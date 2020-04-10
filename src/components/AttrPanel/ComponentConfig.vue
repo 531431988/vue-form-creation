@@ -109,6 +109,14 @@ export default {
   created () {
     this.$store.dispatch('GetvalidRulesList')
   },
+  watch: {
+    options: {
+      handler () {
+        this.$bus.$emit('on-reset')
+      },
+      deep: true
+    }
+  },
   methods: {
     ...mapMutations(['UPDATE_COMPONENT']),
     // 更新验证规则
