@@ -4,17 +4,17 @@
       <Header />
       <a-layout>
         <AddPanel />
-        <Main />
+        <VueFormCreation />
       </a-layout>
     </a-layout>
   </div>
 </template>
 <script>
-import { Header, Main, AddPanel } from '@/components'
+import { Header, VueFormCreation, AddPanel } from '@/components'
 export default {
   components: {
     Header,
-    Main,
+    VueFormCreation,
     AddPanel
   }
 }
