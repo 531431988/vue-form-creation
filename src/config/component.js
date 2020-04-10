@@ -38,21 +38,12 @@ const antvComponents = [{
   name: '多行文本',
   type: 'textarea',
   icon: 'code',
-  options: {
-    placeholder: '',
-    addonAfter: null,
-    addonBefore: null,
-    defaultValue: null,
-    value: null,
-    maxLength: null,
-    prefix: null,
-    suffix: null,
-    autosize: false,
-    allowClear: null
-  }
+  options: null
 }]
 antvComponents.map(item => {
-  item.options = Object.assign(item.options, commonComponentAttr)
+  if (item.options) {
+    item.options = Object.assign(item.options, commonComponentAttr)
+  }
 })
 // 自定义组件
 const customComponents = []

@@ -132,7 +132,7 @@ export default {
         onOk: () => {
           this.INIT_FORM_VIEW({ type: 'change' })
           ls.remove('state')
-          this.SET_TYPE(null)
+          this.SET_TYPE(this.type)
           this.$message.success('清空成功')
         }
       })
