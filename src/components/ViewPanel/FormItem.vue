@@ -26,6 +26,7 @@ import { mapState } from 'vuex'
 import VInput from './VInput'
 import VTextarea from './VTextarea'
 import VPassword from './VPassword'
+import VInputNumber from './VInputNumber'
 
 export default {
   props: {
@@ -49,7 +50,8 @@ export default {
   components: {
     VInput,
     VTextarea,
-    VPassword
+    VPassword,
+    VInputNumber
   },
   data () {
     return {
