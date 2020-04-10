@@ -10,7 +10,8 @@
     <a-input-number
       v-decorator="decorator"
       :placeholder="options.placeholder"
-      :maxLength="options.maxLength"
+      :min="options.min"
+      :max="options.max"
       :disabled="options.disabled"
       :style="`width: ${options.width.label}${options.width.value}`"
     />

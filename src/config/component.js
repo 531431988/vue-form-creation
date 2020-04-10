@@ -77,9 +77,10 @@ const antvComponents = [{
   type: 'inputNumber',
   icon: 'calculator',
   options: {
-    maxLength: null,
+    min: 0,
+    max: null,
     width: {
-      label: '200',
+      label: '150',
       value: 'px'
     },
     valid: {
