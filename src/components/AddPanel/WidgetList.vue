@@ -1,9 +1,9 @@
 <template>
   <div class="widget-list">
     <p class="title">{{title}}</p>
-    <a-row>
+    <a-row :gutter="5">
       <a-col :span="12" v-for="(item, index) in data" :key="index">
-        <a-button size="small" @click="onClick(item)">
+        <a-button block size="small" @click="onClick(item)" class="tl mb5">
           <a-icon :type="item.icon"></a-icon>
           {{item.name}}
         </a-button>

@@ -1,8 +1,7 @@
 <template>
   <a-layout-sider theme="light" :width="240" class="sider-component-panel">
     <WidgetList title="组件列表" :data="antvComponents" />
-    <!-- <WidgetList title="自定义组件" :data="antvComponents" />
-    <WidgetList title="第三方组件" :data="antvComponents" />-->
+    <WidgetList title="第三方组件" :data="customComponents" />
   </a-layout-sider>
 </template>
 
@@ -19,7 +18,8 @@ export default {
   },
   computed: {
     ...mapState({
-      antvComponents: state => state.vfc.antvComponents
+      antvComponents: state => state.vfc.antvComponents,
+      customComponents: state => state.vfc.customComponents
     })
   },
   methods: {

@@ -1,5 +1,5 @@
 import { createUID, recursCollapseForm, addCollapseFormChild } from '@/libs/utils'
-import { antvComponents, baseFormConfig, collapseFormConfig, iconConfig, btnTheme } from '@/config/form'
+import { antvComponents, customComponents, baseFormConfig, collapseFormConfig, iconConfig, btnTheme } from '@/config/form'
 import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
 
@@ -10,6 +10,7 @@ const vfc = {
     // 表单模式（0:基础 1: 高级）
     type: null,
     antvComponents,
+    customComponents,
     // 基础表单
     baseForm: [],
     baseFormConfig,

@@ -7,6 +7,22 @@ export { default as QuestionCircleOutline } from '@ant-design/icons/lib/outline/
 export { default as UserOutline } from '@ant-design/icons/lib/outline/UserOutline'
 export { default as UploadOutline } from '@ant-design/icons/lib/outline/UploadOutline'
 export { default as LockOutline } from '@ant-design/icons/lib/outline/LockOutline'
+export { default as CalculatorOutline } from '@ant-design/icons/lib/outline/CalculatorOutline'
+export { default as CheckSquareOutline } from '@ant-design/icons/lib/outline/CheckSquareOutline'
+export { default as DownSquareOutline } from '@ant-design/icons/lib/outline/DownSquareOutline'
+export { default as BuildOutline } from '@ant-design/icons/lib/outline/BuildOutline'
+export { default as SlidersOutline } from '@ant-design/icons/lib/outline/SlidersOutline'
+export { default as StarOutline } from '@ant-design/icons/lib/outline/StarOutline'
+export { default as ClockCircleOutline } from '@ant-design/icons/lib/outline/ClockCircleOutline'
+export { default as FontColorsOutline } from '@ant-design/icons/lib/outline/FontColorsOutline'
+
+// 自定义
+export { default as SwitchOutline } from './public/icons/SwitchOutline'
+export { default as CheckboxOutline } from './public/icons/CheckboxOutline'
+export { default as RadioOutline } from './public/icons/RadioOutline'
+
+
+
 
 // export what antd other components need
 export { default as CloseOutline } from '@ant-design/icons/lib/outline/CloseOutline'
