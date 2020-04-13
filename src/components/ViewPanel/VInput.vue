@@ -1,12 +1,6 @@
 <template>
   <a-form-item>
-    <span slot="label">
-      {{attrs.label}}&nbsp;
-      <a-tooltip v-if="attrs.tooltip" :title="attrs.tooltip">
-        <a-icon type="question-circle-o" />
-      </a-tooltip>
-    </span>
-
+    <ToolTip slot="label" :attrs="attrs" />
     <a-input
       v-decorator="decorator"
       :placeholder="attrs.placeholder"

@@ -102,4 +102,10 @@ export default {
 .form-item-edit {
   cursor: default;
 }
+.ant-form-inline {
+  /deep/ .inline {
+    display: inline-block;
+    height: 100%;
+  }
+}
 </style>

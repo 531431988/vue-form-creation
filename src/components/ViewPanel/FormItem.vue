@@ -72,7 +72,7 @@ export default {
       const { formLayout } = this.formConfig
       return {
         'form-item-wrap': this.edit,
-        'inline': this.edit && formLayout === 'inline',
+        'inline': !this.edit || formLayout === 'inline',
         'vertical': this.edit && formLayout === 'vertical',
         'vui-flex': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical'),
         'vui-flex-middle': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical')
@@ -111,20 +111,10 @@ export default {
       width: 100%;
     }
   }
-  .del {
-    margin-top: 0;
-  }
-  &.vertical .del {
-    margin-top: 0;
-    margin-bottom: 0;
-  }
   &.inline {
     .ant-form-item {
       margin-right: 8px !important;
-    }
-    display: inline;
-    .del {
-      margin: 3px 16px 0 0;
+      vertical-align: middle;
     }
   }
 }

@@ -1,11 +1,14 @@
-
 import { evil } from '@/libs/utils'
+import ToolTip from './ToolTip'
 export default {
   props: {
     attrs: {
       type: Object,
       default: () => ({})
     }
+  },
+  components: {
+    ToolTip
   },
   data () {
     return {
