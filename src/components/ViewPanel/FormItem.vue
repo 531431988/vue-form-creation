@@ -4,7 +4,7 @@
       <component
         :is="`V${type.substr(0, 1).toUpperCase()}${type.substr(1)}`"
         :options="options"
-        :class="{'vui-flex-item': edit}"
+        :class="activeClass"
         @click.native="$emit('on-click')"
       />
       <a-button
@@ -73,6 +73,13 @@ export default {
         'vui-flex': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical'),
         'vui-flex-middle': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical')
       }
+    },
+    activeClass () {
+      const { type, activeComponent } = this.$store.state.vfc
+      return {
+        'vui-flex-item': this.edit,
+        'active': this.options.name === (activeComponent.item && activeComponent.item.options.name)
+      }
     }
   }
 }
@@ -83,7 +90,12 @@ export default {
   position: relative;
   display: block;
   /deep/ .ant-form-item {
+    margin-bottom: 0;
+    padding: 12px 10px;
     cursor: pointer;
+    &.active {
+      background: fade(@primary-color, 10%);
+    }
     &:before {
       content: "";
       position: absolute;
@@ -97,7 +109,6 @@ export default {
   }
   .del {
     margin-top: 0;
-    margin-bottom: 24px;
   }
   &.vertical .del {
     margin-top: 0;
