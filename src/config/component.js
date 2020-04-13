@@ -7,7 +7,7 @@ const commonComponentAttr = {
   placeholder: '请输入关键字',
   value: '',
   required: false,
-  valid: {
+  validate: {
     type: null,
     label: '',
     value: '',

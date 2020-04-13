@@ -150,7 +150,7 @@ export default {
           return
         }
         const { label, value, message } = values
-        this.$store.dispatch('AddValidRule', { label, pattern: value, value: createUID('valid'), message })
+        this.$store.dispatch('AddValidRule', { label, pattern: value, value: createUID('validate'), message })
         form.resetFields()
         this.validModalShow = false
       })

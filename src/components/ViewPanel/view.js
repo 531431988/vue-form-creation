@@ -14,23 +14,23 @@ export default {
   },
   computed: {
     decorator () {
-      const { required, valid } = this.options
+      const { required, validate } = this.options
       let rules = []
       // 必填
       if (required) {
-        if (valid.type) {
+        if (validate.type) {
           rules = [{
-            type: valid.type,
+            type: validate.type,
             message: '此项必填'
           }]
         } else {
           rules = [{ required: true, message: '此项必填' }]
         }
       }
-      if (valid.value) {
+      if (validate.value) {
         rules = [...rules, {
-          pattern: evil(valid.pattern),
-          message: valid.message
+          pattern: evil(validate.pattern),
+          message: validate.message
         }]
       } else {
         rules = [...rules]

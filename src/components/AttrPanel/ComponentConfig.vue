@@ -79,7 +79,7 @@
       <a-row type="flex">
         <a-col>验证规则：</a-col>
         <a-col class="vui-flex-item">
-          <a-select allowClear v-model="options.valid.value" @change="onChangeValid">
+          <a-select allowClear v-model="options.validate.value" @change="onChangeValid">
             <a-select-option
               v-for="(item, index) in validRulesList"
               :key="index"
@@ -123,9 +123,9 @@ export default {
     onChangeValid (value) {
       let { item, index } = this.activeComponent
       if (value) {
-        item.options.valid = this.validRulesList[value]
+        item.options.validate = this.validRulesList[value]
       } else {
-        item.options.valid = {
+        item.options.validate = {
           label: '',
           value: '',
           pattern: '',
