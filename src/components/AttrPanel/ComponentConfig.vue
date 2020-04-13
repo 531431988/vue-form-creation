@@ -7,7 +7,7 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input placeholder="字段唯一标识" v-model="options.name" />
+      <a-input placeholder="字段唯一标识" v-model="attrs.name" />
     </a-form-item>
     <a-form-item>
       <span slot="label">
@@ -16,7 +16,7 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input placeholder="请输入字段名称" v-model="options.label" />
+      <a-input placeholder="请输入字段名称" v-model="attrs.label" />
     </a-form-item>
 
     <!-- <a-form-item>
@@ -26,7 +26,7 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input placeholder="默认值" v-model="options.value" />
+      <a-input placeholder="默认值" v-model="attrs.value" />
     </a-form-item>-->
 
     <a-form-item>
@@ -36,10 +36,10 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input v-model="options.width.label" :maxLength="3">
+      <a-input v-model="attrs.width.label" :maxLength="3">
         <a-select
           slot="addonAfter"
-          v-model="options.width.value"
+          v-model="attrs.width.value"
           style="width: 80px"
           @change="onChangeSelect"
         >
@@ -49,17 +49,17 @@
       </a-input>
     </a-form-item>
 
-    <a-form-item v-if="options.placeholder">
+    <a-form-item v-if="attrs.placeholder">
       <span slot="label">
         占位内容&nbsp;
         <a-tooltip title="当用户没有输入时的提示文字">
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input v-model="options.placeholder" />
+      <a-input v-model="attrs.placeholder" />
     </a-form-item>
     <a-form-item label="是否禁用">
-      <a-switch checkedChildren="禁用" unCheckedChildren="启用" v-model="options.disabled" />
+      <a-switch checkedChildren="禁用" unCheckedChildren="启用" v-model="attrs.disabled" />
     </a-form-item>
 
     <slot></slot>
@@ -71,15 +71,15 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input placeholder="请输入字段说明" v-model="options.tooltip" />
+      <a-input placeholder="请输入字段说明" v-model="attrs.tooltip" />
     </a-form-item>
 
     <a-form-item label="校验">
-      <a-checkbox v-model="options.required">是否必填</a-checkbox>
+      <a-checkbox v-model="attrs.required">是否必填</a-checkbox>
       <a-row type="flex">
         <a-col>验证规则：</a-col>
         <a-col class="vui-flex-item">
-          <a-select allowClear v-model="options.validate.value" @change="onChangeValid">
+          <a-select allowClear v-model="attrs.validate.value" @change="onChangeValid">
             <a-select-option
               v-for="(item, index) in validRulesList"
               :key="index"
@@ -102,7 +102,7 @@ export default {
   computed: {
     ...mapState({
       activeComponent: state => state.vfc.activeComponent,
-      options: state => state.vfc.activeComponent.item.options,
+      attrs: state => state.vfc.activeComponent.item.attrs,
       validRulesList: state => state.vfc.validRulesList
     })
   },
@@ -110,7 +110,7 @@ export default {
     this.$store.dispatch('GetvalidRulesList')
   },
   watch: {
-    options: {
+    attrs: {
       handler () {
         this.$bus.$emit('on-reset')
       },
@@ -123,9 +123,9 @@ export default {
     onChangeValid (value) {
       let { item, index } = this.activeComponent
       if (value) {
-        item.options.validate = this.validRulesList[value]
+        item.attrs.validate = this.validRulesList[value]
       } else {
-        item.options.validate = {
+        item.attrs.validate = {
           label: '',
           value: '',
           pattern: '',
@@ -138,13 +138,13 @@ export default {
     onChangeSelect (value, option) {
       let { item, index } = this.activeComponent
       if (value === '%') {
-        item.options.width = {
+        item.attrs.width = {
           label: '100',
           value: '%'
         }
       } else {
-        item.options.width = {
-          label: item.options.width.label,
+        item.attrs.width = {
+          label: item.attrs.width.label,
           value
         }
       }

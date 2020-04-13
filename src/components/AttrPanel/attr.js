@@ -10,7 +10,7 @@ export default {
         const { type, baseFormConfig, collapseFormConfig } = state.vfc
         return type === 0 ? baseFormConfig : collapseFormConfig
       },
-      options: state => state.vfc.activeComponent.item.options,
+      attrs: state => state.vfc.activeComponent.item.attrs,
     })
   }
 }

@@ -2,7 +2,7 @@
 import { evil } from '@/libs/utils'
 export default {
   props: {
-    options: {
+    attrs: {
       type: Object,
       default: () => ({})
     }
@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     decorator () {
-      const { required, validate } = this.options
+      const { required, validate } = this.attrs
       let rules = []
       // 必填
       if (required) {
@@ -36,9 +36,9 @@ export default {
         rules = [...rules]
       }
       return [
-        this.options.name,
+        this.attrs.name,
         {
-          initialValue: this.options.value,
+          initialValue: this.attrs.value,
           rules
         }]
     }

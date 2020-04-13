@@ -4,7 +4,7 @@
       <a-switch
         checkedChildren="显示"
         unCheckedChildren="隐藏"
-        v-model="options.allowClear"
+        v-model="attrs.allowClear"
         :size="formConfig.size"
       />
     </a-form-item>
@@ -16,10 +16,10 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input-number :min="1" :max="200" v-model="options.maxLength" :size="formConfig.size" />
+      <a-input-number :min="1" :max="200" v-model="attrs.maxLength" :size="formConfig.size" />
     </a-form-item>
 
-    <a-form-item v-if="!options.allowClear">
+    <a-form-item v-if="!attrs.allowClear">
       <span slot="label">
         前后缀内容&nbsp;
         <a-tooltip title="常用示例 前缀￥ 后缀RMB">
@@ -28,10 +28,10 @@
       </span>
       <a-row>
         <a-col :span="11">
-          <a-input v-model="options.prefix" :size="formConfig.size" />
+          <a-input v-model="attrs.prefix" :size="formConfig.size" />
         </a-col>
         <a-col :span="11" :offset="2">
-          <a-input v-model="options.suffix" :size="formConfig.size" />
+          <a-input v-model="attrs.suffix" :size="formConfig.size" />
         </a-col>
       </a-row>
     </a-form-item>
@@ -45,10 +45,10 @@
       </span>
       <a-row>
         <a-col :span="11">
-          <a-input v-model="options.addonBefore" :size="formConfig.size" />
+          <a-input v-model="attrs.addonBefore" :size="formConfig.size" />
         </a-col>
         <a-col :span="11" :offset="2">
-          <a-input v-model="options.addonAfter" :size="formConfig.size" />
+          <a-input v-model="attrs.addonAfter" :size="formConfig.size" />
         </a-col>
       </a-row>
     </a-form-item>

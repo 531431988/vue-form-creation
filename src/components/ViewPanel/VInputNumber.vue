@@ -1,19 +1,19 @@
 <template>
   <a-form-item>
     <span slot="label">
-      {{options.label}}&nbsp;
-      <a-tooltip v-if="options.tooltip" :title="options.tooltip">
+      {{attrs.label}}&nbsp;
+      <a-tooltip v-if="attrs.tooltip" :title="attrs.tooltip">
         <a-icon type="question-circle-o" />
       </a-tooltip>
     </span>
 
     <a-input-number
       v-decorator="decorator"
-      :placeholder="options.placeholder"
-      :min="options.min"
-      :max="options.max"
-      :disabled="options.disabled"
-      :style="`width: ${options.width.label}${options.width.value}`"
+      :placeholder="attrs.placeholder"
+      :min="attrs.min"
+      :max="attrs.max"
+      :disabled="attrs.disabled"
+      :style="`width: ${attrs.width.label}${attrs.width.value}`"
     />
   </a-form-item>
 </template>

@@ -1,20 +1,20 @@
 <template>
   <a-form-item>
     <span slot="label">
-      {{options.label}}&nbsp;
-      <a-tooltip v-if="options.tooltip" :title="options.tooltip">
+      {{attrs.label}}&nbsp;
+      <a-tooltip v-if="attrs.tooltip" :title="attrs.tooltip">
         <a-icon type="question-circle-o" />
       </a-tooltip>
     </span>
 
     <a-textarea
       v-decorator="decorator"
-      :placeholder="options.placeholder"
-      :maxLength="options.maxLength"
-      :allowClear="options.allowClear"
-      :disabled="options.disabled"
-      :style="`width: ${options.width.label}${options.width.value}`"
-      :autoSize="options.autoSize"
+      :placeholder="attrs.placeholder"
+      :maxLength="attrs.maxLength"
+      :allowClear="attrs.allowClear"
+      :disabled="attrs.disabled"
+      :style="`width: ${attrs.width.label}${attrs.width.value}`"
+      :autoSize="attrs.autoSize"
     />
   </a-form-item>
 </template>

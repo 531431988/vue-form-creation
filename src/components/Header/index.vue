@@ -36,7 +36,7 @@
 
     <a-drawer
       title="表单预览"
-      width="40%"
+      width="60%"
       placement="left"
       :closable="false"
       :visible="previewShow"

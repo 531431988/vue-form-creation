@@ -4,7 +4,7 @@
       <a-switch
         checkedChildren="显示"
         unCheckedChildren="隐藏"
-        v-model="options.allowClear"
+        v-model="attrs.allowClear"
         :size="formConfig.size"
       />
     </a-form-item>
@@ -16,7 +16,7 @@
           <a-icon type="question-circle-o" />
         </a-tooltip>
       </span>
-      <a-input-number :min="1" :max="200" v-model="options.maxLength" :size="formConfig.size" />
+      <a-input-number :min="1" :max="200" v-model="attrs.maxLength" :size="formConfig.size" />
     </a-form-item>
   </ComponentConfig>
 </template>

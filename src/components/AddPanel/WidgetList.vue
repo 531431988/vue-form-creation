@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     onClick (item) {
-      if (item.options) {
+      if (item.attrs) {
         this.$store.commit('ADD_COMPONENT', item)
       } else {
         this.$message.info('通宵开发中……')

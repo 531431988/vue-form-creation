@@ -3,7 +3,7 @@
     <div :class="className">
       <component
         :is="`V${type.substr(0, 1).toUpperCase()}${type.substr(1)}`"
-        :options="options"
+        :attrs="attrs"
         :class="activeClass"
         @click.native="$emit('on-click')"
       />
@@ -38,7 +38,7 @@ export default {
       type: String,
       default: ''
     },
-    options: {
+    attrs: {
       type: Object,
       default: () => ({})
     },
@@ -78,7 +78,7 @@ export default {
       const { type, activeComponent } = this.$store.state.vfc
       return {
         'vui-flex-item': this.edit,
-        'active': this.options.name === (activeComponent.item && activeComponent.item.options.name)
+        'active': this.attrs.name === (activeComponent.item && activeComponent.item.attrs.name)
       }
     }
   }

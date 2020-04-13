@@ -9,7 +9,7 @@
               <a-icon type="question-circle-o" />
             </a-tooltip>
           </span>
-          <a-input-number :min="1" :max="200" v-model="options.min" :size="formConfig.size" />
+          <a-input-number :min="1" :max="200" v-model="attrs.min" :size="formConfig.size" />
         </a-form-item>
       </a-col>
       <a-col :span="12">
@@ -20,7 +20,7 @@
               <a-icon type="question-circle-o" />
             </a-tooltip>
           </span>
-          <a-input-number :min="1" :max="200" v-model="options.max" :size="formConfig.size" />
+          <a-input-number :min="1" :max="200" v-model="attrs.max" :size="formConfig.size" />
         </a-form-item>
       </a-col>
     </a-row>

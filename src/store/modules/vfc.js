@@ -63,7 +63,7 @@ const vfc = {
     // 添加组件（基础 嵌套）
     ADD_COMPONENT (state, params) {
       params = JSON.parse(JSON.stringify(params))
-      params.options.name = createUID('form')
+      params.attrs.name = createUID('form')
       state.baseForm.push(params)
       // 基础表单
       if (state.type === 0) {

@@ -3,7 +3,7 @@
     <FormItem
       v-for="(item, index) in data"
       :key="index"
-      :options="item.options"
+      :attrs="item.attrs"
       :type="item.type"
       :edit="edit"
       :del="del"

@@ -21,7 +21,7 @@ const antvComponents = [{
   name: '单行文本',
   type: 'input',
   icon: 'edit',
-  options: {
+  attrs: {
     maxLength: null,
     prefix: null,
     suffix: null,
@@ -37,7 +37,7 @@ const antvComponents = [{
   name: '多行文本',
   type: 'textarea',
   icon: 'code',
-  options: {
+  attrs: {
     maxLength: null,
     width: {
       label: '100',
@@ -52,7 +52,7 @@ const antvComponents = [{
   name: '密码框',
   type: 'password',
   icon: 'lock',
-  options: {
+  attrs: {
     maxLength: null,
     width: {
       label: '300',
@@ -65,7 +65,8 @@ const antvComponents = [{
   name: '数字输入框',
   type: 'inputNumber',
   icon: 'calculator',
-  options: {
+  attrs: {
+    placeholder: '只能输入数字',
     min: 0,
     max: null,
     width: {
@@ -77,57 +78,57 @@ const antvComponents = [{
   name: '单选框',
   type: 'radio',
   icon: 'radio',
-  options: null
+  attrs: null
 }, {
   name: '多选框',
   type: 'checkbox',
   icon: 'check-square',
-  options: null
+  attrs: null
 }, {
   name: '开关',
   type: 'switch',
   icon: 'switch',
-  options: null
+  attrs: null
 }, {
   name: '下拉选择器',
   type: 'select',
   icon: 'down-square',
-  options: null
+  attrs: null
 }, {
   name: '级联选择',
   type: 'cascader',
   icon: 'build',
-  options: null
+  attrs: null
 }, {
   name: '滑动输入条',
   type: 'slider',
   icon: 'sliders',
-  options: null
+  attrs: null
 }, {
   name: '评分',
   type: 'rate',
   icon: 'star',
-  options: null
+  attrs: null
 }, {
   name: '日期选择框',
   type: 'datePicker',
   icon: 'calendar',
-  options: null
+  attrs: null
 }, {
   name: '时间选择框',
   type: 'timePicker',
   icon: 'clock-circle',
-  options: null
+  attrs: null
 }, {
   name: '上传文件',
   type: 'upload',
   icon: 'upload',
-  options: null
+  attrs: null
 }]
 
 antvComponents.map(item => {
-  if (item.options) {
-    item.options = Object.assign(item.options, commonComponentAttr, {
+  if (item.attrs) {
+    item.attrs = Object.assign(item.attrs, commonComponentAttr, {
       label: item.name,
       name: createUID(item.type),
     })
@@ -138,7 +139,7 @@ const customComponents = [{
   name: '富文本',
   type: 'quill',
   icon: 'font-colors',
-  options: null
+  attrs: null
 }]
 
 export {
