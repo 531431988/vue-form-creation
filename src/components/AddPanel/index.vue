@@ -6,21 +6,17 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import WidgetList from './WidgetList'
+import { antvComponents, customComponents } from '@/config/form'
 export default {
   components: {
     WidgetList
   },
   data () {
     return {
+      antvComponents,
+      customComponents
     }
-  },
-  computed: {
-    ...mapState({
-      antvComponents: state => state.vfc.antvComponents,
-      customComponents: state => state.vfc.customComponents
-    })
   },
   methods: {
   }
