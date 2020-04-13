@@ -28,6 +28,7 @@ import VTextarea from './VTextarea'
 import VPassword from './VPassword'
 import VInputNumber from './VInputNumber'
 import VRadio from './VRadio'
+import VSwitch from './VSwitch'
 
 export default {
   props: {
@@ -53,7 +54,8 @@ export default {
     VTextarea,
     VPassword,
     VInputNumber,
-    VRadio
+    VRadio,
+    VSwitch
   },
   data () {
     return {

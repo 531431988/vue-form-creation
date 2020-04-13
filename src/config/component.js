@@ -95,7 +95,12 @@ const antvComponents = [{
   name: '开关',
   type: 'switch',
   icon: 'switch',
-  attrs: null
+  attrs: {
+    value: '',
+    validate: {
+      type: 'boolean'
+    }
+  }
 }, {
   name: '下拉选择器',
   type: 'select',
