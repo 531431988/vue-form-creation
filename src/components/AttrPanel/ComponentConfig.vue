@@ -29,7 +29,7 @@
       <a-input placeholder="默认值" v-model="attrs.value" />
     </a-form-item>-->
 
-    <a-form-item>
+    <a-form-item v-if="attrs.width">
       <span slot="label">
         组件宽度&nbsp;
         <a-tooltip title="单位百分比时最大宽100%">

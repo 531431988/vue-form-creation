@@ -2,9 +2,7 @@
 import { createUID } from '@/libs/utils'
 // 组件通用属性
 const commonComponentAttr = {
-  readonly: false,
   disabled: false,
-  placeholder: '请输入关键字',
   value: '',
   required: false,
   validate: {
@@ -78,7 +76,16 @@ const antvComponents = [{
   name: '单选框',
   type: 'radio',
   icon: 'radio',
-  attrs: null
+  attrs: {
+    value: '',
+    options: [{
+      label: '选项1',
+      value: createUID('radio')
+    }],
+    validate: {
+      type: 'string'
+    }
+  }
 }, {
   name: '多选框',
   type: 'checkbox',
@@ -127,11 +134,17 @@ const antvComponents = [{
 }]
 
 antvComponents.map(item => {
+  // 过滤无placeholder属性的字段
+  let filter = ['radio', 'checkbox']
+  let obj = {}
   if (item.attrs) {
-    item.attrs = Object.assign(item.attrs, commonComponentAttr, {
+    obj = filter.indexOf(item.type) === -1 ? {
+      placeholder: item.attrs.placeholder || '请输入关键字'
+    } : {}
+    item.attrs = Object.assign({}, commonComponentAttr, item.attrs, {
       label: item.name,
-      name: createUID(item.type),
-    })
+      name: createUID(item.type)
+    }, obj)
   }
 })
 // 自定义组件

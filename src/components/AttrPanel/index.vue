@@ -17,6 +17,7 @@ import VInputAttr from './VInputAttr'
 import VTextareaAttr from './VTextareaAttr'
 import VPasswordAttr from './VPasswordAttr'
 import VInputNumberAttr from './VInputNumberAttr'
+import VRadioAttr from './VRadioAttr'
 export default {
   props: {
     visible: {
@@ -28,7 +29,8 @@ export default {
     VInputAttr,
     VTextareaAttr,
     VPasswordAttr,
-    VInputNumberAttr
+    VInputNumberAttr,
+    VRadioAttr
   },
   data () {
     return {
