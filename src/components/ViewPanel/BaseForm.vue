@@ -17,8 +17,8 @@
         @on-click="onClickItem(index)"
         @on-del="onDel(index)"
       />
+      <a-empty v-if="!data.length && edit" description="暂无组件，可在左侧组件列表中点击添加组件" />
     </draggable>
-    <a-empty v-if="!data.length && edit" description="暂无组件，可在左侧组件列表中点击添加组件" />
     <AttrPanel :visible="visible" @close="onClose" />
   </div>
 </template>
