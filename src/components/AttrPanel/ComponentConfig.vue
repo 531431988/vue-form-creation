@@ -49,6 +49,16 @@
       </a-input>
     </a-form-item>
 
+    <a-form-item>
+      <span slot="label">
+        字段提示信息&nbsp;
+        <a-tooltip title="当前字段的说明">
+          <a-icon type="question-circle-o" />
+        </a-tooltip>
+      </span>
+      <a-input placeholder="请输入字段说明" v-model="attrs.tooltip" />
+    </a-form-item>
+
     <a-form-item v-if="attrs.placeholder">
       <span slot="label">
         占位内容&nbsp;
@@ -92,16 +102,6 @@
 
     <slot></slot>
 
-    <a-form-item>
-      <span slot="label">
-        字段提示信息&nbsp;
-        <a-tooltip title="当前字段的说明">
-          <a-icon type="question-circle-o" />
-        </a-tooltip>
-      </span>
-      <a-input placeholder="请输入字段说明" v-model="attrs.tooltip" />
-    </a-form-item>
-
     <a-form-item label="校验">
       <a-checkbox v-model="attrs.required">是否必填</a-checkbox>
       <a-row type="flex" v-if="access">
@@ -140,7 +140,7 @@ export default {
     }),
     // 过滤单选复选
     access () {
-      return !hasOne(['radio', 'checkbox'], this.type)
+      return !hasOne(['radio', 'checkbox', 'switch'], this.type)
     }
   },
   created () {

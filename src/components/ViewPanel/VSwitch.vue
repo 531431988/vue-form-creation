@@ -1,7 +1,6 @@
 <template>
   <a-form-item>
     <ToolTip slot="label" :attrs="attrs" />
-
     <a-switch
       v-decorator="decorator"
       :checkedChildren="attrs.checkedChildren"

@@ -23,7 +23,7 @@ export default {
     decorator () {
       const { required, validate } = this.attrs
       let rules = []
-      if (hasOne(['radio', 'checkbox'], this.type)) {
+      if (hasOne(['radio', 'checkbox'], this.type) || this.type === 'switch') {
         if (validate.type) {
           rules = [{
             required,
@@ -46,10 +46,14 @@ export default {
         }
       }
 
+      let propName = this.type === 'switch' ? {
+        valuePropName: 'checked'
+      } : {}
       return [
         this.attrs.name,
         {
           initialValue: this.attrs.value,
+          ...propName,
           rules
         }]
     }

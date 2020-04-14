@@ -3,7 +3,7 @@
     <p class="title">{{title}}</p>
     <a-row :gutter="5">
       <draggable :list="data" v-bind="dragOptions" @start="dragging = true" @end="onEnd">
-        <a-col :span="12" v-for="(item, index) in data" :key="index">
+        <a-col :span="12" v-for="(item, index) in data" :key="index" v-if="item.attrs">
           <a-button block size="small" @click.self.stop="onClick(item)" class="tl mb5">
             <a-icon :type="item.icon"></a-icon>
             {{item.name}}

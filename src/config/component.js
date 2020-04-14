@@ -97,7 +97,9 @@ const antvComponents = [{
   type: 'switch',
   icon: 'switch',
   attrs: {
-    value: '',
+    value: null,
+    checkedChildren: '开启',
+    unCheckedChildren: '关闭',
     validate: {
       type: 'boolean'
     }
@@ -143,7 +145,7 @@ antvComponents.map(item => {
   // 过滤无placeholder属性的字段
   let obj = {}
   if (item.attrs) {
-    obj = hasOne(['radio', 'checkbox'], item.type) === -1 ? {} : {
+    obj = hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
       placeholder: item.attrs.placeholder || '请输入关键字'
     }
     item.attrs = Object.assign({}, commonComponentAttr, item.attrs, {
