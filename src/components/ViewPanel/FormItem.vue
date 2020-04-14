@@ -4,6 +4,7 @@
       <component
         :is="`V${type.substr(0, 1).toUpperCase()}${type.substr(1)}`"
         :attrs="attrs"
+        :type="type"
         :class="activeClass"
         @click.native="$emit('on-click')"
       />

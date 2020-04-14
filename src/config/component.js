@@ -1,5 +1,5 @@
 
-import { createUID } from '@/libs/utils'
+import { createUID, hasOne } from '@/libs/utils'
 // 组件通用属性
 const commonComponentAttr = {
   disabled: false,
@@ -140,12 +140,11 @@ const antvComponents = [{
 
 antvComponents.map(item => {
   // 过滤无placeholder属性的字段
-  let filter = ['radio', 'checkbox']
   let obj = {}
   if (item.attrs) {
-    obj = filter.indexOf(item.type) === -1 ? {
+    obj = hasOne(['radio', 'checkbox'], item.type) === -1 ? {} : {
       placeholder: item.attrs.placeholder || '请输入关键字'
-    } : {}
+    }
     item.attrs = Object.assign({}, commonComponentAttr, item.attrs, {
       label: item.name,
       name: createUID(item.type)

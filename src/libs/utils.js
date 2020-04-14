@@ -63,11 +63,17 @@ const addCollapseFormChild = key => {
   }
 }
 
+// 是否在其中
+const hasOne = (arr, key) => {
+  return arr.indexOf(key) === -1 ? false : true
+}
+
 export {
   ls,
   randomName,
   evil,
   createUID,
   recursCollapseForm,
-  addCollapseFormChild
+  addCollapseFormChild,
+  hasOne
 }

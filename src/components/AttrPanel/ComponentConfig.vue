@@ -76,7 +76,7 @@
 
     <a-form-item label="校验">
       <a-checkbox v-model="attrs.required">是否必填</a-checkbox>
-      <a-row type="flex">
+      <a-row type="flex" v-if="access">
         <a-col>验证规则：</a-col>
         <a-col class="vui-flex-item">
           <a-select allowClear v-model="attrs.validate.value" @change="onChangeValid">
@@ -96,15 +96,20 @@
 </template>
 
 <script>
-
+import { hasOne } from '@/libs/utils'
 import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapState({
       activeComponent: state => state.vfc.activeComponent,
       attrs: state => state.vfc.activeComponent.item.attrs,
+      type: state => state.vfc.activeComponent.item.type,
       validRulesList: state => state.vfc.validRulesList
-    })
+    }),
+    // 过滤单选复选
+    access () {
+      return !hasOne(['radio', 'checkbox'], this.type)
+    }
   },
   created () {
     this.$store.dispatch('GetvalidRulesList')
@@ -112,6 +117,8 @@ export default {
   watch: {
     attrs: {
       handler () {
+        let { item, index } = this.activeComponent
+        this.UPDATE_COMPONENT({ index, item })
         this.$bus.$emit('on-reset')
       },
       deep: true
