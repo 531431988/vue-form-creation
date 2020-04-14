@@ -96,22 +96,30 @@ const vfc = {
       state.activeCollapse = key
     },
     // 设置编辑的组件
-    SET_ACTIVE_COMPONENT (state, index) {
-      let view = null
-      // 基础表单
-      if (state.type === 0) {
-        // 嵌套表单
-        view = state.baseForm[index]
+    SET_ACTIVE_COMPONENT (state, index = null) {
+      if (index !== null) {
+        let view = null
+        // 基础表单
+        if (state.type === 0) {
+          // 嵌套表单
+          view = state.baseForm[index]
+        } else {
+          recursCollapseForm(state.collapseForm, state.activeCollapse, item => {
+            view = item.view[index]
+          })
+        }
+        const name = `V${view.type.substr(0, 1).toUpperCase()}${view.type.substr(1)}Attr`
+        state.activeComponent = {
+          index,
+          name,
+          item: view
+        }
       } else {
-        recursCollapseForm(state.collapseForm, state.activeCollapse, item => {
-          view = item.view[index]
-        })
-      }
-      const name = `V${view.type.substr(0, 1).toUpperCase()}${view.type.substr(1)}Attr`
-      state.activeComponent = {
-        index,
-        name,
-        item: view
+        state.activeComponent = {
+          index: 0,
+          name: '',
+          item: null
+        }
       }
     },
     // 修改嵌套表单名称
@@ -152,6 +160,10 @@ const vfc = {
     // 更新基础表单属性面板
     UPDATE_BASE_FORM_CONFIG (state, { key, val }) {
       state[state.type === 0 ? 'baseFormConfig' : 'collapseFormConfig'][key] = val
+    },
+    // 更新表单列表
+    UPDATE_FORM_LIST (state, list) {
+      state.baseForm = list
     }
   },
   actions: {
