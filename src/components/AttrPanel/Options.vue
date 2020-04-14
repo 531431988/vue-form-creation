@@ -28,6 +28,7 @@ export default {
   computed: {
     ...mapState({
       baseForm: state => state.vfc.baseForm,
+      type: state => state.vfc.activeComponent.item.type,
       index: state => state.vfc.activeComponent.index
     })
   },
@@ -36,8 +37,8 @@ export default {
     onDel (item, index) {
       let options = this.baseForm[this.index].attrs.options
       if (options.length > 1) {
-        this.UPDATE_COMPONENT_OPTIONS({
-          parentIndex: this.index,
+
+        this.addOption({
           label: '',
           type: 'del',
           index
@@ -48,8 +49,7 @@ export default {
     },
     onBlur (e, i) {
       if (e.target.value === '') {
-        this.UPDATE_COMPONENT_OPTIONS({
-          parentIndex: this.index,
+        this.addOption({
           label: '',
           type: 'del',
           index: i
@@ -57,8 +57,7 @@ export default {
       }
     },
     onchange (e, i) {
-      this.UPDATE_COMPONENT_OPTIONS({
-        parentIndex: this.index,
+      this.addOption({
         label: e.target.value,
         type: 'edit',
         index: i
@@ -66,15 +65,24 @@ export default {
     },
     onAdd () {
       let options = this.baseForm[this.index].attrs.options
-      this.UPDATE_COMPONENT_OPTIONS({
-        parentIndex: this.index,
+      this.addOption({
         label: '',
-        type: 'add'
+        type: 'add',
+        index: null
       })
       this.$nextTick(() => {
         this.$refs[options[options.length - 1].value][0].focus()
       })
     },
+    addOption ({ label, type, index }) {
+      this.UPDATE_COMPONENT_OPTIONS({
+        parentIndex: this.index,
+        label,
+        type,
+        index,
+        name: this.type
+      })
+    }
   }
 }
 </script>

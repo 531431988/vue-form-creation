@@ -166,9 +166,9 @@ const vfc = {
       state.baseForm = list
     },
     // 更新选项（单选、多选、下拉）
-    UPDATE_COMPONENT_OPTIONS (state, { parentIndex, label, type = 'add', index = null, }) {
+    UPDATE_COMPONENT_OPTIONS (state, { parentIndex, label, type = 'add', index = null, name = 'radio' }) {
       if (type === 'add') {
-        state.baseForm[parentIndex].attrs.options.push({ label, value: createUID('radio') })
+        state.baseForm[parentIndex].attrs.options.push({ label, value: createUID(name) })
       } else if (type === 'edit') {
         state.baseForm[parentIndex].attrs.options[index].label = label
       } else {
