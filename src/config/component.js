@@ -91,7 +91,16 @@ const antvComponents = [{
   name: '多选框',
   type: 'checkbox',
   icon: 'check-square',
-  attrs: null
+  attrs: {
+    value: null,
+    options: [{
+      label: '选项1',
+      value: createUID('checkbox')
+    }],
+    validate: {
+      type: 'array'
+    }
+  }
 }, {
   name: '开关',
   type: 'switch',
