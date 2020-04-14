@@ -24,7 +24,6 @@ export default {
       const { required, validate } = this.attrs
       let rules = []
       if (hasOne(['radio', 'checkbox'], this.type)) {
-        console.log('是radio')
         if (validate.type) {
           rules = [{
             required,
