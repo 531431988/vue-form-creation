@@ -2,7 +2,7 @@
   <div class="widget-list">
     <p class="title">{{title}}</p>
     <a-row :gutter="5">
-      <draggable :list="data" v-bind="dragOptions" @start="dragging = true">
+      <draggable :list="data" v-bind="dragOptions" @start="dragging = true" @end="onEnd">
         <a-col :span="12" v-for="(item, index) in data" :key="index">
           <a-button block size="small" @click.self.stop="onClick(item)" class="tl mb5">
             <a-icon :type="item.icon"></a-icon>
@@ -41,9 +41,8 @@ export default {
     dragOptions () {
       return {
         animation: 200,
-        group: "description",
         disabled: false,
-        ghostClass: "ghost",
+        ghostClass: 'drag-move',
         group: { name: 'component', pull: 'clone', put: false },
         sort: false
       }
@@ -53,6 +52,9 @@ export default {
     // 单击添加
     onClick (item) {
       this.add(item)
+    },
+    onEnd (e) {
+      // console.log(e)
     },
     add (item) {
       if (item.attrs) {

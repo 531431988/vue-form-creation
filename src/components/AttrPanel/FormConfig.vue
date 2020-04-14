@@ -4,7 +4,7 @@
       <a-radio-group v-model="formConfig.formLayout" buttonStyle="solid" :size="formConfig.size">
         <a-radio-button value="horizontal">水平</a-radio-button>
         <a-radio-button value="vertical">垂直</a-radio-button>
-        <a-radio-button value="inline">内联</a-radio-button>
+        <!-- <a-radio-button value="inline">内联</a-radio-button> -->
       </a-radio-group>
     </a-form-item>
     <a-form-item label="表单宽度（%）">

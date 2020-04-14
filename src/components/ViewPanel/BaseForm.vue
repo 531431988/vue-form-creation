@@ -6,7 +6,6 @@
       :disabled="!edit"
       @start="dragging = true"
       @end="onEnd"
-      group="component"
     >
       <FormItem
         v-for="(item, index) in data"
@@ -72,7 +71,9 @@ export default {
     dragOptions () {
       return {
         animation: 200,
-        group: "description",
+        group: {
+          name: 'component'
+        },
         disabled: false,
         ghostClass: "ghost"
       }

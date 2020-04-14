@@ -1,25 +1,23 @@
 <template>
-  <transition appear name="fadeUp">
-    <div :class="className">
-      <component
-        :is="`V${type.substr(0, 1).toUpperCase()}${type.substr(1)}`"
-        :attrs="attrs"
-        :type="type"
-        :class="activeClass"
-        @click.native="$emit('on-click')"
-      />
-      <a-button
-        type="link"
-        class="del"
-        v-if="edit && del"
-        shape="circle"
-        key="2"
-        @click="$emit('on-del')"
-      >
-        <a-icon type="delete" v-color="$color.error"></a-icon>
-      </a-button>
-    </div>
-  </transition>
+  <div :class="className">
+    <component
+      :is="`V${type.substr(0, 1).toUpperCase()}${type.substr(1)}`"
+      :attrs="attrs"
+      :type="type"
+      :class="activeClass"
+      @click.native="$emit('on-click')"
+    />
+    <a-button
+      type="link"
+      class="del"
+      v-if="edit && del"
+      shape="circle"
+      key="2"
+      @click="$emit('on-del')"
+    >
+      <a-icon type="delete" v-color="$color.error"></a-icon>
+    </a-button>
+  </div>
 </template>
 
 <script>
@@ -73,7 +71,7 @@ export default {
       const { formLayout } = this.formConfig
       return {
         'form-item-wrap': this.edit,
-        'inline': !this.edit || formLayout === 'inline',
+        // 'inline': !this.edit || formLayout === 'inline',
         'vertical': this.edit && formLayout === 'vertical',
         'vui-flex': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical'),
         'vui-flex-middle': this.edit && (formLayout === 'horizontal' || formLayout === 'vertical')
