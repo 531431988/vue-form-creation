@@ -18,6 +18,7 @@ import VTextareaAttr from './VTextareaAttr'
 import VPasswordAttr from './VPasswordAttr'
 import VInputNumberAttr from './VInputNumberAttr'
 import VRadioAttr from './VRadioAttr'
+import VCheckboxAttr from './VCheckboxAttr'
 import VSwitchAttr from './VSwitchAttr'
 export default {
   props: {
@@ -32,6 +33,7 @@ export default {
     VPasswordAttr,
     VInputNumberAttr,
     VRadioAttr,
+    VCheckboxAttr,
     VSwitchAttr
   },
   data () {

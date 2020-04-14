@@ -27,6 +27,7 @@ import VTextarea from './VTextarea'
 import VPassword from './VPassword'
 import VInputNumber from './VInputNumber'
 import VRadio from './VRadio'
+import VCheckbox from './VCheckbox'
 import VSwitch from './VSwitch'
 
 export default {
@@ -54,6 +55,7 @@ export default {
     VPassword,
     VInputNumber,
     VRadio,
+    VCheckbox,
     VSwitch
   },
   data () {
