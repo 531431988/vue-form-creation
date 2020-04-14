@@ -1,6 +1,13 @@
 <template>
   <div>
-    <draggable :list="data" v-bind="dragOptions" @start="dragging = true" @end="onEnd">
+    <draggable
+      :list="data"
+      v-bind="dragOptions"
+      :disabled="!edit"
+      @start="dragging = true"
+      @end="onEnd"
+      group="component"
+    >
       <FormItem
         v-for="(item, index) in data"
         :key="index"
@@ -49,6 +56,14 @@ export default {
       dragging: false
     }
   },
+  watch: {
+    data: {
+      handler () {
+        this.UPDATE_FORM_LIST(this.baseForm)
+      },
+      deep: true
+    }
+  },
   computed: {
     ...mapState({
       type: state => state.vfc.type,
@@ -92,14 +107,4 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.flip-list-move {
-  transition: transform 0.5s;
-}
-.no-move {
-  transition: transform 0s;
-}
-.ghost {
-  opacity: 0.5;
-  background: fade(@primary-color, 8%);
-}
 </style>

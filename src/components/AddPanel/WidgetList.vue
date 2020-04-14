@@ -2,17 +2,21 @@
   <div class="widget-list">
     <p class="title">{{title}}</p>
     <a-row :gutter="5">
-      <a-col :span="12" v-for="(item, index) in data" :key="index">
-        <a-button block size="small" @click="onClick(item)" class="tl mb5">
-          <a-icon :type="item.icon"></a-icon>
-          {{item.name}}
-        </a-button>
-      </a-col>
+      <draggable :list="data" v-bind="dragOptions" @start="dragging = true">
+        <a-col :span="12" v-for="(item, index) in data" :key="index">
+          <a-button block size="small" @click.self.stop="onClick(item)" class="tl mb5">
+            <a-icon :type="item.icon"></a-icon>
+            {{item.name}}
+          </a-button>
+        </a-col>
+      </draggable>
     </a-row>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
+import { antvComponents } from '@/config/form'
 export default {
   props: {
     title: {
@@ -25,8 +29,32 @@ export default {
       required: true
     }
   },
+  components: {
+    draggable
+  },
+  data () {
+    return {
+      dragging: false
+    }
+  },
+  computed: {
+    dragOptions () {
+      return {
+        animation: 200,
+        group: "description",
+        disabled: false,
+        ghostClass: "ghost",
+        group: { name: 'component', pull: 'clone', put: false },
+        sort: false
+      }
+    }
+  },
   methods: {
+    // 单击添加
     onClick (item) {
+      this.add(item)
+    },
+    add (item) {
       if (item.attrs) {
         this.$store.commit('ADD_COMPONENT', item)
       } else {
