@@ -58,9 +58,37 @@
       </span>
       <a-input v-model="attrs.placeholder" />
     </a-form-item>
-    <a-form-item label="是否禁用">
-      <a-switch checkedChildren="禁用" unCheckedChildren="启用" v-model="attrs.disabled" />
-    </a-form-item>
+
+    <a-row>
+      <a-col :span="8">
+        <a-form-item label="是否禁用">
+          <a-switch checkedChildren="禁用" unCheckedChildren="启用" v-model="attrs.disabled" />
+        </a-form-item>
+      </a-col>
+      <template v-if="type === 'input' || type === 'textarea' || type === 'password'">
+        <a-col :span="8">
+          <a-form-item label="是否显示清除">
+            <a-switch
+              checkedChildren="显示"
+              unCheckedChildren="隐藏"
+              v-model="attrs.allowClear"
+              :size="formConfig.size"
+            />
+          </a-form-item>
+        </a-col>
+        <a-col :span="8">
+          <a-form-item>
+            <span slot="label">
+              字数限制&nbsp;
+              <a-tooltip title="可输入的字数，默认不限制，最大200">
+                <a-icon type="question-circle-o" />
+              </a-tooltip>
+            </span>
+            <a-input-number :min="1" :max="200" v-model="attrs.maxLength" :size="formConfig.size" />
+          </a-form-item>
+        </a-col>
+      </template>
+    </a-row>
 
     <slot></slot>
 
@@ -101,6 +129,10 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
     ...mapState({
+      formConfig: state => {
+        const { type, baseFormConfig, collapseFormConfig } = state.vfc
+        return type === 0 ? baseFormConfig : collapseFormConfig
+      },
       activeComponent: state => state.vfc.activeComponent,
       attrs: state => state.vfc.activeComponent.item.attrs,
       type: state => state.vfc.activeComponent.item.type,

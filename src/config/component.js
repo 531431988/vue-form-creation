@@ -43,7 +43,8 @@ const antvComponents = [{
     },
     allowClear: null,
     autoSize: {
-      minRows: 2
+      minRows: 2,
+      maxRows: 6
     }
   }
 }, {

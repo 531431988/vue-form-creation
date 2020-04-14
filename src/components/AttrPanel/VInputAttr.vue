@@ -1,24 +1,5 @@
 <template>
   <ComponentConfig>
-    <a-form-item label="是否显示清除">
-      <a-switch
-        checkedChildren="显示"
-        unCheckedChildren="隐藏"
-        v-model="attrs.allowClear"
-        :size="formConfig.size"
-      />
-    </a-form-item>
-
-    <a-form-item>
-      <span slot="label">
-        字数限制&nbsp;
-        <a-tooltip title="可输入的字数，默认不限制，最大200">
-          <a-icon type="question-circle-o" />
-        </a-tooltip>
-      </span>
-      <a-input-number :min="1" :max="200" v-model="attrs.maxLength" :size="formConfig.size" />
-    </a-form-item>
-
     <a-form-item v-if="!attrs.allowClear">
       <span slot="label">
         前后缀内容&nbsp;
@@ -28,10 +9,10 @@
       </span>
       <a-row>
         <a-col :span="11">
-          <a-input v-model="attrs.prefix" :size="formConfig.size" />
+          <a-input v-model="attrs.prefix" placeholder="请输入前缀 如：$" :size="formConfig.size" />
         </a-col>
         <a-col :span="11" :offset="2">
-          <a-input v-model="attrs.suffix" :size="formConfig.size" />
+          <a-input v-model="attrs.suffix" placeholder="请输入后缀 如：RMB" :size="formConfig.size" />
         </a-col>
       </a-row>
     </a-form-item>
@@ -45,10 +26,10 @@
       </span>
       <a-row>
         <a-col :span="11">
-          <a-input v-model="attrs.addonBefore" :size="formConfig.size" />
+          <a-input v-model="attrs.addonBefore" placeholder="请输入前缀 如：http" :size="formConfig.size" />
         </a-col>
         <a-col :span="11" :offset="2">
-          <a-input v-model="attrs.addonAfter" :size="formConfig.size" />
+          <a-input v-model="attrs.addonAfter" placeholder="请输入后缀 如：.com" :size="formConfig.size" />
         </a-col>
       </a-row>
     </a-form-item>
