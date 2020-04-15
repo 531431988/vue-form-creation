@@ -68,7 +68,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['INIT_FORM_VIEW', 'SET_ACTIVE_COLLAPSE', 'SET_EXPAND_COLLAPSE']),
+    ...mapMutations(['SET_ACTIVE_COLLAPSE', 'SET_EXPAND_COLLAPSE']),
     onAdd (item) {
       const { key } = item
       this.activeKey = [key]

@@ -100,7 +100,7 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          this.INIT_FORM_VIEW({ type: 'change' })
+          this.INIT_FORM_VIEW()
           ls.remove('state')
           this.$message.success('清空成功')
         }

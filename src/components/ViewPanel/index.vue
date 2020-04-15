@@ -57,7 +57,8 @@ export default {
     ButtonItem
   },
   created () {
-    this.type ? this.UPDATE_COLLAPSE_FORM(this.data) : this.UPDATE_BASE_FORM(this.data)
+    this.INIT_FORM_VIEW(this.data)
+    // this.type ? this.UPDATE_COLLAPSE_FORM(this.data) : this.UPDATE_BASE_FORM(this.data)
     this.SET_TYPE(this.type)
   },
   computed: {
@@ -156,7 +157,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['UPDATE_BASE_FORM', 'UPDATE_COLLAPSE_FORM', 'SET_TYPE']),
+    ...mapMutations(['INIT_FORM_VIEW', 'UPDATE_BASE_FORM', 'UPDATE_COLLAPSE_FORM', 'SET_TYPE']),
     onClick (item) {
       if (item.text === '提交' || item.text === '保存') {
         this.$refs.ruleForm.validate(valid => {
