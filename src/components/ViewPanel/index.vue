@@ -16,12 +16,13 @@
     >
       <a-form-model-item
         :wrapper-col="type ? {span: 24} : btnLayout"
-        v-if="data.length && type !== null"
+        v-if="formData.length && type !== null"
       >
         <a-button
           v-for="(item, index) in formConfig.btns"
           :type="item.type"
           :icon="item.icon"
+          :htmlType="index === 0 ? 'submit' : 'button'"
           class="mr10"
           @click="onClick(item)"
         >{{item.text}}</a-button>
