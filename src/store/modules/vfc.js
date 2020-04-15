@@ -14,7 +14,7 @@ const vfc = {
     baseFormConfig,
     // 高级表单
     collapseFormConfig,
-    collapseForm: [addCollapseFormChild(createUID('collapse'))],
+    collapseForm: [],
     // 当前展开的折叠面板
     expandCollapseKey: [],
     // 当前选择的折叠面板
@@ -32,14 +32,6 @@ const vfc = {
     // 设置表单模式
     SET_TYPE (state, params) {
       state.type = params
-      state.baseForm = []
-      state.collapseForm = [addCollapseFormChild(createUID('collapse'))]
-      state.activeCollapse = null
-      state.activeComponent = {
-        index: 0,
-        name: '',
-        item: null
-      }
     },
     // 设置校验规则列表数据
     SET_VALID_RULE_LIST (state, params) {
@@ -52,13 +44,7 @@ const vfc = {
     // 初始化表单数据
     INIT_FORM_VIEW (state, { component = [], type = '' }) {
       // 切换表单模式
-      if (type === 'change') {
-        state.baseForm = []
-        state.collapseForm = component.length ? component : [addCollapseFormChild(createUID('collapse'))]
-      } else {
-        // 初始化
-        state.baseForm = component
-      }
+      state[state.type ? 'collapseForm' : 'baseForm'] = component
       state.activeCollapse = null
       state.activeComponent = {
         index: 0,
@@ -170,11 +156,11 @@ const vfc = {
       state[state.type === 0 ? 'baseFormConfig' : 'collapseFormConfig'][key] = val
     },
     // 更新表单列表
-    UPDATE_BASE_FORM (state, list) {
-      state.baseForm = list
+    UPDATE_BASE_FORM (state, component) {
+      state.baseForm = component
     },
-    UPDATE_COLLAPSE_FORM (state, list) {
-      state.collapseForm = list
+    UPDATE_COLLAPSE_FORM (state, component) {
+      state.collapseForm = component
     },
     // 更新选项（单选、多选、下拉）
     UPDATE_COMPONENT_OPTIONS (state, { parentIndex, label, type = 'add', index = null, name = 'radio' }) {

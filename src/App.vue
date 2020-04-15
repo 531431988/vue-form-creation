@@ -41,7 +41,7 @@ export default {
   .sider-component-panel,
   .ant-layout-content {
     background: #fcfcfc;
-    max-height: calc(100vh - 64px);
+    max-height: calc(100vh -64px);
     overflow: auto;
     overflow: hidden;
     &:hover {

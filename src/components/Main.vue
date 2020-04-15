@@ -1,6 +1,6 @@
 <template>
   <a-layout-content class="main">
-    <ViewPanel :data="data" />
+    <ViewPanel :data="data" :type="0" />
   </a-layout-content>
 </template>
 

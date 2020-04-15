@@ -9,8 +9,7 @@
     :labelAlign="formConfig.align"
     :style="`width: ${formConfig.width}%`"
   >
-    <BaseForm :data="formData" :edit="edit" v-if="type === 0" />
-    <CollapseForm :data="formData" :edit="edit" v-if="type === 1" />
+    <component :data="formData" :edit="edit" :is="type ? 'CollapseForm' : 'BaseForm'" />
     <div
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline', 'form-item-edit': edit}"
     >
@@ -46,6 +45,10 @@ export default {
     edit: {
       type: Boolean,
       default: true
+    },
+    type: {
+      type: Number,
+      default: 0
     }
   },
   components: {
@@ -54,7 +57,8 @@ export default {
     ButtonItem
   },
   created () {
-    this.INIT_FORM_VIEW({ component: this.data })
+    this.type ? this.UPDATE_COLLAPSE_FORM(this.data) : this.UPDATE_BASE_FORM(this.data)
+    this.SET_TYPE(this.type)
   },
   computed: {
     ...mapState({
@@ -126,7 +130,6 @@ export default {
         console.log(obj)
         return obj
       },
-      type: state => state.vfc.type,
       formData: state => {
         const { type, baseForm, collapseForm } = state.vfc
         return type === 0 ? baseForm : collapseForm
@@ -153,7 +156,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['INIT_FORM_VIEW']),
+    ...mapMutations(['UPDATE_BASE_FORM', 'UPDATE_COLLAPSE_FORM', 'SET_TYPE']),
     onClick (item) {
       if (item.text === '提交' || item.text === '保存') {
         this.$refs.ruleForm.validate(valid => {

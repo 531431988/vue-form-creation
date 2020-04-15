@@ -72,7 +72,6 @@ export default {
     onAdd (item) {
       const { key } = item
       this.activeKey = [key]
-      this.INIT_FORM_VIEW({})
       this.SET_ACTIVE_COLLAPSE(key)
     },
     onChange (key) {
