@@ -69,7 +69,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'INIT_FORM_VIEW', 'ADD_COLLAPSE_FORM', 'SET_EXPAND_COLLAPSE']),
+    ...mapMutations(['EDIT_COLLAPSE_FORM_NAME', 'DEL_COLLAPSE_FORM', 'UPDATE_COLLAPSE_FORM', 'ADD_COLLAPSE_FORM', 'SET_EXPAND_COLLAPSE']),
     onDragEnter (info) {
       console.log(info)
       // expandedKeys 需要受控时设置
@@ -129,10 +129,7 @@ export default {
           ar.splice(i + 1, 0, dragObj)
         }
       }
-      // this.INIT_FORM_VIEW({
-      //   component: data,
-      //   type: 'change'
-      // })
+      this.UPDATE_COLLAPSE_FORM(component)
     },
     // 折叠或展开
     onExpand (expandedKeys) {
@@ -146,10 +143,7 @@ export default {
     onAddParent () {
       let component = JSON.parse(JSON.stringify(this.collapseForm))
       component.push(addCollapseFormChild(createUID('collapse')))
-      this.INIT_FORM_VIEW({
-        component,
-        type: 'change'
-      })
+      this.UPDATE_COLLAPSE_FORM(component)
     },
     // 添加子级
     onAdd (item) {

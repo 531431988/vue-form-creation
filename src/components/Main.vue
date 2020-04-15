@@ -14,15 +14,8 @@ export default {
   },
   data () {
     return {
+      data: []
     }
-  },
-  computed: {
-    ...mapState({
-      data: state => {
-        const { type, baseForm, collapseForm } = state.vfc
-        return type === 0 ? baseForm : collapseForm
-      }
-    })
   }
 }
 </script>

@@ -58,7 +58,7 @@ export default {
   watch: {
     data: {
       handler () {
-        this.UPDATE_FORM_LIST(this.baseForm)
+        this.UPDATE_BASE_FORM(this.baseForm)
       },
       deep: true
     }
@@ -80,7 +80,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_ACTIVE_COMPONENT', 'DEL_COMPONENT', 'UPDATE_FORM_LIST']),
+    ...mapMutations(['SET_ACTIVE_COMPONENT', 'DEL_COMPONENT', 'UPDATE_BASE_FORM']),
     // 表单元素单击
     onClickItem (index) {
       // 编辑中才可展开属性面板
@@ -101,7 +101,7 @@ export default {
     // 拖拽排序
     onEnd (e) {
       this.dragging = false
-      this.UPDATE_FORM_LIST(this.baseForm)
+      this.UPDATE_BASE_FORM(this.baseForm)
     }
   }
 

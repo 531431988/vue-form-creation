@@ -9,8 +9,8 @@
     :labelAlign="formConfig.align"
     :style="`width: ${formConfig.width}%`"
   >
-    <BaseForm :data="data" :edit="edit" v-if="type === 0" />
-    <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
+    <BaseForm :data="formData" :edit="edit" v-if="type === 0" />
+    <CollapseForm :data="formData" :edit="edit" v-if="type === 1" />
     <div
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline', 'form-item-edit': edit}"
     >
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { evil, hasOne } from '@/libs/utils'
+import { evil, hasOne, recursCollapseForm } from '@/libs/utils'
 import BaseForm from '@/components/ViewPanel/BaseForm'
 import CollapseForm from '@/components/ViewPanel/CollapseForm'
 import ButtonItem from './ButtonItem'
@@ -52,9 +52,8 @@ export default {
     CollapseForm,
     ButtonItem
   },
-  data () {
-    return {
-    }
+  created () {
+    this.INIT_FORM_VIEW({ component: this.data })
   },
   computed: {
     ...mapState({
@@ -65,6 +64,13 @@ export default {
           baseForm.forEach(item => {
             const { name, value } = item.attrs
             obj[name] = value
+          })
+        } else {
+          recursCollapseForm(collapseForm, null, child => {
+            child.view.forEach(item => {
+              const { name, value } = item.attrs
+              obj[name] = value
+            })
           })
         }
         return obj
@@ -93,12 +99,37 @@ export default {
               }]
             }
           })
+        } else {
+          recursCollapseForm(collapseForm, null, child => {
+            child.view.forEach(item => {
+              const { required, name, value, validate } = item.attrs
+              let rules = null
+              if (hasOne(['radio', 'checkbox', 'switch'], item.type)) {
+                rules = { required: true, message: '此项必填', trigger: 'change', type: validate.type }
+              } else {
+                rules = { required: true, message: '此项必填', trigger: 'blur' }
+              }
+              // 必填
+              if (required) {
+                obj[name] = [rules]
+              }
+              if (validate.value) {
+                obj[name] = [rules, {
+                  pattern: evil(validate.pattern),
+                  message: validate.message
+                }]
+              }
+            })
+          })
         }
         console.log(obj)
         return obj
       },
       type: state => state.vfc.type,
-      baseForm: state => state.vfc.baseForm,
+      formData: state => {
+        const { type, baseForm, collapseForm } = state.vfc
+        return type === 0 ? baseForm : collapseForm
+      },
       formConfig: state => {
         const { type, baseFormConfig, collapseFormConfig } = state.vfc
         return type === 0 ? baseFormConfig : collapseFormConfig
@@ -127,7 +158,7 @@ export default {
         this.$refs.ruleForm.validate(valid => {
           if (valid) {
             console.log(this.form)
-            console.log(this.baseForm)
+            console.log(this.formData)
           } else {
             console.log('error submit!!');
             return false;
@@ -139,7 +170,6 @@ export default {
     }
   },
   mounted () {
-    this.INIT_FORM_VIEW(this.data)
   },
 }
 </script>
