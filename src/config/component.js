@@ -61,13 +61,13 @@ const antvComponents = [{
     visibilityToggle: true
   }
 }, {
-  name: '数字输入框',
+  name: '数字框',
   type: 'inputNumber',
   icon: 'calculator',
   attrs: {
     placeholder: '只能输入数字',
-    min: 0,
-    max: null,
+    min: -Infinity,
+    max: Infinity,
     width: {
       label: '150',
       value: 'px'

@@ -5,11 +5,16 @@
         <a-form-model-item :prop="attrs.required ? attrs.name : null">
           <span slot="label">
             最小值&nbsp;
-            <a-tooltip title="可输入最小值 默认0">
+            <a-tooltip title="可输入最小值">
               <a-icon type="question-circle-o" />
             </a-tooltip>
           </span>
-          <a-input-number :min="1" :max="200" v-model="attrs.min" :size="formConfig.size" />
+          <a-input-number
+            :min="attrs.min"
+            :max="attrs.max"
+            v-model="attrs.min"
+            :size="formConfig.size"
+          />
         </a-form-model-item>
       </a-col>
       <a-col :span="12">
@@ -20,7 +25,12 @@
               <a-icon type="question-circle-o" />
             </a-tooltip>
           </span>
-          <a-input-number :min="1" :max="200" v-model="attrs.max" :size="formConfig.size" />
+          <a-input-number
+            :min="attrs.min"
+            :max="attrs.max"
+            v-model="attrs.max"
+            :size="formConfig.size"
+          />
         </a-form-model-item>
       </a-col>
     </a-row>
