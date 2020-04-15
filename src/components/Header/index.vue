@@ -31,7 +31,6 @@
       placement="left"
       :closable="false"
       :visible="previewShow"
-      :destroyOnClose="true"
       @close="previewShow = false"
     >
       <ViewPanel :data="data" :edit="false" :type="type" />

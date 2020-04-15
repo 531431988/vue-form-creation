@@ -9,7 +9,9 @@
     :labelAlign="formConfig.align"
     :style="`width: ${formConfig.width}%`"
   >
-    <component :data="formData" :edit="edit" :is="type ? 'CollapseForm' : 'BaseForm'" />
+    <component v-if="edit" :data="formData" :edit="edit" :is="type ? 'CollapseForm' : 'BaseForm'" />
+    <component v-else :data="data" :edit="edit" :is="type ? 'CollapseForm' : 'BaseForm'" />
+
     <div
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline', 'form-item-edit': edit}"
     >
@@ -57,6 +59,7 @@ export default {
     ButtonItem
   },
   created () {
+    console.log(!ls.get('state') && this.edit)
     if (!ls.get('state') && this.edit) {
       this.INIT_FORM_VIEW(this.data)
       this.SET_TYPE(this.type)

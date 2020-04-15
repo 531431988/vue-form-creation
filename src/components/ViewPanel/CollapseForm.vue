@@ -21,7 +21,7 @@
               type="primary"
               size="small"
               @click.stop="onAdd(item)"
-            >添加组件</a-button>
+            >编辑</a-button>
             <span class="t-primary" v-else>编辑中（可从左侧组件列表中选择需要添加的组件）</span>
           </template>
         </template>

@@ -11,11 +11,9 @@
 </template>
 
 <script>
-import { ls } from '@/libs/utils'
 import Header from './Header/index'
 import AddPanel from './AddPanel/index'
 import ViewPanel from './ViewPanel/index'
-import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
     Header,
