@@ -1,9 +1,9 @@
 <template>
-  <a-form-item>
+  <a-form-model-item :prop="attrs.required ? attrs.name : null">
     <ToolTip slot="label" :attrs="attrs" />
 
     <a-input-password
-      v-decorator="decorator"
+      v-model="attrs.value"
       :placeholder="attrs.placeholder"
       :maxLength="attrs.maxLength"
       :allowClear="attrs.allowClear"
@@ -11,7 +11,7 @@
       :style="`width: ${attrs.width.label}${attrs.width.value}`"
       :visibilityToggle="attrs.visibilityToggle"
     />
-  </a-form-item>
+  </a-form-model-item>
 </template>
 
 <script>

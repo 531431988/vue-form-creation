@@ -1,35 +1,41 @@
 <template>
-  <a-form
-    :form="form"
+  <a-form-model
+    ref="ruleForm"
+    :model="form"
+    :rules="rules"
     :layout="formConfig.formLayout"
     :label-col="formItemLayout.labelCol"
     :wrapper-col="formItemLayout.wrapperCol"
     :labelAlign="formConfig.align"
     :style="`width: ${formConfig.width}%`"
-    @submit="onSubmit"
   >
     <BaseForm :data="data" :edit="edit" v-if="type === 0" />
     <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
     <div
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline', 'form-item-edit': edit}"
     >
-      <a-form-item :wrapper-col="type ? {span: 24} : btnLayout" v-if="data.length && type !== null">
-        <ButtonItem
+      <a-form-model-item
+        :wrapper-col="type ? {span: 24} : btnLayout"
+        v-if="data.length && type !== null"
+      >
+        <a-button
           v-for="(item, index) in formConfig.btns"
-          :key="index"
-          :data="item"
-          @on-reset="onReset"
-        />
-      </a-form-item>
+          :type="item.type"
+          :icon="item.icon"
+          class="mr10"
+          @click="onClick(item)"
+        >{{item.text}}</a-button>
+      </a-form-model-item>
     </div>
-  </a-form>
+  </a-form-model>
 </template>
 
 <script>
+import { evil, hasOne } from '@/libs/utils'
 import BaseForm from '@/components/ViewPanel/BaseForm'
 import CollapseForm from '@/components/ViewPanel/CollapseForm'
 import ButtonItem from './ButtonItem'
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   props: {
     data: {
@@ -48,12 +54,51 @@ export default {
   },
   data () {
     return {
-      form: this.$form.createForm(this, { name: 'form' })
     }
   },
   computed: {
     ...mapState({
+      form: state => {
+        let obj = {}
+        const { type, baseForm, collapseForm } = state.vfc
+        if (type === 0) {
+          baseForm.forEach(item => {
+            const { name, value } = item.attrs
+            obj[name] = value
+          })
+        }
+        return obj
+      },
+      rules: state => {
+        let obj = {}
+        let rules = []
+        const { type, baseForm, collapseForm } = state.vfc
+        if (type === 0) {
+          baseForm.forEach(item => {
+            const { required, name, value, validate } = item.attrs
+            let rules = null
+            if (hasOne(['radio', 'checkbox', 'switch'], item.type)) {
+              rules = { required: true, message: '此项必填', trigger: 'change', type: validate.type }
+            } else {
+              rules = { required: true, message: '此项必填', trigger: 'blur' }
+            }
+            // 必填
+            if (required) {
+              obj[name] = [rules]
+            }
+            if (validate.value) {
+              obj[name] = [rules, {
+                pattern: evil(validate.pattern),
+                message: validate.message
+              }]
+            }
+          })
+        }
+        console.log(obj)
+        return obj
+      },
       type: state => state.vfc.type,
+      baseForm: state => state.vfc.baseForm,
       formConfig: state => {
         const { type, baseFormConfig, collapseFormConfig } = state.vfc
         return type === 0 ? baseFormConfig : collapseFormConfig
@@ -76,24 +121,25 @@ export default {
     }
   },
   methods: {
-    onSubmit (e) {
-      e.preventDefault()
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('验证通过', values)
-        }
-      })
-    },
-    onReset () {
-      this.form.resetFields()
+    ...mapMutations(['INIT_FORM_VIEW']),
+    onClick (item) {
+      if (item.text === '提交' || item.text === '保存') {
+        this.$refs.ruleForm.validate(valid => {
+          if (valid) {
+            console.log(this.form)
+            console.log(this.baseForm)
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        })
+      } else {
+        this.$refs.ruleForm.resetFields()
+      }
     }
   },
   mounted () {
-    if (this.edit) {
-      this.$bus.$on('on-reset', () => {
-        this.form.resetFields()
-      })
-    }
+    this.INIT_FORM_VIEW(this.data)
   },
 }
 </script>

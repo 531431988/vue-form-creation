@@ -78,7 +78,7 @@ const antvComponents = [{
   type: 'radio',
   icon: 'radio',
   attrs: {
-    value: '',
+    value: null,
     options: [{
       label: '选项1',
       value: createUID('radio')

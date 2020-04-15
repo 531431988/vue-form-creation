@@ -1,6 +1,6 @@
 <template>
   <ComponentConfig>
-    <a-form-item v-if="!attrs.allowClear">
+    <a-form-model-item v-if="!attrs.allowClear">
       <span slot="label">
         前后缀内容&nbsp;
         <a-tooltip title="常用示例 前缀￥ 后缀RMB">
@@ -15,9 +15,9 @@
           <a-input v-model="attrs.suffix" placeholder="请输入后缀 如：RMB" :size="formConfig.size" />
         </a-col>
       </a-row>
-    </a-form-item>
+    </a-form-model-item>
 
-    <a-form-item>
+    <a-form-model-item :prop="attrs.required ? attrs.name : null">
       <span slot="label">
         前后置标签&nbsp;
         <a-tooltip title="常用示例 前置http 后置.com">
@@ -32,7 +32,7 @@
           <a-input v-model="attrs.addonAfter" placeholder="请输入后缀 如：.com" :size="formConfig.size" />
         </a-col>
       </a-row>
-    </a-form-item>
+    </a-form-model-item>
   </ComponentConfig>
 </template>
 

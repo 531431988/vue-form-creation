@@ -1,6 +1,6 @@
 <template>
   <FormConfig>
-    <a-form-item label="嵌套表单层级配置">
+    <a-form-model-item label="嵌套表单层级配置">
       <a-tree
         class="form-config-tree"
         :draggable="draggable"
@@ -39,7 +39,7 @@
       <div class="tc">
         <a-button type="primary" :size="formConfig.size" @click="onAddParent">添加层级</a-button>
       </div>
-    </a-form-item>
+    </a-form-model-item>
   </FormConfig>
 </template>
 
@@ -129,10 +129,10 @@ export default {
           ar.splice(i + 1, 0, dragObj)
         }
       }
-      this.INIT_FORM_VIEW({
-        component: data,
-        type: 'change'
-      })
+      // this.INIT_FORM_VIEW({
+      //   component: data,
+      //   type: 'change'
+      // })
     },
     // 折叠或展开
     onExpand (expandedKeys) {

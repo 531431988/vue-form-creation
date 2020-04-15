@@ -1,13 +1,13 @@
 <template>
   <a-form class="form-item-margin-sm">
-    <a-form-item label="表单布局">
+    <a-form-model-item label="表单布局">
       <a-radio-group v-model="formConfig.formLayout" buttonStyle="solid" :size="formConfig.size">
         <a-radio-button value="horizontal">水平</a-radio-button>
         <a-radio-button value="vertical">垂直</a-radio-button>
         <!-- <a-radio-button value="inline">内联</a-radio-button> -->
       </a-radio-group>
-    </a-form-item>
-    <a-form-item label="表单宽度（%）">
+    </a-form-model-item>
+    <a-form-model-item label="表单宽度（%）">
       <a-input-number
         :min="1"
         :max="100"
@@ -15,15 +15,15 @@
         placeholder="百分比最大100"
         :size="formConfig.size"
       />
-    </a-form-item>
+    </a-form-model-item>
     <template v-if="formConfig.formLayout === 'horizontal'">
-      <a-form-item label="标签的文本对齐方式">
+      <a-form-model-item label="标签的文本对齐方式">
         <a-radio-group v-model="formConfig.align" buttonStyle="solid" :size="formConfig.size">
           <a-radio-button value="left">左对齐</a-radio-button>
           <a-radio-button value="right">右对齐</a-radio-button>
         </a-radio-group>
-      </a-form-item>
-      <a-form-item label="标签的文本占比">
+      </a-form-model-item>
+      <a-form-model-item label="标签的文本占比">
         <a-input-number
           :min="1"
           :max="23"
@@ -31,9 +31,9 @@
           placeholder="1-24"
           :size="formConfig.size"
         />
-      </a-form-item>
+      </a-form-model-item>
 
-      <a-form-item label="表单控件占比">
+      <a-form-model-item label="表单控件占比">
         <a-input-number
           :min="1"
           :max="23"
@@ -41,12 +41,12 @@
           placeholder="1-24"
           :size="formConfig.size"
         />
-      </a-form-item>
+      </a-form-model-item>
     </template>
 
     <slot></slot>
 
-    <a-form-item label="按钮配置（图标 文字 颜色）">
+    <a-form-model-item label="按钮配置（图标 文字 颜色）">
       <a-row :gutter="4" v-for="(item, index) in formConfig.btns" :key="index">
         <a-col :span="22">
           <a-input v-model="item.text" placeholder="按钮名" :size="formConfig.size">
@@ -84,7 +84,7 @@
       <div class="tc">
         <a-button type="primary" :size="formConfig.size" @click="onAdd">添加按钮</a-button>
       </div>
-    </a-form-item>
+    </a-form-model-item>
   </a-form>
 </template>
 

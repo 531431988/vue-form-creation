@@ -1,8 +1,8 @@
 <template>
-  <a-form-item>
+  <a-form-model-item :prop="attrs.required ? attrs.name : null">
     <ToolTip slot="label" :attrs="attrs" />
     <a-input
-      v-decorator="decorator"
+      v-model="attrs.value"
       :placeholder="attrs.placeholder"
       :maxLength="attrs.maxLength"
       :allowClear="attrs.allowClear"
@@ -13,7 +13,7 @@
       :addonBefore="attrs.addonBefore"
       :addonAfter="attrs.addonAfter"
     ></a-input>
-  </a-form-item>
+  </a-form-model-item>
 </template>
 
 <script>

@@ -9,21 +9,21 @@
     @ok="() => { $emit('on-ok') }"
   >
     <a-form :form="form">
-      <a-form-item label="验证规则名称">
+      <a-form-model-item label="验证规则名称">
         <a-input placeholder="请输入验证规则名称如：手机号" v-decorator="['label', { rules: rules.label }]" />
-      </a-form-item>
-      <a-form-item label="正则">
+      </a-form-model-item>
+      <a-form-model-item label="正则">
         <a-textarea
           placeholder="请输入完成的正则表达式如：/\d/"
           v-decorator="['value', { rules: rules.value }]"
         />
-      </a-form-item>
-      <a-form-item label="错误提示信息">
+      </a-form-model-item>
+      <a-form-model-item label="错误提示信息">
         <a-input
           placeholder="请输入错误提示信息如：手机号格式不正确"
           v-decorator="['message', { rules: rules.message }]"
         />
-      </a-form-item>
+      </a-form-model-item>
     </a-form>
   </a-modal>
 </template>

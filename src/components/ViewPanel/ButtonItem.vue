@@ -1,18 +1,10 @@
 <template>
   <span>
     <a-button
-      v-if="data.htmlType === 'submit'"
-      :type="data.type"
-      :icon="data.icon"
-      :html-type="data.text === '保存' || data.text === '提交' ? 'submit' : 'button'"
-      class="mr10"
-    >{{data.text}}</a-button>
-    <a-button
-      v-else
       :type="data.type"
       :icon="data.icon"
       class="mr10"
-      @click="onCancel"
+      @click="$emit('on-click')"
     >{{data.text}}</a-button>
   </span>
 </template>
@@ -28,11 +20,6 @@ export default {
   data () {
     return {
 
-    }
-  },
-  methods: {
-    onCancel () {
-      this.$emit('on-reset')
     }
   }
 }

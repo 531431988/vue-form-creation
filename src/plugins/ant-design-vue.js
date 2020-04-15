@@ -4,6 +4,7 @@ import {
   Row,
   Col,
   Form,
+  FormModel,
   Input,
   InputNumber,
   Select,
@@ -28,6 +29,7 @@ import {
 } from 'ant-design-vue'
 const { Header, Content, Sider, Footer } = Layout
 const FormItem = Form.Item
+const FormModelItem = FormModel.Item
 const RadioGroup = Radio.Group
 const CheckboxGroup = Checkbox.Group
 const SelectOption = Select.Option
@@ -45,6 +47,8 @@ const components = [
   Col,
   Form,
   FormItem,
+  FormModel,
+  FormModelItem,
   Input,
   InputNumber,
   Select,

@@ -1,8 +1,8 @@
 <template>
-  <a-form-item>
+  <a-form-model-item :prop="attrs.required ? attrs.name : null">
     <ToolTip slot="label" :attrs="attrs" />
     <a-textarea
-      v-decorator="decorator"
+      v-model="attrs.value"
       :placeholder="attrs.placeholder"
       :maxLength="attrs.maxLength"
       :allowClear="attrs.allowClear"
@@ -10,7 +10,7 @@
       :style="`width: ${attrs.width.label}${attrs.width.value}`"
       :autoSize="attrs.autoSize"
     />
-  </a-form-item>
+  </a-form-model-item>
 </template>
 
 <script>

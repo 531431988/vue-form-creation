@@ -1,9 +1,9 @@
 <template>
-  <a-form-item>
+  <a-form-model-item :prop="attrs.required ? attrs.name : null">
     <ToolTip slot="label" :attrs="attrs" />
 
-    <a-checkbox-group v-decorator="decorator" :options="attrs.options" :disabled="attrs.disabled" />
-  </a-form-item>
+    <a-checkbox-group v-model="attrs.value" :options="attrs.options" :disabled="attrs.disabled" />
+  </a-form-model-item>
 </template>
 
 <script>

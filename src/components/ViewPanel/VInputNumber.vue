@@ -1,16 +1,16 @@
 <template>
-  <a-form-item>
+  <a-form-model-item :prop="attrs.required ? attrs.name : null">
     <ToolTip slot="label" :attrs="attrs" />
 
     <a-input-number
-      v-decorator="decorator"
+      v-model="attrs.value"
       :placeholder="attrs.placeholder"
       :min="attrs.min"
       :max="attrs.max"
       :disabled="attrs.disabled"
       :style="`width: ${attrs.width.label}${attrs.width.value}`"
     />
-  </a-form-item>
+  </a-form-model-item>
 </template>
 
 

@@ -42,22 +42,25 @@ const vfc = {
       state.validRulesList[params.value] = params
     },
     // 初始化表单数据
-    INIT_FORM_VIEW (state, { component = [], type = '' }) {
-      // 切换表单模式
-      if (type === 'change') {
-        state.baseForm = []
-        state.collapseForm = component.length ? component : [addCollapseFormChild(createUID('collapse'))]
-      } else {
-        // 初始化
-        state.baseForm = component
-      }
-      state.activeCollapse = null
-      state.activeComponent = {
-        index: 0,
-        name: '',
-        item: null
-      }
+    INIT_FORM_VIEW (state, data) {
+      state[state.type === 0 ? 'baseForm' : 'collapseForm'] = data
     },
+    // INIT_FORM_VIEW (state, { component = [], type = '' }) {
+    //   // 切换表单模式
+    //   if (type === 'change') {
+    //     state.baseForm = []
+    //     state.collapseForm = component.length ? component : [addCollapseFormChild(createUID('collapse'))]
+    //   } else {
+    //     // 初始化
+    //     state.baseForm = component
+    //   }
+    //   state.activeCollapse = null
+    //   state.activeComponent = {
+    //     index: 0,
+    //     name: '',
+    //     item: null
+    //   }
+    // },
     // 添加组件（基础 嵌套）
     ADD_COMPONENT (state, params) {
       params = JSON.parse(JSON.stringify(params))

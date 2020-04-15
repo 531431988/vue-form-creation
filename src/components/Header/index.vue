@@ -117,7 +117,7 @@ export default {
         cancelText: '取消',
         onOk: () => {
           this.SET_TYPE(this.type ? 0 : 1)
-          this.INIT_FORM_VIEW({ type: 'change' })
+          // this.INIT_FORM_VIEW({ type: 'change' })
           this.$message.success(`切换${this.type ? '高级嵌套' : '基础'}模式成功`)
         }
       })
@@ -130,7 +130,7 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          this.INIT_FORM_VIEW({ type: 'change' })
+          this.INIT_FORM_VIEW([])
           ls.remove('state')
           this.SET_TYPE(this.type)
           this.$message.success('清空成功')

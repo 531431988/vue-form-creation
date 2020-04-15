@@ -1,13 +1,13 @@
 <template>
-  <a-form-item>
+  <a-form-model-item :prop="attrs.required ? attrs.name : null">
     <ToolTip slot="label" :attrs="attrs" />
     <a-switch
-      v-decorator="decorator"
+      v-model="attrs.value"
       :checkedChildren="attrs.checkedChildren"
       :unCheckedChildren="attrs.unCheckedChildren"
       :disabled="attrs.disabled"
     />
-  </a-form-item>
+  </a-form-model-item>
 </template>
 
 <script>

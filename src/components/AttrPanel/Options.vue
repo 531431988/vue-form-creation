@@ -1,5 +1,5 @@
 <template>
-  <a-form-item label="选项配置">
+  <a-form-model-item label="选项配置">
     <div class="vui-flex vui-flex-middle mb5" v-for="(item, index) in attrs.options">
       <a-input
         :ref="item.value"
@@ -17,7 +17,7 @@
     <div class="tc mt15">
       <a-button type="primary" htmlType="submit" @click="onAdd" :size="formConfig.size">添加选项</a-button>
     </div>
-  </a-form-item>
+  </a-form-model-item>
 </template>
 
 <script>

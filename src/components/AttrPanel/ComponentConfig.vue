@@ -1,6 +1,6 @@
 <template>
   <a-form class="pd10 form-item-margin-sm">
-    <a-form-item>
+    <a-form-model-item>
       <span slot="label">
         字段标识&nbsp;
         <a-tooltip title="唯一的字段标识（name）">
@@ -8,8 +8,8 @@
         </a-tooltip>
       </span>
       <a-input placeholder="字段唯一标识" v-model="attrs.name" />
-    </a-form-item>
-    <a-form-item>
+    </a-form-model-item>
+    <a-form-model-item>
       <span slot="label">
         字段名称&nbsp;
         <a-tooltip title="该字段显示的名字">
@@ -17,9 +17,9 @@
         </a-tooltip>
       </span>
       <a-input placeholder="请输入字段名称" v-model="attrs.label" />
-    </a-form-item>
+    </a-form-model-item>
 
-    <!-- <a-form-item>
+    <!-- <a-form-model-item>
       <span slot="label">
         默认值&nbsp;
         <a-tooltip title="初始化显示的内容">
@@ -27,9 +27,9 @@
         </a-tooltip>
       </span>
       <a-input placeholder="默认值" v-model="attrs.value" />
-    </a-form-item>-->
+    </a-form-model-item>-->
 
-    <a-form-item v-if="attrs.width">
+    <a-form-model-item v-if="attrs.width">
       <span slot="label">
         组件宽度&nbsp;
         <a-tooltip title="单位百分比时最大宽100%">
@@ -47,9 +47,9 @@
           <a-select-option value="%">百分比</a-select-option>
         </a-select>
       </a-input>
-    </a-form-item>
+    </a-form-model-item>
 
-    <a-form-item>
+    <a-form-model-item>
       <span slot="label">
         字段提示信息&nbsp;
         <a-tooltip title="当前字段的说明">
@@ -57,9 +57,9 @@
         </a-tooltip>
       </span>
       <a-input placeholder="请输入字段说明" v-model="attrs.tooltip" />
-    </a-form-item>
+    </a-form-model-item>
 
-    <a-form-item v-if="attrs.placeholder">
+    <a-form-model-item v-if="attrs.placeholder">
       <span slot="label">
         占位内容&nbsp;
         <a-tooltip title="当用户没有输入时的提示文字">
@@ -67,27 +67,27 @@
         </a-tooltip>
       </span>
       <a-input v-model="attrs.placeholder" />
-    </a-form-item>
+    </a-form-model-item>
 
     <a-row>
       <a-col :span="8">
-        <a-form-item label="是否禁用">
+        <a-form-model-item label="是否禁用">
           <a-switch checkedChildren="禁用" unCheckedChildren="启用" v-model="attrs.disabled" />
-        </a-form-item>
+        </a-form-model-item>
       </a-col>
       <template v-if="type === 'input' || type === 'textarea' || type === 'password'">
         <a-col :span="8">
-          <a-form-item label="是否显示清除">
+          <a-form-model-item label="是否显示清除">
             <a-switch
               checkedChildren="显示"
               unCheckedChildren="隐藏"
               v-model="attrs.allowClear"
               :size="formConfig.size"
             />
-          </a-form-item>
+          </a-form-model-item>
         </a-col>
         <a-col :span="8">
-          <a-form-item>
+          <a-form-model-item>
             <span slot="label">
               字数限制&nbsp;
               <a-tooltip title="可输入的字数，默认不限制，最大200">
@@ -95,14 +95,14 @@
               </a-tooltip>
             </span>
             <a-input-number :min="1" :max="200" v-model="attrs.maxLength" :size="formConfig.size" />
-          </a-form-item>
+          </a-form-model-item>
         </a-col>
       </template>
     </a-row>
 
     <slot></slot>
 
-    <a-form-item label="校验">
+    <a-form-model-item label="校验">
       <a-checkbox v-model="attrs.required">是否必填</a-checkbox>
       <a-row type="flex" v-if="access">
         <a-col>验证规则：</a-col>
@@ -119,7 +119,7 @@
       <!-- <div>自定义：</div>
       <a-input placeholder="请输入自定义正则表达式" />
       <a-input placeholder="自定义错误提示语" />-->
-    </a-form-item>
+    </a-form-model-item>
   </a-form>
 </template>
 
@@ -151,7 +151,6 @@ export default {
       handler () {
         let { item, index } = this.activeComponent
         this.UPDATE_COMPONENT({ index, item })
-        this.$bus.$emit('on-reset')
       },
       deep: true
     }
