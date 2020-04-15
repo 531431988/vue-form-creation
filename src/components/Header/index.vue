@@ -8,14 +8,8 @@
         <!-- <a-button class="ml10" @click="validModalShow = true">添加校验规则</a-button> -->
         <a-button class="ml10" @click="FormConfigShow = true">表单全局配置</a-button>
         <a-button type="danger" ghost class="ml10" @click="onClear" :disabled="disabled">清空</a-button>
-        <a-button
-          type="primary"
-          ghost
-          class="ml10"
-          @click="previewShow = true"
-          :disabled="disabled"
-        >预览</a-button>
-        <a-button type="primary" class="ml10" :disabled="disabled">保存</a-button>
+        <a-button type="primary" ghost class="ml10" @click="onView" :disabled="disabled">预览</a-button>
+        <a-button type="primary" class="ml10" :disabled="disabled" @click="onSave">保存</a-button>
       </a-col>
     </a-row>
 
@@ -33,13 +27,14 @@
 
     <a-drawer
       title="表单预览"
-      width="60%"
+      width="50%"
       placement="left"
       :closable="false"
       :visible="previewShow"
+      :destroyOnClose="true"
       @close="previewShow = false"
     >
-      <ViewPanel :data="type ? collapseForm: baseForm " :edit="false" :type="type" />
+      <ViewPanel :data="data" :edit="false" :type="type" />
     </a-drawer>
 
     <!-- <AddValidModal
@@ -69,7 +64,8 @@ export default {
     return {
       FormConfigShow: false,
       previewShow: false,
-      validModalShow: false
+      validModalShow: false,
+      data: []
     }
   },
   computed: {
@@ -106,11 +102,15 @@ export default {
         }
       })
     },
-    // 取消添加正则
-    onCancel () {
-      this.validModalShow = false
-      this.$refs.addValidModal.form.resetFields()
+    onView () {
+      this.previewShow = true
+      this.data = JSON.parse(JSON.stringify(this.type ? this.collapseForm : this.baseForm))
     },
+    // 取消添加正则
+    // onCancel () {
+    //   this.validModalShow = false
+    //   this.$refs.addValidModal.form.resetFields()
+    // },
     // 保存正则
     // onOk () {
     //   const form = this.$refs.addValidModal.form
@@ -133,6 +133,11 @@ export default {
           return item.view && item.view.length > 0
         }
       })
+    },
+    onSave () {
+      console.log(JSON.stringify(this.type ? this.collapseForm : this.baseForm))
+      this.INIT_FORM_VIEW()
+      ls.remove('state')
     }
   }
 }

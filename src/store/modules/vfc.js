@@ -8,7 +8,7 @@ const vfc = {
     iconConfig,
     btnTheme,
     // 表单模式（0:基础 1: 高级）
-    type: null,
+    type: 1,
     // 基础表单
     baseForm: [],
     baseFormConfig,
@@ -57,8 +57,8 @@ const vfc = {
       params = JSON.parse(JSON.stringify(params))
       params.attrs.name = createUID('form')
       // 基础表单
-      state.baseForm.push(params)
       if (state.type === 0) {
+        state.baseForm.push(params)
         state.activeCollapse = null
       } else {
         // 嵌套表单

@@ -106,7 +106,7 @@ const antvComponents = [{
   type: 'switch',
   icon: 'switch',
   attrs: {
-    value: null,
+    value: undefined,
     checkedChildren: '开启',
     unCheckedChildren: '关闭',
     validate: {

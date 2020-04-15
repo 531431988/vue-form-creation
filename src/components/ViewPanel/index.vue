@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { evil, hasOne, recursCollapseForm } from '@/libs/utils'
+import { evil, hasOne, recursCollapseForm, ls } from '@/libs/utils'
 import BaseForm from '@/components/ViewPanel/BaseForm'
 import CollapseForm from '@/components/ViewPanel/CollapseForm'
 import ButtonItem from './ButtonItem'
@@ -57,12 +57,17 @@ export default {
     ButtonItem
   },
   created () {
-    this.INIT_FORM_VIEW(this.data)
-    // this.type ? this.UPDATE_COLLAPSE_FORM(this.data) : this.UPDATE_BASE_FORM(this.data)
-    this.SET_TYPE(this.type)
+    if (!ls.get('state') && this.edit) {
+      this.INIT_FORM_VIEW(this.data)
+      this.SET_TYPE(this.type)
+    }
   },
   computed: {
     ...mapState({
+      formData: state => {
+        const { type, baseForm, collapseForm } = state.vfc
+        return type === 0 ? baseForm : collapseForm
+      },
       form: state => {
         let obj = {}
         const { type, baseForm, collapseForm } = state.vfc
@@ -131,10 +136,6 @@ export default {
         console.log(obj)
         return obj
       },
-      formData: state => {
-        const { type, baseForm, collapseForm } = state.vfc
-        return type === 0 ? baseForm : collapseForm
-      },
       formConfig: state => {
         const { type, baseFormConfig, collapseFormConfig } = state.vfc
         return type === 0 ? baseFormConfig : collapseFormConfig
@@ -157,13 +158,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['INIT_FORM_VIEW', 'UPDATE_BASE_FORM', 'UPDATE_COLLAPSE_FORM', 'SET_TYPE']),
+    ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE']),
     onClick (item) {
       if (item.text === '提交' || item.text === '保存') {
         this.$refs.ruleForm.validate(valid => {
           if (valid) {
+            console.log('通过')
             console.log(this.form)
-            console.log(this.formData)
+            console.log(JSON.stringify(this.formData))
           } else {
             console.log('error submit!!');
             return false;
@@ -173,9 +175,7 @@ export default {
         this.$refs.ruleForm.resetFields()
       }
     }
-  },
-  mounted () {
-  },
+  }
 }
 </script>
 
