@@ -9,15 +9,14 @@
     :labelAlign="formConfig.align"
     :style="`width: ${formConfig.width}%`"
   >
-    <component v-if="edit" :data="formData" :edit="edit" :is="type ? 'CollapseForm' : 'BaseForm'" />
-    <component v-else :data="data" :edit="edit" :is="type ? 'CollapseForm' : 'BaseForm'" />
-
+    <BaseForm :data="data" :edit="edit" v-if="type === 0" />
+    <CollapseForm :data="data" :edit="edit" v-if="type === 1" />
     <div
       :class="{tc: type, mt20: type, block: formConfig.formLayout === 'inline', 'form-item-edit': edit}"
     >
       <a-form-model-item
         :wrapper-col="type ? {span: 24} : btnLayout"
-        v-if="formData.length && type !== null"
+        v-if="data.length && type !== null"
       >
         <a-button
           v-for="(item, index) in formConfig.btns"
@@ -47,10 +46,6 @@ export default {
     edit: {
       type: Boolean,
       default: true
-    },
-    type: {
-      type: Number,
-      default: 0
     }
   },
   components: {
@@ -58,15 +53,9 @@ export default {
     CollapseForm,
     ButtonItem
   },
-  created () {
-    console.log(!ls.get('state') && this.edit)
-    if (!ls.get('state') && this.edit) {
-      this.INIT_FORM_VIEW(this.data)
-      this.SET_TYPE(this.type)
-    }
-  },
   computed: {
     ...mapState({
+      type: state => state.vfc.type,
       formData: state => {
         const { type, baseForm, collapseForm } = state.vfc
         return type === 0 ? baseForm : collapseForm

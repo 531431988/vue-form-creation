@@ -4,7 +4,7 @@
     <a-layout>
       <AddPanel />
       <a-layout-content class="main">
-        <ViewPanel :data="data" :type="type" />
+        <ViewPanel :data="data" />
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -14,6 +14,7 @@
 import Header from './Header/index'
 import AddPanel from './AddPanel/index'
 import ViewPanel from './ViewPanel/index'
+import { mapState } from 'vuex'
 export default {
   components: {
     Header,
@@ -22,9 +23,15 @@ export default {
   },
   data () {
     return {
-      data: [],
-      type: 1
     }
+  },
+  computed: {
+    ...mapState({
+      data: state => {
+        const { type, baseForm, collapseForm } = state.vfc
+        return type === 0 ? baseForm : collapseForm
+      }
+    })
   }
 }
 </script>
