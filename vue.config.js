@@ -1,11 +1,16 @@
 
 const path = require('path')
 const webpack = require('webpack')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i
 const env = process.env.NODE_ENV === 'production'
 const resolve = dir => path.join(__dirname, dir)
 module.exports = {
+  pages: {
+    index: {
+      entry: 'demo/main.js',
+      template: 'public/index.html',
+      filename: 'index.html'
+    }
+  },
   chainWebpack: config => {
     // 来将 svg 图标作为 Vue 组件导入
     const svgRule = config.module.rule('svg')
@@ -22,7 +27,7 @@ module.exports = {
       )
     // 添加别名
     config.resolve.alias
-      .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+      .set('@', resolve('demo')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('@ant-design/icons/lib/dist$', resolve('./icons.js'))
     if (env) {
       // 压缩图片
@@ -38,77 +43,17 @@ module.exports = {
           gifsicle: { interlaced: false }
         })
     }
-    // 配置 externals 引入 cdn 资源
-    // const cdn = {
-    //   js: [
-    //     // 访问https://unpkg.com/vue/dist/vue.min.js获取最新版本
-    //     '//cdn.bootcss.com/vue/2.6.11/vue.min.js',
-    //     '//cdn.bootcss.com/vuex/3.1.3/vuex.min.js',
-    //     '//cdn.bootcss.com/axios/0.19.2/axios.min.js'
-    //   ]
-    // }
-    // config.plugin('html').tap(args => {
-    //   // html中添加cdn
-    //   args[0].cdn = cdn
-    //   return args
-    // })
     return config
   },
   configureWebpack: config => {
-    // config.externals = {
-    //   vue: 'Vue',
-    //   vuex: 'Vuex',
-    //   axios: 'axios'
-    // }
-    config.resolve.extensions = ['.vue', '.js', '.jsx', '.json', '.less', '.css', '.scss', '.jpg', '.png', '.svg']
-    if (env) {
-      const plugins = []
-      // 开启 gzip 压缩
-      plugins.push(
-        new CompressionWebpackPlugin({
-          filename: '[path].gz[query]',
-          algorithm: 'gzip',
-          test: productionGzipExtensions,
-          threshold: 10240,
-          minRatio: 0.8
-        })
-      )
-      config.plugins = [...config.plugins, ...plugins]
-
-      // 利用splitChunks单独打包第三方模块
-      config.optimization = {
-        splitChunks: {
-          cacheGroups: {
-            common: {
-              name: 'chunk-common',
-              chunks: 'initial',
-              minChunks: 2,
-              maxInitialRequests: 5,
-              minSize: 0,
-              priority: 1,
-              reuseExistingChunk: true,
-              enforce: true
-            },
-            vendors: {
-              name: 'chunk-vendors',
-              test: /[\\/]node_modules[\\/]/,
-              chunks: 'initial',
-              priority: 2,
-              reuseExistingChunk: true,
-              enforce: true
-            },
-            antvUI: {
-              name: 'chunk-antv',
-              test: /[\\/]node_modules[\\/]ant-design-vue[\\/]/,
-              chunks: 'all',
-              priority: 3,
-              reuseExistingChunk: true,
-              enforce: true
-            }
-          }
-        }
-      }
+    config.externals = {
+      vue: 'Vue',
+      vuex: 'Vuex',
+      axios: 'axios',
+      'secure-ls': 'secure-ls',
+      'vuedraggable': 'vuedraggable',
     }
+    config.resolve.extensions = ['.vue', '.js', '.jsx', '.json', '.less', '.css', '.scss', '.jpg', '.png', '.svg']
   },
   css: {
     loaderOptions: {
@@ -121,7 +66,7 @@ module.exports = {
   pluginOptions: {
     'style-resources-loader': {
       preProcessor: 'less',
-      patterns: [resolve('./src/less/theme.less')]
+      patterns: [resolve('./demo/less/theme.less')]
     }
   },
   outputDir: process.env.VUE_OUTPUTDIR,
