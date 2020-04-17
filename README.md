@@ -1,5 +1,5 @@
 # vue-form-creation
-基于VUE ANTD的可视化表单创建工具
+基于VUE ANTD的可视化表单创建工具（双向数据绑定模式）
 
 ---
 
