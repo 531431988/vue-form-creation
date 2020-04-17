@@ -25,10 +25,6 @@ const antvComponents = [{
     suffix: null,
     addonBefore: null,
     addonAfter: null,
-    width: {
-      label: '300',
-      value: 'px'
-    },
     allowClear: null
   }
 }, {
@@ -37,10 +33,6 @@ const antvComponents = [{
   icon: 'code',
   attrs: {
     maxLength: null,
-    width: {
-      label: '100',
-      value: '%'
-    },
     allowClear: null,
     autoSize: {
       minRows: 2,
@@ -53,10 +45,6 @@ const antvComponents = [{
   icon: 'lock',
   attrs: {
     maxLength: null,
-    width: {
-      label: '300',
-      value: 'px'
-    },
     allowClear: null,
     visibilityToggle: true
   }
@@ -67,11 +55,7 @@ const antvComponents = [{
   attrs: {
     placeholder: '只能输入数字',
     min: -Infinity,
-    max: Infinity,
-    width: {
-      label: '150',
-      value: 'px'
-    }
+    max: Infinity
   }
 }, {
   name: '单选框',
@@ -88,7 +72,7 @@ const antvComponents = [{
     }
   }
 }, {
-  name: '多选框',
+  name: '复选框',
   type: 'checkbox',
   icon: 'check-square',
   attrs: {
@@ -117,7 +101,18 @@ const antvComponents = [{
   name: '下拉选择器',
   type: 'select',
   icon: 'down-square',
-  attrs: null
+  attrs: {
+    value: undefined,
+    allowClear: false,
+    mode: 'default',
+    options: [{
+      label: '选项1',
+      value: createUID('select')
+    }],
+    validate: {
+      type: 'string'
+    }
+  }
 }, {
   name: '级联选择',
   type: 'cascader',
@@ -151,16 +146,29 @@ const antvComponents = [{
 }]
 
 antvComponents.map(item => {
-  // 过滤无placeholder属性的字段
-  let obj = {}
   if (item.attrs) {
-    obj = hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
-      placeholder: item.attrs.placeholder || '请输入关键字'
-    }
     item.attrs = Object.assign({}, commonComponentAttr, item.attrs, {
       label: item.name,
       name: createUID(item.type)
-    }, obj)
+    },
+      // 过滤无placeholder属性的字段
+      hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
+        placeholder: item.attrs.placeholder || '请输入关键字'
+      },
+      // 过滤设置宽度
+      hasOne(['input', 'password', 'inputNumber', 'select'], item.type) ?
+        {
+          width: {
+            label: '300',
+            value: 'px'
+          }
+        } : hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
+          width: {
+            label: '100',
+            value: '%'
+          }
+        }
+    )
   }
 })
 // 自定义组件

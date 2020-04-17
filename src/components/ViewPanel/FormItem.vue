@@ -29,6 +29,7 @@ import VInputNumber from './VInputNumber'
 import VRadio from './VRadio'
 import VCheckbox from './VCheckbox'
 import VSwitch from './VSwitch'
+import VSelect from './VSelect'
 
 export default {
   props: {
@@ -56,7 +57,8 @@ export default {
     VInputNumber,
     VRadio,
     VCheckbox,
-    VSwitch
+    VSwitch,
+    VSelect
   },
   data () {
     return {
