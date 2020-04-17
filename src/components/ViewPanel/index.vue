@@ -24,7 +24,7 @@
           :icon="item.icon"
           :htmlType="index === 0 ? 'submit' : 'button'"
           class="mr10"
-          @click="onClick(item)"
+          @click="onClick(item, index)"
         >{{item.text}}</a-button>
       </a-form-model-item>
     </div>
@@ -150,20 +150,26 @@ export default {
   },
   methods: {
     ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE']),
-    onClick (item) {
-      if (item.text === '提交' || item.text === '保存') {
+    onClick (item, index) {
+      if (index) {
+        // this.$refs.ruleForm.resetFields()
+        this.SET_TYPE(0)
+        this.INIT_FORM_VIEW({ component: [], type: 0 })
+        ls.remove('state')
+        this.$emit('on-form-cancel')
+      } else {
         this.$refs.ruleForm.validate(valid => {
           if (valid) {
-            console.log('通过')
-            console.log(this.form)
-            console.log(JSON.stringify(this.formData))
+            this.$emit('on-form-submit', {
+              type: this.type,
+              config: this.formConfig,
+              component: this.formData
+            })
           } else {
-            console.log('error submit!!');
+            this.$message.error('请检查表单')
             return false;
           }
         })
-      } else {
-        this.$refs.ruleForm.resetFields()
       }
     }
   }

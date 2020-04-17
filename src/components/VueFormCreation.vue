@@ -1,6 +1,6 @@
 <template>
   <a-layout class="vue-form-creation">
-    <a-row type="flex" class="vue-form-creation-header">
+    <a-row type="flex" class="vue-form-creation-header" v-if="view">
       <a-col>
         <h2 class="b">表单配置工具——{{type ? '高级嵌套' : '基础'}}模式</h2>
       </a-col>
@@ -26,9 +26,14 @@
     </a-drawer>
 
     <a-layout>
-      <AddPanel />
+      <AddPanel v-if="view" />
       <a-layout-content class="main">
-        <ViewPanel :data="formData" />
+        <ViewPanel
+          :data="formData"
+          :edit="view"
+          @on-form-cancel="$emit('on-form-cancel')"
+          @on-form-submit="data => $emit('on-form-submit', data)"
+        />
       </a-layout-content>
     </a-layout>
   </a-layout>
@@ -46,6 +51,10 @@ export default {
     data: {
       type: Object,
       default: null
+    },
+    view: {
+      type: Boolean,
+      default: true
     }
   },
   name: 'VueFormCreation',
@@ -109,7 +118,7 @@ export default {
         cancelText: '取消',
         onOk: () => {
           this.SET_TYPE(this.type ? 0 : 1)
-          this.INIT_FORM_VIEW({ type: 1 })
+          this.INIT_FORM_VIEW({ type: this.type })
           this.$message.success(`切换${this.type ? '高级嵌套' : '基础'}模式成功`)
         }
       })
@@ -122,7 +131,7 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          this.INIT_FORM_VIEW({ type: 1 })
+          this.INIT_FORM_VIEW({ type: this.type })
           ls.remove('state')
           this.$message.success('清空成功')
         }
@@ -145,16 +154,16 @@ export default {
         config: this.formConfig,
         component: this.formData
       })
-      this.INIT_FORM_VIEW({ component: [], type: 1 })
+      this.INIT_FORM_VIEW({ component: [], type: 0 })
       ls.remove('state')
     },
     onClose () {
       this.$emit('on-close-template')
-      this.INIT_FORM_VIEW({ component: [], type: 1 })
+      this.INIT_FORM_VIEW({ component: [], type: 0 })
       this.SET_TYPE(0)
       ls.remove('state')
     }
-  },
+  }
 }
 </script>
 

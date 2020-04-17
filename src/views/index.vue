@@ -9,7 +9,7 @@
         <span>
           <router-link :to="`/edit?id=${type}`">编辑</router-link>
           <a-divider type="vertical" />
-          <router-link to="/view">详情</router-link>
+          <router-link :to="`/view?id=${type}`">详情</router-link>
         </span>
       </template>
     </a-table>
