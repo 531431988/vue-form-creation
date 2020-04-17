@@ -1,6 +1,6 @@
 <template>
   <ProLayout
-    title="测试表单工具"
+    title="某花平台"
     layout="topmenu"
     theme="dark"
     :menus="menus"

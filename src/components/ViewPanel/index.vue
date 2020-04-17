@@ -125,7 +125,6 @@ export default {
             })
           })
         }
-        console.log(obj)
         return obj
       },
       formConfig: state => {

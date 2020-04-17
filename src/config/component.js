@@ -170,7 +170,6 @@ const customComponents = [{
   icon: 'font-colors',
   attrs: null
 }]
-
 export {
   antvComponents,
   customComponents

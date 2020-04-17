@@ -42,13 +42,12 @@ const vfc = {
       state.validRulesList[params.value] = params
     },
     // 初始化表单数据
-    INIT_FORM_VIEW (state, { component = [], type = '' }) {
-      // 切换表单模式
-      if (type === 'change') {
+    INIT_FORM_VIEW (state, { component = [], type = 0 }) {
+      // 切换表单模式（高级）
+      if (type) {
         state.baseForm = []
         state.collapseForm = component.length ? component : [addCollapseFormChild(createUID('collapse'))]
       } else {
-        // 初始化
         state.baseForm = component
       }
       state.activeCollapse = null

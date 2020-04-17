@@ -42,6 +42,12 @@ import AddPanel from './AddPanel/index'
 import ViewPanel from './ViewPanel/index'
 import { mapState, mapMutations } from 'vuex'
 export default {
+  props: {
+    data: {
+      type: Object,
+      default: null
+    }
+  },
   name: 'VueFormCreation',
   components: {
     BaseFormConfig,
@@ -54,12 +60,29 @@ export default {
       FormConfigShow: false
     }
   },
+  watch: {
+    data () {
+      if (this.data) {
+        console.log(this.data)
+        const { type, config, component } = this.data
+        this.SET_TYPE(type)
+        this.INIT_FORM_VIEW({
+          component,
+          type
+        })
+      }
+    }
+  },
   computed: {
     ...mapState({
       type: state => state.vfc.type,
+      formConfig: state => {
+        const { type, baseFormConfig, collapseFormConfig } = state.vfc
+        return type ? collapseFormConfig : baseFormConfig
+      },
       formData: state => {
         const { type, baseForm, collapseForm } = state.vfc
-        return type === 0 ? baseForm : collapseForm
+        return type ? collapseForm : baseForm
       },
       // 设置按钮状态
       disabled () {
@@ -86,7 +109,7 @@ export default {
         cancelText: '取消',
         onOk: () => {
           this.SET_TYPE(this.type ? 0 : 1)
-          this.INIT_FORM_VIEW({ type: 'change' })
+          this.INIT_FORM_VIEW({ type: 1 })
           this.$message.success(`切换${this.type ? '高级嵌套' : '基础'}模式成功`)
         }
       })
@@ -99,7 +122,7 @@ export default {
         okText: '确认',
         cancelText: '取消',
         onOk: () => {
-          this.INIT_FORM_VIEW({ type: 'change' })
+          this.INIT_FORM_VIEW({ type: 1 })
           ls.remove('state')
           this.$message.success('清空成功')
         }
@@ -117,13 +140,17 @@ export default {
     },
     // 保存
     onSave () {
-      this.$emit('on-save-template', this.formData)
-      this.INIT_FORM_VIEW({ component: [], type: 'change' })
+      this.$emit('on-save-template', {
+        type: this.type,
+        config: this.formConfig,
+        component: this.formData
+      })
+      this.INIT_FORM_VIEW({ component: [], type: 1 })
       ls.remove('state')
     },
     onClose () {
       this.$emit('on-close-template')
-      this.INIT_FORM_VIEW({ component: [], type: 'change' })
+      this.INIT_FORM_VIEW({ component: [], type: 1 })
       this.SET_TYPE(0)
       ls.remove('state')
     }
@@ -143,11 +170,9 @@ export default {
     margin: 0 0 0 16px;
     padding: 45px 5% 10px;
   }
-  .ant-layout-sider {
-  }
   .sider-component-panel,
   .ant-layout-content {
-    background: #fcfcfc;
+    background: #fff;
     height: calc(100vh - 64px - 64px - 69px);
     overflow: auto;
     overflow: hidden;
@@ -156,8 +181,12 @@ export default {
     }
   }
   &-header {
+    padding: 0 16px;
     height: 64px;
     line-height: 64px;
+    box-shadow: 0px 3px 8px 0px rgba(224, 229, 236, 0.4);
+    position: relative;
+    z-index: 1;
   }
 }
 </style>
