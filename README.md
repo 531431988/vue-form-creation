@@ -1,5 +1,5 @@
-# ant-design-vue
-基于VUE ANTD的可视化表单创建工具
+# vue-form-creation
+基于VUE ANTD的可视化表单创建工具(不支持双向绑定)
 
 ---
 
