@@ -158,10 +158,10 @@ export default {
       ls.remove('state')
     },
     onClose () {
-      this.$emit('on-close-template')
       this.INIT_FORM_VIEW({ component: [], type: 0 })
       this.SET_TYPE(0)
       ls.remove('state')
+      this.$emit('on-close-template')
     }
   }
 }

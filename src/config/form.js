@@ -12,14 +12,13 @@ const commonFormConfig = {
   labelCol: 3,
   wrapperCol: 21,
   btns: [{
-    icon: 'check',
+    icon: '',
     text: '提交',
     type: 'primary',
     htmlType: 'submit'
   }, {
-    icon: 'sync',
-    text: '取消',
-    type: 'link'
+    icon: '',
+    text: '取消'
   }]
 }
 // 基础表单配置

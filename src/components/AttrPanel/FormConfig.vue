@@ -47,33 +47,39 @@
     <slot></slot>
 
     <a-form-model-item label="按钮配置（图标 文字 颜色）">
-      <a-row :gutter="4" v-for="(item, index) in formConfig.btns" :key="index">
+      <a-input
+        v-model="item.text"
+        placeholder="按钮名"
+        :size="formConfig.size"
+        v-for="(item, index) in formConfig.btns"
+        :key="index"
+      >
+        <a-tooltip slot="addonBefore" title="可选按钮图标" placement="right">
+          <a-select v-model="item.icon" :size="formConfig.size" style="width: 80px">
+            <a-select-option
+              v-for="icon in iconConfig"
+              :key="icon.value"
+              :value="icon.value"
+            >{{icon.label}}</a-select-option>
+          </a-select>
+        </a-tooltip>
+        <a-tooltip slot="addonAfter" title="可选按钮配色" placement="right">
+          <a-select
+            v-model="item.type"
+            :size="formConfig.size"
+            placeholder="主题"
+            style="width: 80px"
+          >
+            <a-select-option
+              v-for="btn in btnTheme"
+              :key="btn.value"
+              :value="btn.value"
+            >{{btn.label}}</a-select-option>
+          </a-select>
+        </a-tooltip>
+      </a-input>
+      <!-- <a-row :gutter="4" v-for="(item, index) in formConfig.btns" :key="index">
         <a-col :span="22">
-          <a-input v-model="item.text" placeholder="按钮名" :size="formConfig.size">
-            <a-tooltip slot="addonBefore" title="可选按钮图标" placement="right">
-              <a-select v-model="item.icon" :size="formConfig.size" style="width: 80px">
-                <a-select-option
-                  v-for="icon in iconConfig"
-                  :key="icon.value"
-                  :value="icon.value"
-                >{{icon.label}}</a-select-option>
-              </a-select>
-            </a-tooltip>
-            <a-tooltip slot="addonAfter" title="可选按钮配色" placement="right">
-              <a-select
-                v-model="item.type"
-                :size="formConfig.size"
-                placeholder="主题"
-                style="width: 80px"
-              >
-                <a-select-option
-                  v-for="btn in btnTheme"
-                  :key="btn.value"
-                  :value="btn.value"
-                >{{btn.label}}</a-select-option>
-              </a-select>
-            </a-tooltip>
-          </a-input>
         </a-col>
         <a-col :span="2" class="tc">
           <a-button type="link" shape="circle" :size="formConfig.size" @click="onDel(index)">
@@ -83,7 +89,7 @@
       </a-row>
       <div class="tc">
         <a-button type="primary" :size="formConfig.size" @click="onAdd">添加按钮</a-button>
-      </div>
+      </div>-->
     </a-form-model-item>
   </a-form>
 </template>

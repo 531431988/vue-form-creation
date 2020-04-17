@@ -151,25 +151,27 @@ export default {
   methods: {
     ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE']),
     onClick (item, index) {
-      if (index) {
-        // this.$refs.ruleForm.resetFields()
-        this.SET_TYPE(0)
-        this.INIT_FORM_VIEW({ component: [], type: this.type })
-        ls.remove('state')
-        this.$emit('on-form-cancel')
-      } else {
-        this.$refs.ruleForm.validate(valid => {
-          if (valid) {
-            this.$emit('on-form-submit', {
-              type: this.type,
-              config: this.formConfig,
-              component: this.formData
-            })
-          } else {
-            this.$message.error('请检查表单')
-            return false;
-          }
-        })
+      if (!this.edit) {
+        if (index) {
+          // this.$refs.ruleForm.resetFields()
+          this.SET_TYPE(0)
+          this.INIT_FORM_VIEW({ component: [], type: this.type })
+          ls.remove('state')
+          this.$emit('on-form-cancel')
+        } else {
+          this.$refs.ruleForm.validate(valid => {
+            if (valid) {
+              this.$emit('on-form-submit', {
+                type: this.type,
+                config: this.formConfig,
+                component: this.formData
+              })
+            } else {
+              this.$message.error('请检查表单')
+              return false;
+            }
+          })
+        }
       }
     }
   }

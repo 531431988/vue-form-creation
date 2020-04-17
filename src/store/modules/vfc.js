@@ -8,7 +8,7 @@ const vfc = {
     iconConfig,
     btnTheme,
     // 表单模式（0:基础 1: 高级）
-    type: 1,
+    type: 0,
     // 基础表单
     baseForm: [],
     baseFormConfig,
@@ -47,8 +47,11 @@ const vfc = {
       if (type) {
         state.baseForm = []
         state.collapseForm = component.length ? component : [addCollapseFormChild(createUID('collapse'))]
+        // 初始化表单属性面板
+        state.collapseFormConfig = collapseFormConfig
       } else {
         state.baseForm = component
+        state.baseFormConfig = baseFormConfig
       }
       state.activeCollapse = null
       state.activeComponent = {
