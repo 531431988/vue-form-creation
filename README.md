@@ -4,28 +4,25 @@
 ---
 
 ### 使用说明
-
-- :point_right: 安装：npm i 或 cnpm i 或 yarn add
+- :point_right: 安装：npm i 或 cnpm i 或 yarn
 - :point_right: 运行：npm start 或 yarn start
-- :point_right: 打包：npm run build 或 yarn build
+- :point_right: 打包（测试环境）：npm run build:test 或 yarn build:test
+- :point_right: 打包（正式环境）：npm run build 或 yarn build
 
-### 文件结构
+### API
 
-```shell
-├── public          打包所需静态资源
-└── src
-    ├── api         axios请求
-    └── assets      项目静态资源
-        ├── icons   自定义图标资源
-        └── imgs    图片资源
-    ├── components  全局组件
-    ├── config      全局相关配置
-    ├── directive   自定义指令
-    ├── less        全局通用less
-    ├── mock        mock模拟数据
-    ├── plugins     插件配置
-    ├── router      路由配置
-    ├── store       vuex配置
-    ├── libs        工具类库
-    ├── views       页面文件
-```
+#### props
+|参数|说明|type|默认值|
+| --- | --- | --- | --- |
+| data | 组件数据 | Object | null |
+| view | 视图模式（true：构建模式， false: 填报模式） | Boolean | true |
+
+#### event
+|事件名称|说明|回调参数|
+| --- | --- | --- | --- |
+| on-save-template | 点击保存模板的回调(返回类型、配置、组件列表) | function({type, config, component}) |
+| on-close-template | 点击取消编辑模板的回调 | function |
+| on-form-cancel | 点击取消表单提交的回调 |  function |
+| on-form-submit | 点击表单提交的回调 |  function({type, config, component}) |
+
+
