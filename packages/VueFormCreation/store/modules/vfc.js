@@ -1,6 +1,6 @@
-import { createUID, recursCollapseForm, addCollapseFormChild } from '@/libs/utils'
-import { baseFormConfig, collapseFormConfig, iconConfig, btnTheme } from '@/config/form'
-import { getValidRulesList, addValidRule } from '@/api/vfc'
+import { createUID, recursCollapseForm, addCollapseFormChild } from '../../libs/utils'
+import { baseFormConfig, collapseFormConfig, iconConfig, btnTheme } from '../../config/form'
+// import { getValidRulesList, addValidRule } from '@/api/vfc'
 import message from 'ant-design-vue/es/message'
 
 const vfc = {
@@ -26,7 +26,7 @@ const vfc = {
       item: null
     },
     // 内置的验证规则列表
-    validRulesList: []
+    validRulesList: null
   },
   mutations: {
     // 设置表单模式
@@ -183,24 +183,24 @@ const vfc = {
   },
   actions: {
     // 获取自定义校验规则
-    GetvalidRulesList ({ commit }) {
-      getValidRulesList().then(res => {
-        const { data } = res
-        commit('SET_VALID_RULE_LIST', data)
-      })
-    },
-    // 新增自定义校验规则
-    AddValidRule ({ commit }, params) {
-      addValidRule().then(res => {
-        const { data } = res
-        if (data) {
-          commit('ADD_VALID_RULE', params)
-          message.success('添加成功')
-        } else {
-          message.error('添加失败')
-        }
-      })
-    }
+    // GetvalidRulesList ({ commit }) {
+    //   getValidRulesList().then(res => {
+    //     const { data } = res
+    //     commit('SET_VALID_RULE_LIST', data)
+    //   })
+    // },
+    // // 新增自定义校验规则
+    // AddValidRule ({ commit }, params) {
+    //   addValidRule().then(res => {
+    //     const { data } = res
+    //     if (data) {
+    //       commit('ADD_VALID_RULE', params)
+    //       message.success('添加成功')
+    //     } else {
+    //       message.error('添加失败')
+    //     }
+    //   })
+    // }
   },
   getters: {
 

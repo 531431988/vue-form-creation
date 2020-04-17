@@ -10030,6 +10030,23 @@ vue-eslint-parser@^7.0.0:
     esquery "^1.0.1"
     lodash "^4.17.15"
 
+vue-form-creation@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-form-creation/-/vue-form-creation-1.0.1.tgz#6ca6145dbf282510cb79cfeb9a1d20c9e6170ecc"
+  integrity sha512-Vj00+n4ifEmk6bWqqeuLAFCsG4EYdhUd64KjZACcc5+xs7yFJ+3HQPpatjq1kDSvcSBYmDaPjQ+2m0jua3y1pQ==
+  dependencies:
+    "@ant-design-vue/pro-layout" "^0.1.2-0"
+    ant-design-vue "^1.5.0"
+    axios "^0.19.2"
+    core-js "^3.6.4"
+    js-cookie "^2.2.1"
+    secure-ls "^1.2.6"
+    vue "^2.6.10"
+    vue-router "^3.1.6"
+    vue2-animate "^2.1.3"
+    vuedraggable "^2.23.2"
+    vuex "^3.1.3"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz#532955cc1eb208a3d990b3a9f9a70574657e08f2"

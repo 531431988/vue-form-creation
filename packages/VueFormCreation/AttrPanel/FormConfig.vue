@@ -83,7 +83,7 @@
         </a-col>
         <a-col :span="2" class="tc">
           <a-button type="link" shape="circle" :size="formConfig.size" @click="onDel(index)">
-            <a-icon type="delete" v-color="$color.error"></a-icon>
+            <a-icon type="delete" class="icon-delete"></a-icon>
           </a-button>
         </a-col>
       </a-row>

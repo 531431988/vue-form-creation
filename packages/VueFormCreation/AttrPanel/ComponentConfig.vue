@@ -124,7 +124,7 @@
 </template>
 
 <script>
-import { hasOne } from '@/libs/utils'
+import { hasOne } from '../libs/utils'
 import { mapState, mapMutations } from 'vuex'
 export default {
   computed: {
@@ -144,7 +144,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('GetvalidRulesList')
+    // this.$store.dispatch('GetvalidRulesList')
   },
   watch: {
     attrs: {

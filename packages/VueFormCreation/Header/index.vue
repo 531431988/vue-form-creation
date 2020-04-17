@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { ls, createUID } from '@/libs/utils'
+import { ls, createUID } from '../libs/utils'
 import { mapState, mapMutations } from 'vuex'
 import ModalSelect from '../ViewPanel/ModalSelect'
 import BaseFormConfig from '../AttrPanel/BaseFormConfig'

@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { isRegExp } from '@/libs/validator'
+import { isRegExp } from '../libs/validator'
 export default {
   props: ['visible'],
   data () {

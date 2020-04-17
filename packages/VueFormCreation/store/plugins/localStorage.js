@@ -1,4 +1,4 @@
-import { ls } from '@/libs/utils'
+import { ls } from '../../libs/utils'
 // 数据持久化
 export default store => {
   if (ls.get('state')) {

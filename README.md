@@ -4,10 +4,8 @@
 ---
 
 ### 使用说明
-- :point_right: 安装：npm i 或 cnpm i 或 yarn
-- :point_right: 运行：npm start 或 yarn start
-- :point_right: 打包（测试环境）：npm run build:test 或 yarn build:test
-- :point_right: 打包（正式环境）：npm run build 或 yarn build
+- :point_right: 安装：npm i vue-form-creation -S 或 cnpm i 或 yarn add vue-form-creation
+- :point_right: 运行：npm start 或 yarn serve
 
 ### API
 

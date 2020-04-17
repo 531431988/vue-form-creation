@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { ls, createUID } from '@/libs/utils'
+import { ls, createUID } from './libs/utils'
 import BaseFormConfig from './AttrPanel/BaseFormConfig'
 import CollapseFormConfig from './AttrPanel/CollapseFormConfig'
 import AddPanel from './AddPanel/index'
@@ -55,6 +55,10 @@ export default {
     view: {
       type: Boolean,
       default: true
+    },
+    rulesList: {
+      type: Object,
+      default: () => ({})
     }
   },
   name: 'VueFormCreation',
@@ -72,7 +76,6 @@ export default {
   watch: {
     data () {
       if (this.data) {
-        console.log(this.data)
         const { type, config, component } = this.data
         this.SET_TYPE(type)
         this.INIT_FORM_VIEW({
@@ -82,6 +85,9 @@ export default {
         })
       }
     }
+  },
+  created () {
+    this.SET_VALID_RULE_LIST(this.rulesList)
   },
   computed: {
     ...mapState({
@@ -109,7 +115,7 @@ export default {
     })
   },
   methods: {
-    ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE']),
+    ...mapMutations(['INIT_FORM_VIEW', 'SET_TYPE', 'SET_VALID_RULE_LIST']),
     // 切换模式
     onChangeModal () {
       this.$confirm({
@@ -199,6 +205,13 @@ export default {
     box-shadow: 0px 3px 8px 0px rgba(224, 229, 236, 0.4);
     position: relative;
     z-index: 1;
+  }
+
+  /deep/ .icon-plus {
+    color: @primary-color;
+  }
+  /deep/ .icon-delete {
+    color: @error-color;
   }
 }
 </style>

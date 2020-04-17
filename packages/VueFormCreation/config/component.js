@@ -1,5 +1,5 @@
 
-import { createUID, hasOne } from '@/libs/utils'
+import { createUID, hasOne } from '../libs/utils'
 // 组件通用属性
 const commonComponentAttr = {
   disabled: false,

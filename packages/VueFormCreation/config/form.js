@@ -1,4 +1,4 @@
-import { createUID, addCollapseFormChild } from '@/libs/utils'
+import { createUID, addCollapseFormChild } from '../libs/utils'
 import iconConfig from './icon'
 import btnTheme from './btnTheme'
 import { antvComponents, customComponents } from './component'

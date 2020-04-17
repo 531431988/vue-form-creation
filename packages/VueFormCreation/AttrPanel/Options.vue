@@ -11,7 +11,7 @@
         @blur="onBlur($event, index)"
       />
       <a-button type="link" size="small" shape="circle" @click="onDel(item, index)">
-        <a-icon type="delete" v-color="$color.error"></a-icon>
+        <a-icon type="delete" class="icon-delete"></a-icon>
       </a-button>
     </div>
     <div class="tc mt15">

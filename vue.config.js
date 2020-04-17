@@ -46,12 +46,14 @@ module.exports = {
     return config
   },
   configureWebpack: config => {
-    config.externals = {
-      vue: 'Vue',
-      vuex: 'Vuex',
-      axios: 'axios',
-      'secure-ls': 'secure-ls',
-      'vuedraggable': 'vuedraggable',
+    if (process.env.NODE_ENV === 'lib') {
+      config.externals = {
+        vue: 'Vue',
+        vuex: 'Vuex',
+        axios: 'axios',
+        'secure-ls': 'secure-ls',
+        'vuedraggable': 'vuedraggable',
+      }
     }
     config.resolve.extensions = ['.vue', '.js', '.jsx', '.json', '.less', '.css', '.scss', '.jpg', '.png', '.svg']
   },

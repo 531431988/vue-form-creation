@@ -28,10 +28,10 @@
               class="vui-flex-item mr30"
             />
             <a-button type="link" size="small" shape="circle" @click="onAdd(item)">
-              <a-icon type="plus" v-color="$color.primary"></a-icon>
+              <a-icon type="plus" class="icon-plus"></a-icon>
             </a-button>
             <a-button type="link" size="small" shape="circle" @click="onDel(item)">
-              <a-icon type="delete" v-color="$color.error"></a-icon>
+              <a-icon type="delete" class="icon-delete"></a-icon>
             </a-button>
           </div>
         </template>
@@ -45,7 +45,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-import { createUID, addCollapseFormChild } from '@/libs/utils'
+import { createUID, addCollapseFormChild } from '../libs/utils'
 import FormConfig from './FormConfig'
 export default {
   components: {

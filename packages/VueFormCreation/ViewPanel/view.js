@@ -1,4 +1,4 @@
-import { evil, hasOne } from '@/libs/utils'
+import { evil, hasOne } from '../libs/utils'
 import ToolTip from './ToolTip'
 export default {
   props: {

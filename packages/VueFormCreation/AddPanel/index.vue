@@ -7,7 +7,7 @@
 
 <script>
 import WidgetList from './WidgetList'
-import { antvComponents, customComponents } from '@/config/form'
+import { antvComponents, customComponents } from '../config/form'
 export default {
   components: {
     WidgetList

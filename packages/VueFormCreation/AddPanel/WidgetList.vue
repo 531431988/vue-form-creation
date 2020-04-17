@@ -16,7 +16,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-import { antvComponents } from '@/config/form'
+import { antvComponents } from '../config/form'
 export default {
   props: {
     title: {

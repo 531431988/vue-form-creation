@@ -32,9 +32,9 @@
 </template>
 
 <script>
-import { evil, hasOne, recursCollapseForm, ls } from '@/libs/utils'
-import BaseForm from '@/components/ViewPanel/BaseForm'
-import CollapseForm from '@/components/ViewPanel/CollapseForm'
+import { evil, hasOne, recursCollapseForm, ls } from '../libs/utils'
+import BaseForm from './BaseForm'
+import CollapseForm from './CollapseForm'
 import ButtonItem from './ButtonItem'
 import { mapState, mapMutations } from 'vuex'
 export default {

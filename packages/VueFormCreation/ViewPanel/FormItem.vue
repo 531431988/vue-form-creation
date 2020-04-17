@@ -15,7 +15,7 @@
       key="2"
       @click="$emit('on-del')"
     >
-      <a-icon type="delete" v-color="$color.error"></a-icon>
+      <a-icon type="delete" class="icon-delete"></a-icon>
     </a-button>
   </div>
 </template>
@@ -95,7 +95,7 @@ export default {
 <style lang="less" >
 .form-item-wrap {
   position: relative;
-  display: block;
+  // display: block;
   /deep/ .ant-form-item {
     margin-bottom: 0;
     padding: 12px 10px;
