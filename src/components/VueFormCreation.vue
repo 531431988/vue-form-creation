@@ -77,6 +77,7 @@ export default {
         this.SET_TYPE(type)
         this.INIT_FORM_VIEW({
           component,
+          config,
           type
         })
       }
@@ -179,10 +180,12 @@ export default {
     margin: 0 0 0 16px;
     padding: 45px 5% 10px;
   }
+  .sider-component-panel {
+    height: calc(100vh - 64px - 64px - 69px);
+  }
   .sider-component-panel,
   .ant-layout-content {
     background: #fff;
-    // height: calc(100vh - 64px - 64px - 69px);
     overflow: auto;
     overflow: hidden;
     &:hover {

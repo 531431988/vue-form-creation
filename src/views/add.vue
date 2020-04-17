@@ -15,7 +15,7 @@ export default {
   methods: {
     // 保存模版
     onSaveTemplate (data) {
-      console.log(data)
+      console.log(JSON.stringify(data))
       this.$router.go(-1)
     },
     // 取消添加
