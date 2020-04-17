@@ -129,7 +129,7 @@ export default {
           ar.splice(i + 1, 0, dragObj)
         }
       }
-      this.UPDATE_COLLAPSE_FORM(component)
+      this.UPDATE_COLLAPSE_FORM(data)
     },
     // 折叠或展开
     onExpand (expandedKeys) {
