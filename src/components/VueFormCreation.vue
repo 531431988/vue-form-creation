@@ -27,7 +27,7 @@
 
     <a-layout>
       <AddPanel v-if="view" />
-      <a-layout-content class="main">
+      <a-layout-content :style="{height: view ? 'calc(100vh - 64px - 64px - 69px)' : '100%'}">
         <ViewPanel
           :data="formData"
           :edit="view"
@@ -182,7 +182,7 @@ export default {
   .sider-component-panel,
   .ant-layout-content {
     background: #fff;
-    height: calc(100vh - 64px - 64px - 69px);
+    // height: calc(100vh - 64px - 64px - 69px);
     overflow: auto;
     overflow: hidden;
     &:hover {

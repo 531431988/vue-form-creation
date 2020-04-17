@@ -154,7 +154,7 @@ export default {
       if (index) {
         // this.$refs.ruleForm.resetFields()
         this.SET_TYPE(0)
-        this.INIT_FORM_VIEW({ component: [], type: 0 })
+        this.INIT_FORM_VIEW({ component: [], type: this.type })
         ls.remove('state')
         this.$emit('on-form-cancel')
       } else {
