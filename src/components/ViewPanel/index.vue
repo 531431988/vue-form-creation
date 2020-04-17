@@ -86,7 +86,7 @@ export default {
           baseForm.forEach(item => {
             const { required, name, value, validate } = item.attrs
             let rules = null
-            if (hasOne(['radio', 'checkbox', 'switch'], item.type)) {
+            if (hasOne(['radio', 'checkbox', 'switch', 'select'], item.type)) {
               rules = { required: true, message: '此项必填', trigger: 'change', type: validate.type }
             } else {
               rules = { required: true, message: '此项必填', trigger: 'blur' }
@@ -166,6 +166,9 @@ export default {
                 config: this.formConfig,
                 component: this.formData
               })
+              this.SET_TYPE(0)
+              this.INIT_FORM_VIEW({ component: [], type: this.type })
+              ls.remove('state')
             } else {
               this.$message.error('请检查表单')
               return false;

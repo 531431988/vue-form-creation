@@ -1,5 +1,5 @@
 <template>
-  <a-form class="pd10 form-item-margin-sm">
+  <a-form class="form-item-margin-sm">
     <a-form-model-item>
       <span slot="label">
         字段标识&nbsp;
@@ -51,7 +51,7 @@
 
     <a-form-model-item>
       <span slot="label">
-        字段提示信息&nbsp;
+        字段提示语&nbsp;
         <a-tooltip title="当前字段的说明">
           <a-icon type="question-circle-o" />
         </a-tooltip>

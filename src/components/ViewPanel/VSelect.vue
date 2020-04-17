@@ -4,6 +4,7 @@
 
     <a-select
       v-model="attrs.value"
+      :mode="attrs.mode"
       :placeholder="attrs.placeholder"
       :allowClear="attrs.allowClear"
       :disabled="attrs.disabled"
