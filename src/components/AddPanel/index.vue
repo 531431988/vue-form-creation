@@ -25,9 +25,9 @@ export default {
 
 <style lang="less" scoped>
 .sider-component-panel {
-  position: fixed;
-  left: 0;
-  top: @layout-header-height;
+  // position: absolute;
+  // left: 0;
+  // top: @layout-header-height;
   // box-shadow: 1px 0 4px rgba(0, 21, 41, 0.08);
 }
 </style>

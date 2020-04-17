@@ -1,19 +1,22 @@
 <template>
-  <router-link to="/">
-    <a-button type="primary">登录</a-button>
-  </router-link>
+  <div>编辑</div>
 </template>
 
 <script>
 export default {
   components: {
+
   },
-  created () {
+  data () {
+    return {
+
+    }
   },
   methods: {
-  }
 
+  }
 }
 </script>
+
 <style lang="less" scoped>
 </style>

@@ -11,6 +11,7 @@
         <a-button type="danger" ghost class="ml10" @click="onClear" :disabled="disabled">清空</a-button>
         <a-button type="primary" ghost class="ml10" @click="onView" :disabled="disabled">预览</a-button>
         <a-button type="primary" class="ml10" :disabled="disabled" @click="onSave">保存</a-button>
+        <a-button type="danger" ghost class="ml10" @click="onClose">取消</a-button>
       </a-col>
     </a-row>
 
@@ -159,8 +160,13 @@ export default {
     },
     onSave () {
       console.log(JSON.stringify(this.type ? this.collapseForm : this.baseForm))
-      this.INIT_FORM_VIEW()
+      this.INIT_FORM_VIEW({ component: [] })
       ls.remove('state')
+    },
+    onClose () {
+      this.INIT_FORM_VIEW({ component: [] })
+      ls.remove('state')
+      this.$emit('on-close-template')
     }
   }
 }
@@ -170,9 +176,6 @@ export default {
 .ant-layout-header {
   padding: 0 24px;
   background: #fff;
-  position: fixed;
-  width: 100%;
   box-shadow: 0px 3px 8px 0px rgba(224, 229, 236, 0.4);
-  z-index: 9;
 }
 </style>
