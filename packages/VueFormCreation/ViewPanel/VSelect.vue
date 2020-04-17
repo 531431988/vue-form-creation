@@ -10,7 +10,11 @@
       :disabled="attrs.disabled"
       :style="`width: ${attrs.width.label}${attrs.width.value}`"
     >
-      <a-select-option :value="item.value" v-for="item in attrs.options">{{item.label}}</a-select-option>
+      <a-select-option
+        :value="item.value"
+        v-for="(item, index) in attrs.options"
+        :key="index"
+      >{{item.label}}</a-select-option>
     </a-select>
   </a-form-model-item>
 </template>

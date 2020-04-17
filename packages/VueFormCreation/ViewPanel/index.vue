@@ -20,6 +20,7 @@
       >
         <a-button
           v-for="(item, index) in formConfig.btns"
+          :key="index"
           :type="item.type"
           :icon="item.icon"
           :htmlType="index === 0 ? 'submit' : 'button'"

@@ -3,16 +3,15 @@
   "version": "1.0.1",
   "author": "wm",
   "description": "vue-form-creation",
-  "main": "dist/vue-form-creation.umd.min.js",
+  "main": "lib/vue-form-creation.umd.min.js",
   "keyword": "vue form",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "serve:lib": "vue-cli-service serve --mode lib",
     "serve:test": "vue-cli-service serve --mode test",
     "build:test": "vue-cli-service build --mode test",
     "build": "vue-cli-service build",
-    "build:lib": "vue-cli-service build --target lib --name vue-form-creation --dest dist packages/index.js --mode lib",
+    "build:lib": "vue-cli-service build --target lib --name vue-form-creation --dest lib packages/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
