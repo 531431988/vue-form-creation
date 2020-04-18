@@ -1,5 +1,5 @@
 import VueFormCreation from './VueFormCreation/index'
-import vfcStore from './VueFormCreation/store/index'
+import store from './VueFormCreation/store/index'
 // 存储组件列表
 const components = [
   VueFormCreation
@@ -12,7 +12,6 @@ const install = function (Vue) {
     Vue.use(component)
   })
 }
-
 // 判断是否是直接引入文件
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
@@ -23,5 +22,5 @@ export default {
   install,
   // 以下是具体的组件列表
   VueFormCreation,
-  vfcStore
+  store
 }
