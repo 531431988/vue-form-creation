@@ -30,6 +30,7 @@ import VRadio from './VRadio'
 import VCheckbox from './VCheckbox'
 import VSwitch from './VSwitch'
 import VSelect from './VSelect'
+import VRate from './VRate'
 
 export default {
   props: {
@@ -58,7 +59,8 @@ export default {
     VRadio,
     VCheckbox,
     VSwitch,
-    VSelect
+    VSelect,
+    VRate
   },
   data () {
     return {

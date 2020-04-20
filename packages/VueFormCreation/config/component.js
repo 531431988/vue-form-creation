@@ -127,7 +127,16 @@ const antvComponents = [{
   name: '评分',
   type: 'rate',
   icon: 'star',
-  attrs: null
+  attrs: {
+    value: undefined,
+    allowClear: false,
+    allowHalf: false,
+    count: 5,
+    tooltips: [],
+    validate: {
+      type: 'number'
+    }
+  }
 }, {
   name: '日期选择框',
   type: 'datePicker',
@@ -152,7 +161,7 @@ antvComponents.map(item => {
       name: createUID(item.type)
     },
       // 过滤无placeholder属性的字段
-      hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
+      hasOne(['radio', 'checkbox', 'switch', 'rate'], item.type) ? {} : {
         placeholder: item.attrs.placeholder || '请输入关键字'
       },
       // 过滤设置宽度
@@ -163,10 +172,7 @@ antvComponents.map(item => {
             value: 'px'
           }
         } : hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
-          width: {
-            label: '100',
-            value: '%'
-          }
+
         }
     )
   }
