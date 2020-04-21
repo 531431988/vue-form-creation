@@ -17,16 +17,16 @@ module.exports = {
       .set('@ant-design/icons/lib/dist$', resolve('./icons.js'))
   },
   configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production') {
-      config.externals = {
-        // vue: 'Vue',
-        // vuex: 'Vuex',
-        // axios: 'axios',
-        // 'secure-ls': 'SecureLS',
-        // 'vuedraggable': 'draggable'
-        'tinycolor2': 'tinycolor2'
-      }
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   config.externals = {
+    //     vue: 'Vue',
+    //     vuex: 'Vuex',
+    //     axios: 'axios',
+    //     'secure-ls': 'SecureLS',
+    //     'vuedraggable': 'draggable',
+    //     'tinycolor2': 'tinycolor2'
+    //   }
+    // }
   },
   css: {
     // 设置css: { extract: false },可以强制内联，就不会将css单独打包成一个文件，导致页面没有style
