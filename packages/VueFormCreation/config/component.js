@@ -172,7 +172,10 @@ antvComponents.map(item => {
             value: 'px'
           }
         } : hasOne(['radio', 'checkbox', 'switch'], item.type) ? {} : {
-
+          width: {
+            label: '100',
+            value: '%'
+          }
         }
     )
   }
