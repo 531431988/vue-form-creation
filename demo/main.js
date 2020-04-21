@@ -7,7 +7,8 @@ import './less/WMlib.less'
 import VueFormCreation from '../packages/index'
 // import VueFormCreation from 'vue-form-creation'
 // import 'vue-form-creation/dist/vue-form-creation.css'
-process.env.NODE_ENV === 'production' ? '' : require('./mock')
+// process.env.NODE_ENV === 'production' ? '' : require('./mock')
+require('./mock')
 
 Vue.use(Vuex)
 Vue.use(VueFormCreation)
