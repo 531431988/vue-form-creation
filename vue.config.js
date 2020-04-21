@@ -44,6 +44,7 @@ module.exports = {
       patterns: [resolve('./demo/less/theme.less')]
     }
   },
+  publicPath: process.env.VUE_APP_PUBLIC_PATH,
   productionSourceMap: false,
   runtimeCompiler: true,
   lintOnSave: false
