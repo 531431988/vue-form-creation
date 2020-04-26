@@ -1,10 +1,10 @@
 <template>
   <ComponentConfig>
     <a-form-model-item label="模式选择">
-      <a-select v-model="attrs.mode" @change="onChange">
-        <a-select-option value="default">单选</a-select-option>
-        <a-select-option value="multiple">多选</a-select-option>
-      </a-select>
+      <a-radio-group v-model="attrs.mode" @change="onChange">
+        <a-radio value="default">单选</a-radio>
+        <a-radio value="multiple">多选</a-radio>
+      </a-radio-group>
     </a-form-model-item>
     <Options />
   </ComponentConfig>
@@ -26,7 +26,8 @@ export default {
   },
   methods: {
     ...mapMutations(['UPDATE_COMPONENT']),
-    onChange (value, option) {
+    onChange (e) {
+      const { value } = e.target
       let { item, index } = this.activeComponent
       item.attrs.value = value === 'default' ? undefined : []
       item.attrs.validate = {

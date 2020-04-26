@@ -102,7 +102,7 @@
 
     <slot></slot>
 
-    <a-form-model-item label="校验">
+    <a-form-model-item label="校验" v-if="attrs.required || attrs.validate">
       <a-checkbox v-model="attrs.required">是否必填</a-checkbox>
       <a-row type="flex" v-if="ShowValidate">
         <a-col>验证规则：</a-col>

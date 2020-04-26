@@ -1,19 +1,6 @@
 
 import { createUID, hasOne } from '../libs/utils'
-// 组件通用属性
-const commonComponentAttr = {
-  disabled: false,
-  value: '',
-  required: false,
-  validate: {
-    type: null,
-    label: '',
-    value: '',
-    pattern: '',
-    message: ''
-  },
-  tooltip: null
-}
+
 // 基础组件
 const antvComponents = [{
   name: '单行文本',
@@ -123,10 +110,8 @@ const antvComponents = [{
   type: 'slider',
   icon: 'sliders',
   attrs: {
-    value: undefined,
-    validate: {
-      type: 'number'
-    }
+    value: 0,
+    range: false
   }
 }, {
   name: '评分',
@@ -160,11 +145,25 @@ const antvComponents = [{
 }]
 
 antvComponents.map(item => {
+  const validate = item.type === 'slider' ? {} : {
+    required: false,
+    validate: {
+      type: null,
+      label: '',
+      value: '',
+      pattern: '',
+      message: ''
+    }
+  }
   if (item.attrs) {
-    item.attrs = Object.assign({}, commonComponentAttr, item.attrs, {
+    item.attrs = Object.assign({}, {
+      // 组件通用属性
       label: item.name,
-      name: createUID(item.type)
-    },
+      name: createUID(item.type),
+      disabled: false,
+      ...validate,
+      tooltip: null
+    }, item.attrs,
       // 过滤无placeholder属性的字段
       hasOne(['radio', 'checkbox', 'switch', 'rate', 'slider'], item.type) ? {} : {
         placeholder: item.attrs.placeholder || '请输入关键字'

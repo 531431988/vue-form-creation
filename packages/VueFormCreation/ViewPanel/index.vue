@@ -96,7 +96,7 @@ export default {
             if (required) {
               obj[name] = [rules]
             }
-            if (validate.value) {
+            if (validate && validate.value) {
               obj[name] = [rules, {
                 pattern: evil(validate.pattern),
                 message: validate.message
