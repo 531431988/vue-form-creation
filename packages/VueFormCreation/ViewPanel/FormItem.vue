@@ -31,6 +31,7 @@ import VCheckbox from './VCheckbox'
 import VSwitch from './VSwitch'
 import VSelect from './VSelect'
 import VRate from './VRate'
+import VSlider from './VSlider'
 
 export default {
   props: {
@@ -60,7 +61,8 @@ export default {
     VCheckbox,
     VSwitch,
     VSelect,
-    VRate
+    VRate,
+    VSlider
   },
   data () {
     return {

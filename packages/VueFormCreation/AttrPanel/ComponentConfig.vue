@@ -75,7 +75,7 @@
           <a-switch checkedChildren="禁用" unCheckedChildren="启用" v-model="attrs.disabled" />
         </a-form-model-item>
       </a-col>
-      <template v-if="type === 'input' || type === 'textarea' || type === 'password'">
+      <template v-if="ShowAllowClear">
         <a-col :span="8">
           <a-form-model-item label="是否显示清除">
             <a-switch
@@ -104,7 +104,7 @@
 
     <a-form-model-item label="校验">
       <a-checkbox v-model="attrs.required">是否必填</a-checkbox>
-      <a-row type="flex" v-if="access">
+      <a-row type="flex" v-if="ShowValidate">
         <a-col>验证规则：</a-col>
         <a-col class="vui-flex-item">
           <a-select allowClear v-model="attrs.validate.value" @change="onChangeValid">
@@ -138,9 +138,13 @@ export default {
       type: state => state.vfc.activeComponent.item.type,
       validRulesList: state => state.vfc.validRulesList
     }),
-    // 过滤单选复选
-    access () {
-      return !hasOne(['radio', 'checkbox', 'switch'], this.type)
+    // 过滤不能自定义验证规则的组件
+    ShowValidate () {
+      return !hasOne(['inputNumber', 'radio', 'checkbox', 'switch', 'rate', 'slider', 'select', 'cascader', 'datePicker', 'timePicker', 'upload'], this.type)
+    },
+    // 过滤能配置清除按钮的组件
+    ShowAllowClear () {
+      return hasOne(['input', 'textarea', 'password'], this.type)
     }
   },
   created () {

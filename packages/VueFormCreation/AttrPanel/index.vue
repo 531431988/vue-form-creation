@@ -22,6 +22,7 @@ import VCheckboxAttr from './VCheckboxAttr'
 import VSwitchAttr from './VSwitchAttr'
 import VSelectAttr from './VSelectAttr'
 import VRateAttr from './VRateAttr'
+import VSliderAttr from './VSliderAttr'
 export default {
   props: {
     visible: {
@@ -38,7 +39,8 @@ export default {
     VCheckboxAttr,
     VSwitchAttr,
     VSelectAttr,
-    VRateAttr
+    VRateAttr,
+    VSliderAttr
   },
   data () {
     return {

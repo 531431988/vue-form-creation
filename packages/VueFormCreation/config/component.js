@@ -122,7 +122,12 @@ const antvComponents = [{
   name: '滑动输入条',
   type: 'slider',
   icon: 'sliders',
-  attrs: null
+  attrs: {
+    value: undefined,
+    validate: {
+      type: 'number'
+    }
+  }
 }, {
   name: '评分',
   type: 'rate',
@@ -161,7 +166,7 @@ antvComponents.map(item => {
       name: createUID(item.type)
     },
       // 过滤无placeholder属性的字段
-      hasOne(['radio', 'checkbox', 'switch', 'rate'], item.type) ? {} : {
+      hasOne(['radio', 'checkbox', 'switch', 'rate', 'slider'], item.type) ? {} : {
         placeholder: item.attrs.placeholder || '请输入关键字'
       },
       // 过滤设置宽度
