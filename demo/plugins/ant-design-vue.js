@@ -13,9 +13,9 @@ import {
   Switch,
   Rate,
   Slider,
+  Cascader,
   Button,
-  Tag,
-  Card,
+  // Card,
   Table,
   Tabs,
   Tree,
@@ -36,7 +36,7 @@ const FormModelItem = FormModel.Item
 const RadioGroup = Radio.Group
 const CheckboxGroup = Checkbox.Group
 const SelectOption = Select.Option
-const { Meta } = Card
+// const CardMeta = Card.Meta
 const { TabPane } = Tabs
 const CollapsePanel = Collapse.Panel
 
@@ -63,10 +63,10 @@ const components = [
   Switch,
   Rate,
   Slider,
+  Cascader,
   Button,
-  Tag,
-  Meta,
-  Card,
+  // CardMeta,
+  // Card,
   Table,
   Tabs,
   TabPane,

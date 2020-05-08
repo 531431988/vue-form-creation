@@ -3,6 +3,13 @@
     <router-link to="/add">
       <a-button type="primary">添加模板</a-button>
     </router-link>
+    <a-cascader
+      :options="options"
+      :fieldNames="{ label: 'name', value: 'code', children: 'children' }"
+      @change="onChange"
+      placeholder="Please select"
+    />
+
     <a-table :columns="columns" :dataSource="tableData" :pagination="false">
       <template v-slot:type="{type}">{{type ? '嵌套' : '基础'}}</template>
       <template v-slot:action="{type}">
@@ -17,6 +24,7 @@
 </template>
 
 <script>
+import { getProvinces } from '@/api/administrative-divisions-of-china'
 import { getFormTable } from '@/api/template'
 export default {
   components: {
@@ -36,16 +44,24 @@ export default {
         key: 'action',
         scopedSlots: { customRender: 'action' }
       }],
-      tableData: []
+      options: [],
+      tableData: [],
     }
   },
   created () {
+    getProvinces().then(res => {
+      const { data } = res
+      console.log(data)
+      this.options = data
+    })
+
     getFormTable().then(res => {
       const { data } = res
       this.tableData = data
     })
   },
   methods: {
+    onChange (value) { }
   }
 
 }

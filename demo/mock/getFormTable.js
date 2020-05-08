@@ -1,4 +1,5 @@
-export default {
+import Mock from 'mockjs'
+Mock.mock(/\/getFormTable/, {
   code: 200,
   'data|10': [{
     key: '@id()',
@@ -6,4 +7,4 @@ export default {
     name: '@cword(3, 12)'
   }],
   msg: '获取成功'
-}
+})

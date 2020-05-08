@@ -1,4 +1,5 @@
-export default {
+import Mock from 'mockjs'
+Mock.mock(/\/getValidRulesList/, {
   code: 200,
   data: {
     isChinese: {
@@ -15,4 +16,4 @@ export default {
     }
   },
   msg: '请求成功'
-}
+})
